@@ -1,0 +1,48 @@
+<div class="container">
+    <h2>Edit Employee</h2>
+  
+    <form [formGroup]="editForm" (ngSubmit)="updateEmployee()">
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control" required>
+      </div>
+  
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control" required>
+      </div>
+  
+      <!-- Site Number -->
+      <div class="form-group">
+        <label for="siteNumber">Site Number:</label>
+        <input type="text" id="siteNumber" formControlName="siteNumber" class="form-control" required>
+      </div>
+  
+      <!-- Hourly Rate -->
+      <div class="form-group">
+        <label for="hourlyRate">Hourly Rate:</label>
+        <input type="number" id="hourlyRate" formControlName="hourlyRate" class="form-control" required>
+      </div>
+  
+      <!-- Salary -->
+      <div class="form-group">
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" formControlName="salary" class="form-control" required>
+      </div>
+  
+      <!-- Social Security Premium -->
+      <div class="form-group">
+        <label for="socialSecurityPremium">Social Security Premium:</label>
+        <input type="number" id="socialSecurityPremium" formControlName="socialSecurityPremium" class="form-control" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Update Employee</button>
+    </form>
+  
+    <div class="mt-3">
+      <a [routerLink]="['']" [queryParams]="{ tab: 'employee' }" class="btn btn-secondary">Back to Employee List</a>
+    </div>
+  </div>
+  

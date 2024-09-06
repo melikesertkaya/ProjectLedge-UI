@@ -16,14 +16,22 @@ import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 import {TableModule} from 'primeng/table';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './component/login/login.component';
+import { EmployeeAddComponent } from './component/employee/employee-add/employee-add.component';
+import { EmployeeDeleteComponent } from './component/employee/employee-delete/employee-delete.component';
+import { EmployeeEditComponent } from './component/employee/employee-edit/employee-edit.component';
+import { EmployeeComponent } from './component/employee/employee.component';
 @NgModule({
   declarations: [
     AppComponent,
     PrincipalComponent,
     CompanyComponent,
-    LoginComponent
+    LoginComponent,
+    EmployeeAddComponent,
+    EmployeeDeleteComponent,
+    EmployeeEditComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +45,8 @@ import { LoginComponent } from './component/login/login.component';
     SplitterModule,
     TabViewModule,
     TableModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    ReactiveFormsModule
   ],
   
   providers: [

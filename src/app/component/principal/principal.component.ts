@@ -18,10 +18,10 @@ export class PrincipalComponent implements OnInit {
       const tabToSelect = params['tab'];
       if (tabToSelect) {
         switch(tabToSelect){
-          case 'one':
+          case 'login':
             this.selectedTab = 0;
             break;
-          case 'two':
+          case 'company':
             this.selectedTab = 1;
             break;
           case 'three':

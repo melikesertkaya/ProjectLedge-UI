@@ -1,0 +1,45 @@
+<div class="container">
+    <h2>Add Employee</h2>
+    <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input id="id" formControlName="id" type="number" class="form-control" placeholder="Enter ID" />
+      </div>
+  
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" formControlName="firstName" type="text" class="form-control" placeholder="Enter First Name" />
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Enter Last Name" />
+      </div>
+  
+      <div class="form-group">
+        <label for="siteNumber">Site Number</label>
+        <input id="siteNumber" formControlName="siteNumber" type="text" class="form-control" placeholder="Enter Site Number" />
+      </div>
+  
+      <div class="form-group">
+        <label for="hourlyRate">Hourly Rate</label>
+        <input id="hourlyRate" formControlName="hourlyRate" type="number" class="form-control" placeholder="Enter Hourly Rate" />
+      </div>
+  
+      <div class="form-group">
+        <label for="salary">Salary</label>
+        <input id="salary" formControlName="salary" type="number" class="form-control" placeholder="Enter Salary" />
+      </div>
+  
+      <div class="form-group">
+        <label for="socialSecurityPremium">Social Security Premium</label>
+        <input id="socialSecurityPremium" formControlName="socialSecurityPremium" type="number" class="form-control" placeholder="Enter Social Security Premium" />
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Add Employee</button>
+    </form>
+    <div class="mt-4">
+      <a [routerLink]="['example/employeeAdd']" class="btn btn-secondary">Back to Employee List</a>
+  </div>
+  </div>
+  
