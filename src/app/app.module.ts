@@ -22,6 +22,9 @@ import { EmployeeAddComponent } from './component/employee/employee-add/employee
 import { EmployeeDeleteComponent } from './component/employee/employee-delete/employee-delete.component';
 import { EmployeeEditComponent } from './component/employee/employee-edit/employee-edit.component';
 import { EmployeeComponent } from './component/employee/employee.component';
+import { CompanyAddComponent } from './component/company/company-add/company-add.component';
+import { CompanyEditComponent } from './component/company/company-edit/company-edit.component';
+import { CompanyDeleteComponent } from './component/company/company-delete/company-delete.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +34,10 @@ import { EmployeeComponent } from './component/employee/employee.component';
     EmployeeAddComponent,
     EmployeeDeleteComponent,
     EmployeeEditComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    CompanyAddComponent,
+    CompanyEditComponent,
+    CompanyDeleteComponent
   ],
   imports: [
     BrowserModule,

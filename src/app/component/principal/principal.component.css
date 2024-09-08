@@ -1,4 +1,26 @@
 #menu-container {
-    margin-top: 2rem;
-    margin-left: 3rem;
-}
+    margin-bottom: 20px; /* Menü başlığı ile sekmeler arasındaki boşluk */
+  }
+  
+  .tab-list {
+    list-style-type: none; /* Madde işaretlerini kaldır */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tab-list li {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin-bottom: 5px; /* Sekmeler arasındaki boşluk */
+  }
+  
+  .tab-list li.active {
+    background-color: #007bff; /* Seçili sekme için arka plan rengi */
+    color: white;
+  }
+  
+  .tab-content {
+    margin-top: 20px; /* İçerik alanı ile sekme başlıkları arasındaki boşluk */
+  }
+  
