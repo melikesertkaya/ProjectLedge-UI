@@ -11,6 +11,7 @@ import { CompanyAddComponent } from './component/company/company-add/company-add
 import { CompanyEditComponent } from './component/company/company-edit/company-edit.component';
 import { CompanyDeleteComponent } from './component/company/company-delete/company-delete.component';
 import { TimesheetsComponent } from './component/timesheets/timesheets.component';
+import { InvoiceComponent } from './component/invoice/invoice.component';
 const routes: Routes = [
   {path: '', component: PrincipalComponent},
   {path: 'login', component: LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'employee/edit/:id', component: EmployeeEditComponent},
   {path: 'employee/delete/:id', component: EmployeeDeleteComponent},
   {path: 'example/timesheets', component: TimesheetsComponent},
+  {path: 'example/invoice', component: InvoiceComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

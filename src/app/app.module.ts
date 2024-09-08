@@ -33,6 +33,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { InvoiceComponent } from './component/invoice/invoice.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     CompanyEditComponent,
     CompanyDeleteComponent,
     TimesheetsComponent,
-    TimesheetDialogComponent
+    TimesheetDialogComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
   
   providers: [

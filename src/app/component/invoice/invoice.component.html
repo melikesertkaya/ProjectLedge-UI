@@ -1,0 +1,87 @@
+<div class="container">
+  <h2>Invoices</h2>
+
+  <!-- Form for adding invoices -->
+  <form [formGroup]="form" (ngSubmit)="addInvoice()">
+    <mat-form-field appearance="fill">
+      <mat-label>Invoice Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="Purchase">Purchase</mat-option>
+        <mat-option value="Sales">Sales</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Company Name</mat-label>
+      <input matInput formControlName="companyName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput formControlName="amount" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>VAT</mat-label>
+      <input matInput formControlName="vat" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Site Code</mat-label>
+      <input matInput formControlName="siteCode">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Invoice Number</mat-label>
+      <input matInput formControlName="invoiceNumber">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="btn btn-primary">Add Invoice</button>
+  </form>
+
+  <!-- List of invoices -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Company Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>VAT</th>
+        <th>Date</th>
+        <th>Site Code</th>
+        <th>Invoice Number</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices$ | async">
+        <td>{{ invoice.id }}</td>
+        <td>{{ invoice.type }}</td>
+        <td>{{ invoice.companyName }}</td>
+        <td>{{ invoice.description }}</td>
+        <td>{{ invoice.amount }}</td>
+        <td>{{ invoice.vat }}</td>
+        <td>{{ invoice.date | date }}</td>
+        <td>{{ invoice.siteCode }}</td>
+        <td>{{ invoice.invoiceNumber }}</td>
+        <td>
+          <button (click)="deleteInvoice(invoice.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

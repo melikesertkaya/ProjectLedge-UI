@@ -5,6 +5,7 @@
       <li (click)="selectedTab = 1" [class.active]="selectedTab === 1">Şirket</li>
       <li (click)="selectedTab = 2" [class.active]="selectedTab === 2">Personel</li>
       <li (click)="selectedTab = 3" [class.active]="selectedTab === 3">Puantaj</li>
+      <li (click)="selectedTab = 4" [class.active]="selectedTab === 4">Fiş</li> <!-- Corrected index -->
     </ul>
   
     <div class="tab-content" *ngIf="selectedTab === 0">
@@ -18,6 +19,9 @@
     </div>
     <div class="tab-content" *ngIf="selectedTab === 3">
       <app-timesheets></app-timesheets>
+    </div>
+    <div class="tab-content" *ngIf="selectedTab === 4 ">
+      <app-invoice></app-invoice>
     </div>
   </div>
   

@@ -30,7 +30,7 @@ export class PrincipalComponent implements OnInit {
           case 'timesheets':
             this.selectedTab = 3;
             break;
-          case 'parent':
+          case 'invoice':
             this.selectedTab = 4;
             break;
           default:
