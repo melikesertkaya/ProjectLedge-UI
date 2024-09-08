@@ -27,10 +27,10 @@ export class CompanyDeleteComponent implements OnInit {
 
   deleteCompany() {
     this.companyService.deleteCompany(this.id);
-    this.router.navigate([''], { queryParams: { tab: 'company' } });
+    this.router.navigate(['menu/'], { queryParams: { tab: 'company' } });
   }
 
   cancel() {
-    this.router.navigate([''], { queryParams: { tab: 'company' } });
+    this.router.navigate(['menu/'], { queryParams: { tab: 'company' } });
   }
 }

@@ -23,10 +23,10 @@ export class EmployeeDeleteComponent implements OnInit {
 
   deleteEmployee() {
     this.employeeService.deleteEmployee(this.id);
-    this.router.navigate([''], { queryParams: { tab: 'employee' } });
+    this.router.navigate(['menu'], { queryParams: { tab: 'employee' } });
   }
 
   cancel() {
-    this.router.navigate([''], { queryParams: { tab: 'employee' } });
+    this.router.navigate(['menu'], { queryParams: { tab: 'employee' } });
   }
 }

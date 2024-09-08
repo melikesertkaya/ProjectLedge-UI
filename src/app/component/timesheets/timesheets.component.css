@@ -5,60 +5,74 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 15px; /* Adjust margin-bottom for more space below the button */
 }
 
 .btn-primary {
-  background-color: #007bff; /* Primary color */
+  background-color: #007bff;
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3; /* Darker shade for hover */
+  background-color: #0056b3;
 }
 
 .btn-warning {
-  background-color: #ffc107; /* Warning color */
+  background-color: #ffc107;
   color: black;
 }
 
 .btn-warning:hover {
-  background-color: #e0a800; /* Darker shade for hover */
+  background-color: #e0a800;
 }
 
 .btn-danger {
-  background-color: #dc3545; /* Danger color */
+  background-color: #dc3545;
   color: white;
 }
 
 .btn-danger:hover {
-  background-color: #c82333; /* Darker shade for hover */
+  background-color: #c82333;
 }
 
 /* Table styling */
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  margin: 0 auto; /* Center the table */
+  margin-top: 20px; /* Ensure there's space above the table */
+  margin: 0 auto;
 }
 
 .table thead {
-  background-color: #f8f9fa;
-  color: #333;
+  color: #fff;
 }
 
 .table th, .table td {
-  padding: 15px; /* Increase padding */
+  padding: 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
+/* Specific header colors */
+.table th:nth-child(1) { background-color: #007bff; }
+.table th:nth-child(2) { background-color: #007bff; }
+.table th:nth-child(3) { background-color: #007bff; }
+.table th:nth-child(4) { background-color: #007bff; }
+.table th:nth-child(5) { background-color: #007bff; }
+.table th:nth-child(6) { background-color: #007bff; }
+.table th:nth-child(7) { background-color: #007bff; }
+.table th:nth-child(8) { background-color: #007bff; }
+.table th:nth-child(9) { background-color: #007bff; }
+.table th:nth-child(10) { background-color: #007bff; }
+
 .table tbody tr:hover {
-  background-color: #f1f1f1; /* Row hover effect */
+  background-color: #f1f1f1;
 }
 
 .table th {
   font-weight: bold;
+  color: white;
 }
 
 /* Margin for buttons inside table */
