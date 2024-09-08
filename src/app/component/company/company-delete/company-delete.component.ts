@@ -1,33 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CompanyService } from 'src/app/services/Company/company.service'; // Update to CompanyService
+import { CompanyService } from 'src/app/services/Company/company.service';
 
 @Component({
   selector: 'app-company-delete',
-  templateUrl: './company-delete.component.html', // Update template path
+  templateUrl: './company-delete.component.html',
   styleUrls: ['./company-delete.component.css']
 })
 export class CompanyDeleteComponent implements OnInit {
-  
   id: number = -1;
+  companyName: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router, private companyService: CompanyService) { } // Update to CompanyService
+  constructor(
+    private route: ActivatedRoute,
+    private companyService: CompanyService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.id = +params.get('id')!;
-    });
+    this.id = +this.route.snapshot.paramMap.get('id')!;
+    const company = this.companyService.getCompanyById(this.id);
+    if (company) {
+      this.companyName = company.name;
+    }
   }
 
   deleteCompany() {
     this.companyService.deleteCompany(this.id);
-      // Navigate back to the list after deletion
-      this.router.navigate([''], { queryParams: { tab: 'company' } }); // Update to company tab
-    
+    this.router.navigate([''], { queryParams: { tab: 'company' } });
   }
 
   cancel() {
-    // Navigate back to the list without deleting
-    this.router.navigate([''], { queryParams: { tab: 'company' } }); // Update to company tab
+    this.router.navigate([''], { queryParams: { tab: 'company' } });
   }
 }

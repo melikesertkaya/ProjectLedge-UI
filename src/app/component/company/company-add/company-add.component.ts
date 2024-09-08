@@ -1,42 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/services/Company/company.service';
-import { Company } from 'src/app/models/company/company.model'; // Import the Company model
-
+import { Company } from 'src/app/models/company/company.model';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-company-add',
   templateUrl: './company-add.component.html',
   styleUrls: ['./company-add.component.css']
 })
 export class CompanyAddComponent implements OnInit {
-  companyForm: FormGroup = new FormGroup({});
+  addForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private companyService: CompanyService) { }
+  constructor(private formBuilder: FormBuilder, private companyService: CompanyService,  public ref: DynamicDialogRef) { }
 
   ngOnInit(): void {
-    this.companyForm = this.formBuilder.group({
+    this.addForm = this.formBuilder.group({
+      id: ['', Validators.required],
       name: ['', Validators.required],
       taxNumber: ['', Validators.required],
       address: ['', Validators.required],
       phone: ['', Validators.required],
       currentAccount: ['', Validators.required],
-      site: ['', Validators.required]
+      site: ['', Validators.required],
     });
   }
 
-
   addCompany() {
-    if (this.companyForm.valid) {
-      const id=this.companyForm.get('id')?.value;
-      const name = this.companyForm.get('name')?.value;
-      const taxNumber = this.companyForm.get('taxNumber')?.value;
-      const address = this.companyForm.get('address')?.value;
-      const phone = this.companyForm.get('phone')?.value;
-      const currentAccount = this.companyForm.get('currentAccount')?.value;
-      const site = this.companyForm.get('site')?.value;
+    if (this.addForm.valid) {
+      const id = this.addForm.get('id')?.value;
+      const name = this.addForm.get('name')?.value;
+      const taxNumber = this.addForm.get('taxNumber')?.value;
+      const address = this.addForm.get('address')?.value;
+      const phone = this.addForm.get('phone')?.value;
+      const currentAccount = this.addForm.get('currentAccount')?.value;
+      const site = this.addForm.get('site')?.value;
 
       const company = new Company(
-        id,
+        parseInt(id, 10),
         name,
         taxNumber,
         address,
@@ -44,10 +44,14 @@ export class CompanyAddComponent implements OnInit {
         currentAccount,
         site
       );
-
-      // Add your logic to handle the new company, such as calling a service
-      this.companyService.addCompany(company);
-      this.companyForm.reset();
+      
+      try {
+       this.companyService.addCompany(company);
+        this.ref.close(); // Close the dialog after adding the company
+      } catch (error) {
+        console.error('Error adding company:', error);
+        // Handle error if necessary
+      }
     }
   }
 }
