@@ -24,10 +24,10 @@ export class PrincipalComponent implements OnInit {
           case 'company':
             this.selectedTab = 1;
             break;
-          case 'three':
+          case 'employee':
             this.selectedTab = 2;
             break;
-          case 'person':
+          case 'timesheets':
             this.selectedTab = 3;
             break;
           case 'parent':

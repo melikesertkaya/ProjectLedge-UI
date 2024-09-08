@@ -25,6 +25,14 @@ import { EmployeeComponent } from './component/employee/employee.component';
 import { CompanyAddComponent } from './component/company/company-add/company-add.component';
 import { CompanyEditComponent } from './component/company/company-edit/company-edit.component';
 import { CompanyDeleteComponent } from './component/company/company-delete/company-delete.component';
+import { TimesheetService } from './services/Timesheets/timesheets.service';
+import { TimesheetsComponent } from './component/timesheets/timesheets.component';
+import { TimesheetDialogComponent } from './component/timesheets/dialog/timesheet-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +45,9 @@ import { CompanyDeleteComponent } from './component/company/company-delete/compa
     EmployeeComponent,
     CompanyAddComponent,
     CompanyEditComponent,
-    CompanyDeleteComponent
+    CompanyDeleteComponent,
+    TimesheetsComponent,
+    TimesheetDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +62,12 @@ import { CompanyDeleteComponent } from './component/company/company-delete/compa
     TabViewModule,
     TableModule,
     DynamicDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   
   providers: [

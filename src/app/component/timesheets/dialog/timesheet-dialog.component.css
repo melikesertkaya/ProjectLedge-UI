@@ -1,0 +1,51 @@
+/* Container for the form */
+mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  /* Style for the form buttons */
+  button {
+    margin: 8px 4px;
+  }
+  
+  /* Style for the form fields and labels */
+  mat-form-field {
+    display: block;
+  }
+  
+  /* Optional: Add some padding to the form container */
+  .container {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Style for the date picker input */
+  mat-form-field input[matInput] {
+    font-size: 16px;
+  }
+  
+  /* Add spacing between form elements */
+  mat-form-field + mat-form-field {
+    margin-top: 16px;
+  }
+  
+  /* Style the buttons */
+  button.mat-button {
+    background-color: #007bff; /* Primary color */
+    color: white;
+  }
+  
+  button.mat-button:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+  }
+  
+  button.mat-button:first-child {
+    background-color: #6c757d; /* Secondary color for Cancel button */
+  }
+  
+  button.mat-button:first-child:hover {
+    background-color: #5a6268; /* Darker shade for hover */
+  }
+  

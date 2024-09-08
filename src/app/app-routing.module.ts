@@ -10,7 +10,7 @@ import { LoginComponent } from './component/login/login.component';
 import { CompanyAddComponent } from './component/company/company-add/company-add.component';
 import { CompanyEditComponent } from './component/company/company-edit/company-edit.component';
 import { CompanyDeleteComponent } from './component/company/company-delete/company-delete.component';
-
+import { TimesheetsComponent } from './component/timesheets/timesheets.component';
 const routes: Routes = [
   {path: '', component: PrincipalComponent},
   {path: 'login', component: LoginComponent},
@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'employee/add', component: EmployeeAddComponent},
   {path: 'employee/edit/:id', component: EmployeeEditComponent},
   {path: 'employee/delete/:id', component: EmployeeDeleteComponent},
+  {path: 'example/timesheets', component: TimesheetsComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

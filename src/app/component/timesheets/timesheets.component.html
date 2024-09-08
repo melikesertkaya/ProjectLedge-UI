@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Timesheets</h2>
+  
+  <!-- Button to open the dialog -->
+  <button (click)="openDialog()" class="btn btn-primary mb-3">Add Timesheet</button>
+
+  <!-- List of timesheets -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Date</th>
+        <th>Hours Worked</th>
+        <th>Overtime Hours</th>
+        <th>Daily Salary</th>
+        <th>Hourly Wage</th>
+        <th>Daily Social Security Premium</th>
+        <th>Hourly Social Security Premium</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let timesheet of timesheets$ | async">
+        <td>{{ timesheet.id }}</td>
+        <td>{{ getEmployeeName(timesheet.employeeId) }}</td>
+        <td>{{ timesheet.date | date }}</td>
+        <td>{{ timesheet.hoursWorked }}</td>
+        <td>{{ timesheet.overtimeHours }}</td>
+        <td>{{ timesheet.dailySalary }}</td>
+        <td>{{ timesheet.hourlyWage }}</td>
+        <td>{{ timesheet.dailySocialSecurityPremium }}</td>
+        <td>{{ timesheet.hourlySocialSecurityPremium }}</td>
+        <td>
+          <button (click)="openDialog(timesheet)" class="btn btn-warning">Edit</button>
+          <button (click)="deleteTimesheet(timesheet.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
