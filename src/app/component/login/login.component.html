@@ -1,17 +1,24 @@
-
-<div class="login-form">
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" id="username" [(ngModel)]="username" class="form-control">
+<div class="login-container">
+  <div *ngIf="!companySelected" class="company-selection">
+    <h2>Şirket Seç</h2>
+    <button class="btn btn-primary" (click)="selectCompany('Destoglu')">Deştioğlu</button>
+    <button class="btn btn-primary" (click)="selectCompany('Denizim')">Denizim</button>
   </div>
 
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password" class="form-control">
-  </div>
+  <div *ngIf="companySelected" class="login-form">
+    <div class="form-group">
+      <label for="username">Kullanıcı Adı:</label>
+      <input type="text" id="username" [(ngModel)]="username" class="form-control">
+    </div>
 
-  <div class="buttons-container">
-    <button class="btn btn-primary" (click)="login()">Login</button>
-    <button class="btn btn-info" (click)="clear()">Clear</button>
+    <div class="form-group">
+      <label for="password">Şifre:</label>
+      <input type="password" id="password" [(ngModel)]="password" class="form-control">
+    </div>
+
+    <div class="buttons-container">
+      <button class="btn btn-primary" (click)="login()">Giriş</button>
+      <button class="btn btn-info" (click)="clear()">Temizle</button>
+    </div>
   </div>
 </div>

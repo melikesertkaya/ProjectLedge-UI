@@ -15,7 +15,7 @@ export class InvoiceComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private invoiceService: InvoiceService) {
     this.form = this.fb.group({
-      type: ['Purchase', Validators.required],
+      type: ['Alış', Validators.required],
       companyName: ['', Validators.required],
       description: ['', Validators.required],
       amount: [0, Validators.required],

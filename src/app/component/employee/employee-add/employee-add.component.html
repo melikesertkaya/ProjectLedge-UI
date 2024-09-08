@@ -1,52 +1,52 @@
 <div class="container">
-  <h2>Add Employee</h2>
+  <h2>Personel Ekle</h2>
   <form [formGroup]="employeeAddForm" (ngSubmit)="addEmployee()">
     <!-- ID -->
     <div class="form-group">
-      <label for="id">ID</label>
-      <input id="id" formControlName="id" type="number" class="form-control" placeholder="Enter ID" />
+      <label for="id">Id</label>
+      <input id="id" formControlName="id" type="number" class="form-control" placeholder="Id Giriniz" />
     </div>
 
     <!-- First Name -->
     <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input id="firstName" formControlName="firstName" type="text" class="form-control" placeholder="Enter First Name" />
+      <label for="firstName">Adı</label>
+      <input id="firstName" formControlName="firstName" type="text" class="form-control" placeholder="Ad Giriniz" />
     </div>
 
     <!-- Last Name -->
     <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Enter Last Name" />
+      <label for="lastName">Soyadı</label>
+      <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Soyad Giriniz" />
     </div>
 
     <!-- Site Number -->
     <div class="form-group">
-      <label for="siteNumber">Site Number</label>
-      <input id="siteNumber" formControlName="siteNumber" type="text" class="form-control" placeholder="Enter Site Number" />
+      <label for="siteNumber">Şantiye No</label>
+      <input id="siteNumber" formControlName="siteNumber" type="text" class="form-control" placeholder="Şantiye No Giriniz" />
     </div>
 
     <!-- Hourly Rate -->
     <div class="form-group">
-      <label for="hourlyRate">Hourly Rate</label>
-      <input id="hourlyRate" formControlName="hourlyRate" type="number" class="form-control" placeholder="Enter Hourly Rate" />
+      <label for="hourlyRate">Saatlik Ücret</label>
+      <input id="hourlyRate" formControlName="hourlyRate" type="number" class="form-control" placeholder="Saatlik Ücret Giriniz" />
     </div>
 
     <!-- Salary -->
     <div class="form-group">
-      <label for="salary">Salary</label>
-      <input id="salary" formControlName="salary" type="number" class="form-control" placeholder="Enter Salary" />
+      <label for="salary">Maaş</label>
+      <input id="salary" formControlName="salary" type="number" class="form-control" placeholder="Maaş Giriniz" />
     </div>
 
     <!-- Social Security Premium -->
     <div class="form-group">
-      <label for="socialSecurityPremium">Social Security Premium</label>
-      <input id="socialSecurityPremium" formControlName="socialSecurityPremium" type="number" class="form-control" placeholder="Enter Social Security Premium" />
+      <label for="socialSecurityPremium">SGK Primi</label>
+      <input id="socialSecurityPremium" formControlName="socialSecurityPremium" type="number" class="form-control" placeholder="SGK Primi Giriniz" />
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Add Employee</button>
+    <button type="submit" class="btn btn-primary">Personel Ekle</button>
   </form>
 
   <!-- Navigation Back Button -->
-  <a routerLink="/employee">Back to Company List</a>
+  <a routerLink="/employee">Listeye Geri Dön</a>
 </div>

@@ -12,7 +12,7 @@ export class InvoiceService {
 
   constructor() {
     // Initialize with a sample invoice
-    const sampleInvoice = new Invoice(1, 'Purchase', 'Company A', 'Sample Invoice', 1000, 18, new Date(), 'Site001', 'INV001');
+    const sampleInvoice = new Invoice(1, 'Alış', 'Doğuş', 'alacaklar', 1000, 18, new Date(), 'CSS', 'INV001');
     this.invoices.push(sampleInvoice);
     this.invoicesSubject.next(this.invoices);
   }

@@ -1,45 +1,45 @@
 <div class="container">
-  <h2>Timesheets</h2>
+  <h2>Puantaj Ekle</h2>
   
   <form [formGroup]="form">
     <mat-form-field appearance="fill">
-      <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+      <mat-label>Tarih</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Tarih seçiniz">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Hours Worked</mat-label>
+      <mat-label>Saatlik Çalışma</mat-label>
       <input matInput formControlName="hoursWorked" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Overtime Hours</mat-label>
+      <mat-label>Mesai</mat-label>
       <input matInput formControlName="overtimeHours" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Daily Salary</mat-label>
+      <mat-label>Günlük Maaş</mat-label>
       <input matInput formControlName="dailySalary" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Hourly Wage</mat-label>
+      <mat-label>Saatlik Maaş</mat-label>
       <input matInput formControlName="hourlyWage" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Daily Social Security Premium</mat-label>
+      <mat-label>Günlük SGK Primi</mat-label>
       <input matInput formControlName="dailySocialSecurityPremium" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Hourly Social Security Premium</mat-label>
+      <mat-label>Saatlik SGK Primi</mat-label>
       <input matInput formControlName="hourlySocialSecurityPremium" type="number">
     </mat-form-field>
 
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button (click)="save()">Save</button>
+    <button mat-button (click)="onNoClick()">İptal</button>
+    <button mat-button (click)="save()">Kaydet</button>
   </form>
 </div>

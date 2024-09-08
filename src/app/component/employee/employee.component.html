@@ -1,17 +1,17 @@
 <div class="container">
-    <h2>Employee List</h2>
-    <button (click)="openAddDialog()" class="btn btn-primary">Add Employee</button>
+    <h2>Personel Listesi</h2>
+    <button (click)="openAddDialog()" class="btn btn-primary">Personel Ekle</button>
     <table class="table table-bordered">
         <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Site Number</th>
-                    <th>Hourly Rate</th>
-                    <th>Salary</th>
-                    <th>Social Security Premium</th>
-                    <th>Actions</th>
+                    <th>Id</th>
+                    <th>İsim</th>
+                    <th>Soyisim</th>
+                    <th>Şantiye No</th>
+                    <th>Saatlik Ücret</th>
+                    <th>Maaş</th>
+                    <th>SGK Primi</th>
+                    <th>İşlemler</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,8 +24,8 @@
                     <td>{{employee.salary}}</td>
                     <td>{{employee.socialSecurityPremium}}</td>
                     <td>
-                        <button type="button" (click)="openEditDialog(employee.id)" class="btn btn-warning">Edit</button>
-                        <button class="btn btn-danger" (click)="navigateToDelete(employee.id)">Delete</button>
+                        <button type="button" (click)="openEditDialog(employee.id)" class="btn btn-warning">Düzenle</button>
+                        <button class="btn btn-danger" (click)="navigateToDelete(employee.id)">Sil</button>
                     </td>
                 </tr>
               </tbody>

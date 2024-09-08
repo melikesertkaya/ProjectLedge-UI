@@ -20,8 +20,8 @@ export class ProgressPaymentService {
       500,
       2000,
       3000,
-      'Site001',
-      'Company A'
+      'Css',
+      'Doğuş'
     );
     this.progressPayments.push(samplePayment);
     this.progressPaymentsSubject.next(this.progressPayments);

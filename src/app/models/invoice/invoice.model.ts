@@ -1,6 +1,6 @@
 export class Invoice {
   public id: number;
-  public type: 'Purchase' | 'Sales';
+  public type: 'Alış' | 'Satış';
   public companyName: string;
   public description: string;
   public amount: number;
@@ -11,7 +11,7 @@ export class Invoice {
 
   constructor(
     id: number,
-    type: 'Purchase' | 'Sales',
+    type: 'Alış' | 'Satış',
     companyName: string,
     description: string,
     amount: number,

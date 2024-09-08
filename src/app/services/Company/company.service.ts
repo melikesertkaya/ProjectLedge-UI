@@ -12,8 +12,8 @@ export class CompanyService {
 
   constructor() {
     // Create at least one company in the constructor
-    const c1 = new Company(1, 'Company A', '1234567890', 'Address 1', '123-456-7890', 'Account1', 'Site1');
-    const c2 = new Company(2, 'Company B', '0987654321', 'Address 2', '987-654-3210', 'Account2', 'Site2');
+    const c1 = new Company(1, 'Doğuş', '1234567890', 'Çekmeköy', '123-456-7890', 'alacak', 'css');
+    const c2 = new Company(2, 'Gülermak', '0987654321', 'Ataşehir', '987-654-3210', 'verecek', 'finans şehir');
     this.companies.push(c1, c2);
 
     this.companiesSubject.next([...this.companies]);

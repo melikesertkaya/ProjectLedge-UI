@@ -1,17 +1,17 @@
 <div class="container">
-  <h2>Company List</h2>
-  <button (click)="openAddDialog()" class="btn btn-primary">Add Company</button>
+  <h2>Şirket Listesi</h2>
+  <button (click)="openAddDialog()" class="btn btn-primary">Şirket Ekle</button>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Tax Number</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Current Account</th>
-        <th>Site</th>
-        <th>Actions</th>
+        <th>Id</th>
+        <th>Adı</th>
+        <th>Vergi No</th>
+        <th>Adres</th>
+        <th>Telefon</th>
+        <th>Cari</th>
+        <th>Şantiye</th>
+        <th>İşlemler</th>
       </tr>
     </thead>
     <tbody>
@@ -24,8 +24,8 @@
         <td>{{ company.currentAccount }}</td>
         <td>{{ company.site }}</td>
         <td>
-          <button (click)="openEditDialog(company.id)" class="btn btn-warning">Edit</button>
-          <button (click)="navigateToDelete(company.id)" class="btn btn-danger">Delete</button>
+          <button (click)="openEditDialog(company.id)" class="btn btn-warning">Düzenle</button>
+          <button (click)="navigateToDelete(company.id)" class="btn btn-danger">Sil</button>
         </td>
       </tr>
     </tbody>

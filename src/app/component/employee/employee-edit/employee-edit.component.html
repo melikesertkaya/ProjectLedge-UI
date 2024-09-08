@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Edit Employee</h2>
+    <h2>Personel Güncelle</h2>
   
     <form [formGroup]="editForm" (ngSubmit)="updateEmployee()">
       <!-- First Name -->
@@ -38,11 +38,11 @@
         <input type="number" id="socialSecurityPremium" formControlName="socialSecurityPremium" class="form-control" required>
       </div>
   
-      <button type="submit" class="btn btn-primary">Update Employee</button>
+      <button type="submit" class="btn btn-primary">Güncelle</button>
     </form>
   
     <div class="mt-3">
-      <a [routerLink]="['']" [queryParams]="{ tab: 'employee' }" class="btn btn-secondary">Back to Employee List</a>
+      <a [routerLink]="['']" [queryParams]="{ tab: 'employee' }" class="btn btn-secondary">Listeye Geri Dön</a>
     </div>
   </div>
   

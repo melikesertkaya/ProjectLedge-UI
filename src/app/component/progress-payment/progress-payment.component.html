@@ -1,22 +1,22 @@
 <div class="container">
-  <h2>Progress Payments</h2>
+  <h2>Hakediş Listesi</h2>
   
   <!-- Button to open the add dialog -->
-  <button mat-raised-button color="primary" (click)="openAddDialog()">Add Progress Payment</button>
+  <button mat-raised-button color="primary" (click)="openAddDialog()">Hakediş Ekle</button>
 
   <!-- List of progress payments -->
   <table class="table mt-4">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Euro Balance</th>
-        <th>Dollar Balance</th>
-        <th>TL Balance</th>
-        <th>Amount</th>
-        <th>Site Name</th>
-        <th>Company Name</th>
-        <th>Actions</th>
+        <th>Id</th>
+        <th>Tarih</th>
+        <th>Euro Cari</th>
+        <th>Dolar Cari</th>
+        <th>TL Cari</th>
+        <th>Tutar</th>
+        <th>Şantiye Adı</th>
+        <th>Şirket Adı</th>
+        <th>İşlemler</th>
       </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
         <td>{{ payment.siteName }}</td>
         <td>{{ payment.companyName }}</td>
         <td>
-          <button (click)="deleteProgressPayment(payment.id)" class="btn btn-danger">Delete</button>
+          <button (click)="deleteProgressPayment(payment.id)" class="btn btn-danger">Sil</button>
         </td>
       </tr>
     </tbody>

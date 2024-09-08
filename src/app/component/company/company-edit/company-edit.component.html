@@ -4,44 +4,44 @@
     <form [formGroup]="editForm" (ngSubmit)="updateCompany()">
       <!-- Name -->
       <div class="form-group">
-        <label for="name">Name:</label>
+        <label for="name">İsim:</label>
         <input type="text" id="name" formControlName="name" class="form-control" required>
       </div>
   
       <!-- Tax Number -->
       <div class="form-group">
-        <label for="taxNumber">Tax Number:</label>
+        <label for="taxNumber">Vergi No:</label>
         <input type="text" id="taxNumber" formControlName="taxNumber" class="form-control" required>
       </div>
   
       <!-- Address -->
       <div class="form-group">
-        <label for="address">Address:</label>
+        <label for="address">Adres:</label>
         <input type="text" id="address" formControlName="address" class="form-control" required>
       </div>
   
       <!-- Phone -->
       <div class="form-group">
-        <label for="phone">Phone:</label>
+        <label for="phone">Telefon:</label>
         <input type="text" id="phone" formControlName="phone" class="form-control" required>
       </div>
   
       <!-- Current Account -->
       <div class="form-group">
-        <label for="currentAccount">Current Account:</label>
+        <label for="currentAccount">Cari:</label>
         <input type="text" id="currentAccount" formControlName="currentAccount" class="form-control" required>
       </div>
   
       <!-- Site -->
       <div class="form-group">
-        <label for="site">Site:</label>
+        <label for="site">Şantiye</label>
         <input type="text" id="site" formControlName="site" class="form-control" required>
       </div>
   
-      <button type="submit" class="btn btn-primary">Update Company</button>
+      <button type="submit" class="btn btn-primary">Güncelle</button>
     </form>
   
     <div class="mt-3">
-      <a [routerLink]="['']" [queryParams]="{ tab: 'company' }" class="btn btn-secondary">Back to Company List</a>
+      <a [routerLink]="['']" [queryParams]="{ tab: 'company' }" class="btn btn-secondary">Listeye Geri Dön</a>
     </div>
 </div>

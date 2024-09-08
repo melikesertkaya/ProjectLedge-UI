@@ -1,26 +1,71 @@
+/* Container for the menu and content */
 #menu-container {
-    margin-bottom: 20px; /* Menü başlığı ile sekmeler arasındaki boşluk */
-  }
-  
-  .tab-list {
-    list-style-type: none; /* Madde işaretlerini kaldır */
-    padding: 0;
-    margin: 0;
-  }
-  
-  .tab-list li {
-    padding: 10px;
-    cursor: pointer;
-    border: 1px solid #ddd;
-    margin-bottom: 5px; /* Sekmeler arasındaki boşluk */
-  }
-  
-  .tab-list li.active {
-    background-color: #007bff; /* Seçili sekme için arka plan rengi */
-    color: white;
-  }
-  
-  .tab-content {
-    margin-top: 20px; /* İçerik alanı ile sekme başlıkları arasındaki boşluk */
-  }
-  
+  display: flex;
+  margin: 0;
+}
+
+/* Menu styling */
+.menu {
+  width: 250px; /* Adjust width as needed */
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  position: fixed; /* Keeps menu in place */
+  height: 100vh; /* Full viewport height */
+  overflow-y: auto; /* Allows scrolling if content is too long */
+}
+
+.menu h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.tab-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.tab-list li {
+  padding: 15px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  margin-bottom: 5px; /* Space between tabs */
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-list li.active {
+  background-color: #007bff; /* Active tab background color */
+  color: white;
+}
+
+.tab-list li:hover {
+  background-color: #e1e1e1; /* Hover background color */
+}
+
+.tab-content {
+  margin-left: 270px; /* Space for the menu */
+  padding: 20px;
+  flex: 1; /* Take remaining space */
+}
+
+.logout {
+  margin-top: 20px;
+  font-weight: 700;
+  color: #e57373; /* Red color */
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: #c62828; /* Darker red color */
+}
+
+/* Additional styling for better appearance */
+.tab-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}

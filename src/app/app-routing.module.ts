@@ -14,19 +14,22 @@ import { TimesheetsComponent } from './component/timesheets/timesheets.component
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ProgressPaymentComponent } from './component/progress-payment/progress-payment.component';
 const routes: Routes = [
-  {path: '', component: PrincipalComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'example/company', component: CompanyComponent},
-  {path: 'company/add', component: CompanyAddComponent},
-  {path: 'company/edit/:id', component: CompanyEditComponent},
-  {path: 'company/delete/:id', component: CompanyDeleteComponent},
-  {path: 'example/employee', component: EmployeeComponent},
-  {path: 'employee/add', component: EmployeeAddComponent},
-  {path: 'employee/edit/:id', component: EmployeeEditComponent},
-  {path: 'employee/delete/:id', component: EmployeeDeleteComponent},
-  {path: 'example/timesheets', component: TimesheetsComponent},
-  {path: 'example/invoice', component: InvoiceComponent},
-  {path: 'example/progress-payment', component: ProgressPaymentComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect to login by default
+  { path: 'login', component: LoginComponent },
+  { path: 'menu', component: PrincipalComponent, children: [
+    { path: '', redirectTo: 'company', pathMatch: 'full' }, // Default to 'company' tab
+    { path: 'company', component: CompanyComponent },
+    { path: 'employee', component: EmployeeComponent },
+    { path: 'timesheets', component: TimesheetsComponent },
+    { path: 'invoice', component: InvoiceComponent },
+    { path: 'progress-payment', component: ProgressPaymentComponent },
+  ]},
+  { path: 'company/add', component: CompanyAddComponent },
+  { path: 'company/edit/:id', component: CompanyEditComponent },
+  { path: 'company/delete/:id', component: CompanyDeleteComponent },
+  { path: 'employee/add', component: EmployeeAddComponent },
+  { path: 'employee/edit/:id', component: EmployeeEditComponent },
+  { path: 'employee/delete/:id', component: EmployeeDeleteComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

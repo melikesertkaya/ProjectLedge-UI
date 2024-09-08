@@ -1,43 +1,43 @@
-<h2 mat-dialog-title>Add Progress Payment</h2>
+<h2 mat-dialog-title>Hakediş Ekle</h2>
 <mat-dialog-content>
   <form [formGroup]="form" (ngSubmit)="addProgressPayment()">
     <mat-form-field appearance="fill">
-      <mat-label>Date</mat-label>
+      <mat-label>Tarih</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Euro Balance</mat-label>
+      <mat-label>Euro Cari</mat-label>
       <input matInput formControlName="euroBalance" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Dollar Balance</mat-label>
+      <mat-label>Dollar Cari</mat-label>
       <input matInput formControlName="dollarBalance" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>TL Balance</mat-label>
+      <mat-label>TL Cari</mat-label>
       <input matInput formControlName="tlBalance" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Amount</mat-label>
+      <mat-label>Tutar</mat-label>
       <input matInput formControlName="amount" type="number">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Site Name</mat-label>
+      <mat-label>Şantiye Adı</mat-label>
       <input matInput formControlName="siteName">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Company Name</mat-label>
+      <mat-label>Şirket Adı</mat-label>
       <input matInput formControlName="companyName">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Add Progress Payment</button>
+    <button mat-raised-button color="primary" type="submit">Hakediş Ekle</button>
   </form>
 </mat-dialog-content>

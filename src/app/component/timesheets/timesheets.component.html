@@ -1,23 +1,23 @@
 <div class="container">
-  <h2>Timesheets</h2>
+  <h2>Puantaj Listesi</h2>
   
   <!-- Button to open the dialog -->
-  <button (click)="openDialog()" class="btn btn-primary mb-3">Add Timesheet</button>
+  <button (click)="openDialog()" class="btn btn-primary mb-3">Puantaj Ekle</button>
 
   <!-- List of timesheets -->
   <table class="table mt-4">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Employee</th>
-        <th>Date</th>
-        <th>Hours Worked</th>
-        <th>Overtime Hours</th>
-        <th>Daily Salary</th>
-        <th>Hourly Wage</th>
-        <th>Daily Social Security Premium</th>
-        <th>Hourly Social Security Premium</th>
-        <th>Actions</th>
+        <th>Id</th>
+        <th>Personel</th>
+        <th>Tarih</th>
+        <th>Saatlik Çalışma</th>
+        <th>Mesai</th>
+        <th>Günlük Maaş</th>
+        <th>Saatlik Maaş</th>
+        <th>Günlük SGK Primi</th>
+        <th>Saatlik SGK Primi</th>
+        <th>İşlemler</th>
       </tr>
     </thead>
     <tbody>
@@ -32,8 +32,8 @@
         <td>{{ timesheet.dailySocialSecurityPremium }}</td>
         <td>{{ timesheet.hourlySocialSecurityPremium }}</td>
         <td>
-          <button (click)="openDialog(timesheet)" class="btn btn-warning">Edit</button>
-          <button (click)="deleteTimesheet(timesheet.id)" class="btn btn-danger">Delete</button>
+          <button (click)="openDialog(timesheet)" class="btn btn-warning">Düzenle</button>
+          <button (click)="deleteTimesheet(timesheet.id)" class="btn btn-danger">Sil</button>
         </td>
       </tr>
     </tbody>

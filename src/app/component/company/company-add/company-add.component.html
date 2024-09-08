@@ -1,52 +1,52 @@
 <div class="container">
-  <h2>Add Company</h2>
+  <h2>Şirket Ekle</h2>
   <form [formGroup]="addForm" (ngSubmit)="addCompany()">
     <!-- ID -->
     <div class="form-group">
-      <label for="id">ID</label>
-      <input id="id" formControlName="id" type="number" class="form-control" placeholder="Enter ID" />
+      <label for="id">Id</label>
+      <input id="id" formControlName="id" type="number" class="form-control" placeholder="Id Giriniz" />
     </div>
 
     <!-- Name -->
     <div class="form-group">
-      <label for="name">Name</label>
-      <input id="name" formControlName="name" type="text" class="form-control" placeholder="Enter Name" />
+      <label for="name">İsim</label>
+      <input id="name" formControlName="name" type="text" class="form-control" placeholder="İsim Giriniz" />
     </div>
 
     <!-- Tax Number -->
     <div class="form-group">
-      <label for="taxNumber">Tax Number</label>
-      <input id="taxNumber" formControlName="taxNumber" type="text" class="form-control" placeholder="Enter Tax Number" />
+      <label for="taxNumber">Vergi No</label>
+      <input id="taxNumber" formControlName="taxNumber" type="text" class="form-control" placeholder="Vergi No Giriniz" />
     </div>
 
     <!-- Address -->
     <div class="form-group">
-      <label for="address">Address</label>
-      <input id="address" formControlName="address" type="text" class="form-control" placeholder="Enter Address" />
+      <label for="address">Adres</label>
+      <input id="address" formControlName="address" type="text" class="form-control" placeholder="Adres Giriniz" />
     </div>
 
     <!-- Phone -->
     <div class="form-group">
-      <label for="phone">Phone</label>
-      <input id="phone" formControlName="phone" type="text" class="form-control" placeholder="Enter Phone" />
+      <label for="phone">Telefon</label>
+      <input id="phone" formControlName="phone" type="text" class="form-control" placeholder="Telefon Giriniz" />
     </div>
 
     <!-- Current Account -->
     <div class="form-group">
-      <label for="currentAccount">Current Account</label>
-      <input id="currentAccount" formControlName="currentAccount" type="text" class="form-control" placeholder="Enter Current Account" />
+      <label for="currentAccount">Cari</label>
+      <input id="currentAccount" formControlName="currentAccount" type="text" class="form-control" placeholder="Cari Giriniz" />
     </div>
 
     <!-- Site -->
     <div class="form-group">
-      <label for="site">Site</label>
-      <input id="site" formControlName="site" type="text" class="form-control" placeholder="Enter Site" />
+      <label for="site">Şantiye</label>
+      <input id="site" formControlName="site" type="text" class="form-control" placeholder="Şantiye Giriniz" />
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Add Company</button>
+    <button type="submit" class="btn btn-primary">Şirket Ekle</button>
   </form>
 
   <!-- Navigation Back Button -->
-  <a routerLink="/company">Back to Company List</a>
+  <a routerLink="/company">Listeye Geri Dön</a>
 </div>

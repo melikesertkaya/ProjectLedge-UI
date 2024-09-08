@@ -1,29 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
-  username: string = "";
-  password: string = "";
+export class LoginComponent {
+  username: string = '';
+  password: string = '';
+  companySelected: boolean = false;
+  selectedCompany: string = '';
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void { }
-
-  public login(): void {
-    if (this.username && this.password) {
-      alert(`Username: ${this.username}\nPassword: ${this.password}`);
-    } else {
-      alert('Please enter both username and password.');
-    }
+  selectCompany(company: string): void {
+    this.selectedCompany = company;
+    this.companySelected = true;
   }
 
-  public clear(): void {
-    this.username = "";
-    this.password = "";
+  login(): void {
+    this.router.navigate(['/menu'], { queryParams: { tab: 'company' } });
+  }
+
+  clear(): void {
+    this.username = '';
+    this.password = '';
   }
 }
