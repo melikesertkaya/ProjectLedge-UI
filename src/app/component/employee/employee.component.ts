@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeService } from 'src/app/services/Employee/employee.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmployeeAddComponent } from './employee-add/employee-add.component';
 
 @Component({
   selector: 'app-employee',
@@ -27,12 +28,18 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
+  openAddDialog() {
+    this.dialogService.open(EmployeeAddComponent, {
+      header: 'Add Employee',
+      width: '70%'
+    });
+  }
+
   openEditDialog(id: number) {
     const ref = this.dialogService.open(EmployeeEditComponent, {
       data: {
         id: id
       },
-      // Title and size of the popup
       header: 'Edit Employee',
       width: '70%'
     });

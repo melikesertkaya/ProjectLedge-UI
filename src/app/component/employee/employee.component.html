@@ -1,14 +1,8 @@
 <div class="container">
-    
-    <div class="container mat-elevation-z8">
-        <a [routerLink]="['/employee/add']">
-            <button class="btn btn-success mt-3 mb-3">Add</button>
-        </a>
-        
-        <h5>Pagination Example</h5>
-        <p-table [value]="employees" [paginator]="true" [rows]="3" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[3,6,9]">
-            <ng-template pTemplate="header">
+    <h2>Employee List</h2>
+    <button (click)="openAddDialog()" class="btn btn-primary">Add Employee</button>
+    <table class="table table-bordered">
+        <thead>
                 <tr>
                     <th>ID</th>
                     <th>First Name</th>
@@ -19,9 +13,9 @@
                     <th>Social Security Premium</th>
                     <th>Actions</th>
                 </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-employee>
-                <tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees">
                     <td>{{employee.id}}</td>
                     <td>{{employee.firstName | uppercase}}</td>
                     <td>{{employee.lastName}}</td>
@@ -31,24 +25,9 @@
                     <td>{{employee.socialSecurityPremium}}</td>
                     <td>
                         <button type="button" (click)="openEditDialog(employee.id)" class="btn btn-warning">Edit</button>
-                    </td>
-                    <td>
                         <button class="btn btn-danger" (click)="navigateToDelete(employee.id)">Delete</button>
                     </td>
                 </tr>
-            </ng-template>
-            <ng-template pTemplate="paginatorleft">
-                <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-            </ng-template>
-            <ng-template pTemplate="paginatorright">
-                <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-            </ng-template>
-        </p-table>
-
-    </div>
-
-    <div class="mt-4">
-        <a [routerLink]="['']" [queryParams]="{ tab: 'employee' }" class="btn btn-secondary">Back to Menu</a>
-    </div>
-
-</div>
+              </tbody>
+            </table>
+          </div>

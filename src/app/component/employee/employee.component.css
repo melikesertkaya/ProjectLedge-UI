@@ -1,104 +1,75 @@
-/* Genel konteyner stili */
 .container {
-    padding: 20px;
-  }
-  
-  /* Tablo için stil */
-  .p-table {
-    margin-top: 20px;
-  }
-  
-  .p-table .p-paginator {
-    margin-top: 10px;
-  }
-  
-  /* Tablo başlığı ve satırları için stil */
-  .p-table th {
-    background-color: #f8f9fa;
-    color: #343a40;
-  }
-  
-  .p-table td {
-    vertical-align: middle;
-  }
-  
-  /* Buton stilleri */
-  .btn {
-    margin: 5px;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-  }
-  
-  .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-  }
-  
-  .btn-warning:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
-  }
-  
-  .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-  }
-  
-  .btn-danger:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-  }
-  
-  .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-  }
-  
-  /* Sayfa başlığı */
-  h5 {
-    font-size: 1.25rem;
-    color: #343a40;
-  }
-  
-  /* Popup stil */
-  .ui-dialog {
-    font-size: 16px;
-  }
-  
-  .ui-dialog-titlebar {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .ui-dialog-titlebar-close {
-    color: white;
-  }
-  
-  /* Genel form ve giriş alanları için stil */
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input.form-control {
-    border-radius: .25rem;
-    border: 1px solid #ced4da;
-    padding: .375rem .75rem;
-  }
-  
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+
+.table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+button.btn-warning {
+  background-color: #ffc107;
+  color: black;
+}
+
+button.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.btn-danger:hover {
+  background-color: #c82333;
+}

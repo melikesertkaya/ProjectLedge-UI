@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from 'src/app/services/Employee/employee.service';
 import { Employee } from 'src/app/models/employee/employee.model';
-
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-employee-add',
   templateUrl: './employee-add.component.html',
   styleUrls: ['./employee-add.component.css']
 })
 export class EmployeeAddComponent implements OnInit {
-  employeeForm: FormGroup = new FormGroup({});
+  employeeAddForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private employeeService: EmployeeService) { }
+  constructor(private formBuilder: FormBuilder, private employeeService: EmployeeService,  public ref: DynamicDialogRef) { }
 
   ngOnInit(): void {
-    this.employeeForm = this.formBuilder.group({
+    this.employeeAddForm = this.formBuilder.group({
       id: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -26,14 +26,14 @@ export class EmployeeAddComponent implements OnInit {
   }
 
   addEmployee() {
-    if (this.employeeForm.valid) {
-      const id = this.employeeForm.get('id')?.value;
-      const firstName = this.employeeForm.get('firstName')?.value;
-      const lastName = this.employeeForm.get('lastName')?.value;
-      const siteNumber = this.employeeForm.get('siteNumber')?.value;
-      const hourlyRate = this.employeeForm.get('hourlyRate')?.value;
-      const salary = this.employeeForm.get('salary')?.value;
-      const socialSecurityPremium = this.employeeForm.get('socialSecurityPremium')?.value;
+    if (this.employeeAddForm.valid) {
+      const id = this.employeeAddForm.get('id')?.value;
+      const firstName = this.employeeAddForm.get('firstName')?.value;
+      const lastName = this.employeeAddForm.get('lastName')?.value;
+      const siteNumber = this.employeeAddForm.get('siteNumber')?.value;
+      const hourlyRate = this.employeeAddForm.get('hourlyRate')?.value;
+      const salary = this.employeeAddForm.get('salary')?.value;
+      const socialSecurityPremium = this.employeeAddForm.get('socialSecurityPremium')?.value;
 
       const employee = new Employee(
         parseInt(id, 10),
@@ -45,8 +45,14 @@ export class EmployeeAddComponent implements OnInit {
         parseFloat(socialSecurityPremium)
       );
       
-      this.employeeService.addEmployee(employee);
-      this.employeeForm.reset();
+
+      try {
+        this.employeeService.addEmployee(employee);
+         this.ref.close(); // Close the dialog after adding the company
+       } catch (error) {
+         console.error('Error adding company:', error);
+         // Handle error if necessary
+       }
     }
   }
 }

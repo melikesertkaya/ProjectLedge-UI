@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Add Employee</h2>
-  <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+  <form [formGroup]="employeeAddForm" (ngSubmit)="addEmployee()">
     <!-- ID -->
     <div class="form-group">
       <label for="id">ID</label>
@@ -48,7 +48,5 @@
   </form>
 
   <!-- Navigation Back Button -->
-  <div class="mt-4">
-    <a [routerLink]="['/example/employee']" class="btn btn-secondary">Back to Employee List</a>
-  </div>
+  <a routerLink="/employee">Back to Company List</a>
 </div>

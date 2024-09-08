@@ -10,23 +10,23 @@ import { EmployeeService } from 'src/app/services/Employee/employee.service';
 export class EmployeeDeleteComponent implements OnInit {
   
   id: number = -1;
-
+  employeeName: string = '';
   constructor(private route: ActivatedRoute, private router: Router, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.id = +params.get('id')!;
-    });
+    this.id = +this.route.snapshot.paramMap.get('id')!;
+    const employee = this.employeeService.getEmployeeById(this.id);
+    if (employee) {
+      this.employeeName = employee.lastName;
+    }
   }
 
   deleteEmployee() {
     this.employeeService.deleteEmployee(this.id);
-    // Navigate back to the list after deletion
     this.router.navigate([''], { queryParams: { tab: 'employee' } });
   }
 
   cancel() {
-    // Navigate back to the list without deleting
     this.router.navigate([''], { queryParams: { tab: 'employee' } });
   }
 }
