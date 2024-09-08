@@ -12,6 +12,7 @@ import { CompanyEditComponent } from './component/company/company-edit/company-e
 import { CompanyDeleteComponent } from './component/company/company-delete/company-delete.component';
 import { TimesheetsComponent } from './component/timesheets/timesheets.component';
 import { InvoiceComponent } from './component/invoice/invoice.component';
+import { ProgressPaymentComponent } from './component/progress-payment/progress-payment.component';
 const routes: Routes = [
   {path: '', component: PrincipalComponent},
   {path: 'login', component: LoginComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'employee/delete/:id', component: EmployeeDeleteComponent},
   {path: 'example/timesheets', component: TimesheetsComponent},
   {path: 'example/invoice', component: InvoiceComponent},
+  {path: 'example/progress-payment', component: ProgressPaymentComponent},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

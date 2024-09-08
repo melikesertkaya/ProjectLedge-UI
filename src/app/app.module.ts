@@ -35,6 +35,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ProgressPaymentComponent } from './component/progress-payment/progress-payment.component';
+import { ProgressPaymentDialogComponent } from './component/progress-payment/progress-payment-add/progress-payment-add.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +52,9 @@ import { MatSelectModule } from '@angular/material/select';
     CompanyDeleteComponent,
     TimesheetsComponent,
     TimesheetDialogComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    ProgressPaymentComponent,
+    ProgressPaymentDialogComponent
   ],
   imports: [
     BrowserModule,

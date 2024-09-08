@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Add Progress Payment</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="addProgressPayment()">
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Euro Balance</mat-label>
+      <input matInput formControlName="euroBalance" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Dollar Balance</mat-label>
+      <input matInput formControlName="dollarBalance" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>TL Balance</mat-label>
+      <input matInput formControlName="tlBalance" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput formControlName="amount" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Site Name</mat-label>
+      <input matInput formControlName="siteName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Company Name</mat-label>
+      <input matInput formControlName="companyName">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Add Progress Payment</button>
+  </form>
+</mat-dialog-content>

@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Progress Payments</h2>
+  
+  <!-- Button to open the add dialog -->
+  <button mat-raised-button color="primary" (click)="openAddDialog()">Add Progress Payment</button>
+
+  <!-- List of progress payments -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Euro Balance</th>
+        <th>Dollar Balance</th>
+        <th>TL Balance</th>
+        <th>Amount</th>
+        <th>Site Name</th>
+        <th>Company Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of progressPayments$ | async">
+        <td>{{ payment.id }}</td>
+        <td>{{ payment.date | date }}</td>
+        <td>{{ payment.euroBalance }}</td>
+        <td>{{ payment.dollarBalance }}</td>
+        <td>{{ payment.tlBalance }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ payment.siteName }}</td>
+        <td>{{ payment.companyName }}</td>
+        <td>
+          <button (click)="deleteProgressPayment(payment.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
