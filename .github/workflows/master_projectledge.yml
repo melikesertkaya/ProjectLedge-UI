@@ -59,4 +59,4 @@ jobs:
           app-name: 'ProjectLedge'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4AEDFE941C3E4B4B96C50ED5BE009CB3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_800CEEFFF3F34827A810BD974C3A0E1F }}
