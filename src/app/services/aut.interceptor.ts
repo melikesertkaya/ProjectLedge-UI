@@ -1,29 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class AutInterceptor implements HttpInterceptor {
-
-  constructor() {}
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let req = request;
-    console.log("Request Interceptor: ", request);
-    debugger;
-    req = request.clone ({
-      body: request.body,
-      setHeaders: {
-        'Content-Type' : 'application/json',
-        'Authorization' : 'Bearer TOKEN_HERE'
-      }
-    });
+    console.log('Intercepted Request:', request);
     return next.handle(request);
-    //return next.handle(req);
   }
 }

@@ -5,6 +5,7 @@ import { CompanyService } from 'src/app/services/Company/company.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { CompanyAddComponent } from './company-add/company-add.component';
+
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -21,9 +22,14 @@ export class CompanyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.companyService.getCompanies().subscribe((companies) => {
-      this.companies = companies;
-    });
+    this.companyService.getCompanies().subscribe(
+      (companies) => {
+          this.companies = companies;
+      },
+      (error) => {
+          console.error('Error fetching companies:', error);
+      }
+  );
   }
 
   openAddDialog() {
@@ -33,7 +39,7 @@ export class CompanyComponent implements OnInit {
     });
   }
 
-  openEditDialog(id: number) {
+  openEditDialog(id: string) { // id: string olarak güncellendi
     const ref = this.dialogService.open(CompanyEditComponent, {
       data: {
         id: id
@@ -43,8 +49,7 @@ export class CompanyComponent implements OnInit {
     });
   }
   
-
-  navigateToDelete(id: number) {
+  navigateToDelete(id: string) { // id: string olarak güncellendi
     this.router.navigate(['company/delete', id]);
   }
 }

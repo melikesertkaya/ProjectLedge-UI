@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/Company/company.service';
+import { Company } from 'src/app/models/company/company.model';
 
 @Component({
   selector: 'app-company-delete',
@@ -8,7 +9,7 @@ import { CompanyService } from 'src/app/services/Company/company.service';
   styleUrls: ['./company-delete.component.css']
 })
 export class CompanyDeleteComponent implements OnInit {
-  id: number = -1;
+  id: string = ''; // Güncellenmiş id türü string olarak tanımlandı
   companyName: string = '';
 
   constructor(
@@ -18,16 +19,32 @@ export class CompanyDeleteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.paramMap.get('id')!;
-    const company = this.companyService.getCompanyById(this.id);
-    if (company) {
-      this.companyName = company.name;
+    this.id = this.route.snapshot.paramMap.get('id') || ''; // Parametreyi almak için string boş değeri kullan
+    if (this.id) {
+      this.companyService.getCompanyById(this.id).subscribe(
+        (company: Company) => {
+          this.companyName = company.name;
+        },
+        (error) => {
+          console.error('Error fetching company:', error);
+          // Hata işleme
+        }
+      );
     }
   }
 
   deleteCompany() {
-    this.companyService.deleteCompany(this.id);
-    this.router.navigate(['menu/'], { queryParams: { tab: 'company' } });
+    if (this.id) {
+      this.companyService.deleteCompany(this.id).subscribe(
+        () => {
+          this.router.navigate(['menu/'], { queryParams: { tab: 'company' } });
+        },
+        (error) => {
+          console.error('Error deleting company:', error);
+          // Hata işleme
+        }
+      );
+    }
   }
 
   cancel() {

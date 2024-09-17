@@ -1,57 +1,76 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/services/Company/company.service';
+import { DialogService } from 'primeng/dynamicdialog'; // PrimeNG Dialog kullanıyorsanız
 import { Company } from 'src/app/models/company/company.model';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CompanyService } from 'src/app/services/Company/company.service';
+
 @Component({
   selector: 'app-company-add',
   templateUrl: './company-add.component.html',
   styleUrls: ['./company-add.component.css']
 })
 export class CompanyAddComponent implements OnInit {
-  addForm: FormGroup = new FormGroup({});
+  companyForm!: FormGroup; // Non-null assertion operator kullanılabilir
 
-  constructor(private formBuilder: FormBuilder, private companyService: CompanyService,  public ref: DynamicDialogRef) { }
+  constructor(
+    private fb: FormBuilder,
+    private companyService: CompanyService,
+    private dialogService: DialogService
+  ) {}
 
-  ngOnInit(): void {
-    this.addForm = this.formBuilder.group({
-      id: ['', Validators.required],
+  ngOnInit() {
+    this.companyForm = this.fb.group({
       name: ['', Validators.required],
-      taxNumber: ['', Validators.required],
-      address: ['', Validators.required],
-      phone: ['', Validators.required],
-      currentAccount: ['', Validators.required],
-      site: ['', Validators.required],
+      address: [''],
+      phoneNumber: [''],
+      taxNumber: [''],
+      companyCode: [''],
+      description: [''],
+      kdvTypes: [null, Validators.required],  // Enum değerini null ile başlatıyoruz
+      billNumber: [''],
+      currentAccountType: [null, Validators.required],  // Enum değerini null ile başlatıyoruz
+      currentAccounts: [[]],
+      constructionSites: [[]],
+      progressPayments: [[]],
+      personnels: [[]]
     });
   }
 
-  addCompany() {
-    if (this.addForm.valid) {
-      const id = this.addForm.get('id')?.value;
-      const name = this.addForm.get('name')?.value;
-      const taxNumber = this.addForm.get('taxNumber')?.value;
-      const address = this.addForm.get('address')?.value;
-      const phone = this.addForm.get('phone')?.value;
-      const currentAccount = this.addForm.get('currentAccount')?.value;
-      const site = this.addForm.get('site')?.value;
+  onSubmit() {
+    if (this.companyForm.valid) {
+      const formValue = this.companyForm.value;
 
-      const company = new Company(
-        parseInt(id, 10),
-        name,
-        taxNumber,
-        address,
-        phone,
-        currentAccount,
-        site
-      );
-      
-      try {
-       this.companyService.addCompany(company);
-        this.ref.close(); // Close the dialog after adding the company
-      } catch (error) {
-        console.error('Error adding company:', error);
-        // Handle error if necessary
-      }
+      // Enum dönüşümünü yapın
+      const newCompany: Company = {
+        id: formValue.id ?? '',  // Eğer id varsa kullan, yoksa boş string kullan
+        name: formValue.name,
+        address: formValue.address,
+        phoneNumber: formValue.phoneNumber,
+        taxNumber: formValue.taxNumber,
+        companyCode: formValue.companyCode,
+        description: formValue.description,
+        kdvTypes: Number(formValue.kdvTypes),  // Enum değerini sayısal formata dönüştürün
+        billNumber: formValue.billNumber,
+        currentAccountType: Number(formValue.currentAccountType),  // Enum değerini sayısal formata dönüştürün
+        currentAccounts: formValue.currentAccounts,
+        constructionSites: formValue.constructionSites,
+        progressPayments: formValue.progressPayments,
+        personnels: formValue.personnels
+      };
+
+      this.companyService.addCompany(newCompany).subscribe({
+        next: (company) => {
+          console.log('Company added:', company);
+          // Dialog'ı kapatabilir veya başarı mesajı gösterebilirsiniz
+        },
+        error: (err) => {
+          console.error('Error adding company:', err);
+          // Hata mesajını kullanıcıya gösterebilirsiniz
+        }
+      });
+    } else {
+      console.error('Form is invalid');
+      // Kullanıcıya formun geçersiz olduğunu bildirin
     }
   }
 }
