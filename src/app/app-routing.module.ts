@@ -13,6 +13,8 @@ import { CompanyDeleteComponent } from './component/company/company-delete/compa
 import { TimesheetsComponent } from './component/timesheets/timesheets.component';
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ProgressPaymentComponent } from './component/progress-payment/progress-payment.component';
+import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component'; // Adjust the path as necessary
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect to login by default
   { path: 'login', component: LoginComponent },
@@ -23,6 +25,7 @@ const routes: Routes = [
     { path: 'timesheets', component: TimesheetsComponent },
     { path: 'invoice', component: InvoiceComponent },
     { path: 'progress-payment', component: ProgressPaymentComponent },
+    { path: 'company-detail/:name', component: CompanyDetailComponent },
   ]},
   { path: 'company/add', component: CompanyAddComponent },
   { path: 'company/edit/:id', component: CompanyEditComponent },

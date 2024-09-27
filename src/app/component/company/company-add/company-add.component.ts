@@ -52,10 +52,6 @@ export class CompanyAddComponent implements OnInit {
         kdvTypes: Number(formValue.kdvTypes),  // Enum değerini sayısal formata dönüştürün
         billNumber: formValue.billNumber,
         currentAccountType: Number(formValue.currentAccountType),  // Enum değerini sayısal formata dönüştürün
-        currentAccounts: formValue.currentAccounts,
-        constructionSites: formValue.constructionSites,
-        progressPayments: formValue.progressPayments,
-        personnels: formValue.personnels
       };
 
       this.companyService.addCompany(newCompany).subscribe({

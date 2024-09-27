@@ -43,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Services
 import { TimesheetService } from './services/Timesheets/timesheets.service';
+import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { TimesheetService } from './services/Timesheets/timesheets.service';
     TimesheetDialogComponent,
     InvoiceComponent,
     ProgressPaymentComponent,
-    ProgressPaymentDialogComponent
+    ProgressPaymentDialogComponent,
+    CompanyDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,7 @@ import { TimesheetService } from './services/Timesheets/timesheets.service';
     SplitterModule,
     TabViewModule,
     TableModule,
-    DynamicDialogModule
+    DynamicDialogModule,
   ],
   providers: [
     {

@@ -14,6 +14,13 @@ import { CompanyAddComponent } from './company-add/company-add.component';
 })
 export class CompanyComponent implements OnInit {
   companies: Company[] = [];
+  companiesName: string[] = [];
+  company: Company | undefined;
+
+  categories: Company[] = [];
+  selectedCategory: Company | undefined;
+
+
 
   constructor(
     private router: Router,
@@ -22,6 +29,19 @@ export class CompanyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  
+  this.getCompanyName();
+  this.companyService.getCompanies().subscribe(
+    (companies) => {
+        this.companies = companies;
+    },
+    (error) => {
+        console.error('Error fetching companies:', error);
+    }
+);
+  }
+
+  getCompanies(){
     this.companyService.getCompanies().subscribe(
       (companies) => {
           this.companies = companies;
@@ -31,6 +51,23 @@ export class CompanyComponent implements OnInit {
       }
   );
   }
+
+
+
+getCompanyName(){
+  this.companyService.getCompaniesName().subscribe(
+    (companies) => {
+        this.companiesName = companies;
+    },
+    (error) => {
+        console.error('Error fetching companies:', error);
+    }
+);
+}
+
+goToCompanyDetails(name: string): void {
+  this.router.navigate(['menu/company-detail', name]);  // Şirket detaylarına yönlendir
+}
 
   openAddDialog() {
     this.dialogService.open(CompanyAddComponent, {
@@ -51,5 +88,15 @@ export class CompanyComponent implements OnInit {
   
   navigateToDelete(id: string) { // id: string olarak güncellendi
     this.router.navigate(['company/delete', id]);
+  }
+  displayAll = true;
+
+  selectCategory(item?: Company) {
+    if(item) {
+      this.selectedCategory = item;
+      this.displayAll = false;
+    } else {
+      this.displayAll = true;
+    }
   }
 }

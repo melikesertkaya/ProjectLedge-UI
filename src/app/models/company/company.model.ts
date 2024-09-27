@@ -9,10 +9,6 @@ export class Company {
   kdvTypes: KdvType; // Enum yerine string kullanmak yerine, enum değerleri ile temsil edilecek
   billNumber: string;
   currentAccountType: CurrentAccountType; // Enum yerine string kullanmak yerine, enum değerleri ile temsil edilecek
-  currentAccounts: any[]; // Koleksiyon
-  constructionSites: any[]; // Koleksiyon
-  progressPayments: any[]; // Koleksiyon
-  personnels: any[]; // Koleksiyon
 
   constructor(
     id: string,
@@ -24,11 +20,7 @@ export class Company {
     description: string,
     kdvTypes: KdvType,
     billNumber: string,
-    currentAccountType: CurrentAccountType,
-    currentAccounts: any[],
-    constructionSites: any[],
-    progressPayments: any[],
-    personnels: any[]
+    currentAccountType: CurrentAccountType
   ) {
     this.id = id;
     this.name = name;
@@ -40,10 +32,6 @@ export class Company {
     this.kdvTypes = kdvTypes;
     this.billNumber = billNumber;
     this.currentAccountType = currentAccountType;
-    this.currentAccounts = currentAccounts;
-    this.constructionSites = constructionSites;
-    this.progressPayments = progressPayments;
-    this.personnels = personnels;
   }
 }
 

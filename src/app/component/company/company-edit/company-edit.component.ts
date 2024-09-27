@@ -55,10 +55,6 @@ export class CompanyEditComponent implements OnInit {
         1, // kdvTypes: Boş bir string olarak başlatılıyor
         '', // billNumber: Boş bir string olarak başlatılıyor
         1, // currentAccountType: Boş bir string olarak başlatılıyor
-        [], // currentAccounts: Boş bir dizi olarak başlatılıyor
-        [], // constructionSites: Boş bir dizi olarak başlatılıyor
-        [], // progressPayments: Boş bir dizi olarak başlatılıyor
-        []  // personnels: Boş bir dizi olarak başlatılıyor
       );
 
       this.companyService.updateCompany(updatedCompany);

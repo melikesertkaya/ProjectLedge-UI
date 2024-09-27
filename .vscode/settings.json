@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/483303b8-ce47-44b2-8e57-027988565a62/resourceGroups/ProjectLedger/providers/Microsoft.Web/sites/ProjectLedgerUI",
+    "appService.deploySubpath": "dist\\project-ledge"
+}

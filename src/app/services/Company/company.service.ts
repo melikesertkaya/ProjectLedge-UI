@@ -12,8 +12,8 @@ export class CompanyService {
   private companiesSubject = new BehaviorSubject<Company[]>([]);
   private path=environment.apiUrl
   constructor(private httpClient:HttpClient) {
-    const c1 = new Company('1', 'Doğuş', '1234567890', 'Çekmeköy', '123-456-7890', 'code1', 'Description1', 1, 'Bill1', 1, [], [], [], []);
-    const c2 = new Company('2', 'Gülermak', '0987654321', 'Ataşehir', '987-654-3210', 'code2', 'Description2', 2, 'Bill2', 2, [], [], [], []);
+    const c1 = new Company('1', 'Doğuş', '1234567890', 'Çekmeköy', '123-456-7890', 'code1', 'Description1', 1, 'Bill1', 1);
+    const c2 = new Company('2', 'Gülermak', '0987654321', 'Ataşehir', '987-654-3210', 'code2', 'Description2', 2, 'Bill2', 2);
     this.companies.push(c1, c2);
     this.companiesSubject.next([...this.companies]);
   }
@@ -53,6 +53,25 @@ export class CompanyService {
             return throwError(() => error);
         })
     );
+}
+getCompaniesName(): Observable<string[]> {
+  return this.httpClient.get<string[]>(`${this.path}Companies/GetAllCompaniesName`).pipe(
+
+      tap(data => console.log('API Data:', data)),
+      catchError(error => {
+          console.error('Error occurred:', error);
+          return throwError(() => error);
+      })
+  );
+}
+getCompanyByNamex(name: string): Observable<Company> {
+  return this.httpClient.get<Company>(`${this.path}Companies/GetAllCompaniesNamex/${name}`).pipe(
+    tap(company => console.log('Fetched company by name:', company)),
+    catchError(error => {
+      console.error('Error fetching company by name:', error);
+      return throwError(() => error);
+    })
+  );
 }
 
   

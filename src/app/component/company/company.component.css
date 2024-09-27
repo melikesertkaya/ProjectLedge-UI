@@ -1,75 +1,22 @@
+/* company.component.css */
+.company-label {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  padding: 5px;
+  display: block;
+}
+
+.company-label:hover {
+  color: darkblue;
+}
+
+/* company-detail.component.css */
 .container {
-  margin: 20px auto;
-  max-width: 1200px;
+  padding: 20px;
+  border: 1px solid #ddd;
 }
 
 h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
   color: #333;
-  text-align: center;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table thead {
-  background-color: #f8f9fa;
-}
-
-.table th, .table td {
-  padding: 12px;
-  text-align: left;
-  border: 1px solid #dee2e6;
-}
-
-.table th {
-  background-color: #007bff;
-  color: white;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.table tbody tr:hover {
-  background-color: #e9ecef;
-}
-
-button {
-  margin: 5px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-button.btn-primary {
-  background-color: #007bff;
-  color: white;
-}
-
-button.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-button.btn-warning {
-  background-color: #ffc107;
-  color: black;
-}
-
-button.btn-warning:hover {
-  background-color: #e0a800;
-}
-
-button.btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-button.btn-danger:hover {
-  background-color: #c82333;
 }
