@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/app/models/company/company.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'; // ActivatedRoute import edildi
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
@@ -15,88 +15,49 @@ import { CompanyAddComponent } from './company-add/company-add.component';
 export class CompanyComponent implements OnInit {
   companies: Company[] = [];
   companiesName: string[] = [];
-  company: Company | undefined;
-
-  categories: Company[] = [];
-  selectedCategory: Company | undefined;
-
-
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute, // ActivatedRoute eklendi
     private companyService: CompanyService,
     public dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
-  
-  this.getCompanyName();
-  this.companyService.getCompanies().subscribe(
-    (companies) => {
-        this.companies = companies;
-    },
-    (error) => {
-        console.error('Error fetching companies:', error);
-    }
-);
+    this.getCompanyName();
   }
 
-  getCompanies(){
-    this.companyService.getCompanies().subscribe(
+  getCompanyName() {
+    this.companyService.getCompaniesName().subscribe(
       (companies) => {
-          this.companies = companies;
+        this.companiesName = companies;
       },
       (error) => {
-          console.error('Error fetching companies:', error);
-      }
-  );
-  }
-
-
-
-getCompanyName(){
-  this.companyService.getCompaniesName().subscribe(
-    (companies) => {
-        this.companiesName = companies;
-    },
-    (error) => {
         console.error('Error fetching companies:', error);
-    }
-);
-}
+      }
+    );
+  }
 
-goToCompanyDetails(name: string): void {
-  this.router.navigate(['menu/company-detail', name]);  // Şirket detaylarına yönlendir
-}
+  goToCompanyDetails(name: string): void {
+    this.router.navigate(['company-detail', name]);  // Şirket detaylarına yönlendir
+  }
 
-  openAddDialog() {
+  openAddDialog(): void {
     this.dialogService.open(CompanyAddComponent, {
-      header: 'Add Company',
+      header: 'Şirket Ekle',
       width: '70%'
     });
   }
 
-  openEditDialog(id: string) { // id: string olarak güncellendi
-    const ref = this.dialogService.open(CompanyEditComponent, {
-      data: {
-        id: id
-      },
-      header: 'Edit Company',
+  openEditDialog(id: string): void {
+    this.dialogService.open(CompanyEditComponent, {
+      data: { id: id },
+      header: 'Şirket Düzenle',
       width: '70%'
     });
   }
-  
-  navigateToDelete(id: string) { // id: string olarak güncellendi
+
+  navigateToDelete(id: string): void {
     this.router.navigate(['company/delete', id]);
-  }
-  displayAll = true;
-
-  selectCategory(item?: Company) {
-    if(item) {
-      this.selectedCategory = item;
-      this.displayAll = false;
-    } else {
-      this.displayAll = true;
-    }
   }
 }

@@ -6,9 +6,9 @@ export class Company {
   taxNumber: string;
   companyCode: string; // API'de `CompanyCode` olarak geçiyor
   description: string;
-  kdvTypes: KdvType; // Enum yerine string kullanmak yerine, enum değerleri ile temsil edilecek
+  kdvTypes: KdvType; // Enum olarak temsil edilecek
   billNumber: string;
-  currentAccountType: CurrentAccountType; // Enum yerine string kullanmak yerine, enum değerleri ile temsil edilecek
+  currentAccountType: CurrentAccountType; // Enum olarak temsil edilecek
 
   constructor(
     id: string,
@@ -35,12 +35,14 @@ export class Company {
   }
 }
 
+// KDV Type Enum
 export enum KdvType {
   Tevkifatlı = 1,
   Tevkifatsız = 2
 }
 
+// Current Account Type Enum
 export enum CurrentAccountType {
-  ReceivableAmount = 1,//alacak
-  PayableAmount=2 //verecek
+  ReceivableAmount = 1, // Alacak
+  PayableAmount = 2 // Verecek
 }

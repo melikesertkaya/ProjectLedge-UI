@@ -25,7 +25,6 @@ const routes: Routes = [
     { path: 'timesheets', component: TimesheetsComponent },
     { path: 'invoice', component: InvoiceComponent },
     { path: 'progress-payment', component: ProgressPaymentComponent },
-    { path: 'company-detail/:name', component: CompanyDetailComponent },
   ]},
   { path: 'company/add', component: CompanyAddComponent },
   { path: 'company/edit/:id', component: CompanyEditComponent },
@@ -33,6 +32,7 @@ const routes: Routes = [
   { path: 'employee/add', component: EmployeeAddComponent },
   { path: 'employee/edit/:id', component: EmployeeEditComponent },
   { path: 'employee/delete/:id', component: EmployeeDeleteComponent },
+  { path: 'company-detail/:name', component: CompanyDetailComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

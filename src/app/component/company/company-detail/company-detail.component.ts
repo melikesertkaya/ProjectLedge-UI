@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router  } from '@angular/router';
 import { CompanyService } from 'src/app/services/Company/company.service';
-import { Company } from 'src/app/models/company/company.model';
+import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
 
 @Component({
   selector: 'app-company-detail',
@@ -14,7 +14,8 @@ export class CompanyDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -28,13 +29,31 @@ export class CompanyDetailComponent implements OnInit {
   
   getCompanyDetails(name: string): void {
     this.companyService.getCompanyByNamex(name).subscribe(
-      (company) => {
-        this.company = company;
-      },
-      (error) => {
-        console.error('Error fetching company details:', error);
-      }
+        (companyData) => {
+            console.log('Fetched company data:', companyData); // API yanıtını kontrol edin
+            this.company = this.mapCompany(companyData); // Dönüşüm fonksiyonu ile Company nesnesi oluştur
+        },
+        (error) => {
+            console.error('Error fetching company details:', error);
+        }
     );
-  }
-  
+}
+
+private mapCompany(company: any): Company {
+    return new Company(
+        company.Id, // API yanıtındaki Id
+        company.Name, // API yanıtındaki Name
+        company.Address, // API yanıtındaki Address
+        company.PhoneNumber, // API yanıtındaki PhoneNumber
+        company.TaxNumber, // API yanıtındaki TaxNumber
+        company.CompanyCode, // API yanıtındaki CompanyCode
+        company.Description, // API yanıtındaki Description
+        company.KdvTypes as KdvType, // API yanıtındaki KdvTypes
+        company.BillNumber, // API yanıtındaki BillNumber
+        company.CurrentAccountType as CurrentAccountType // API yanıtındaki CurrentAccountType
+    );
+}
+goBack(): void {
+  this.router.navigate(['/menu/company'], { queryParams: { tab: 'company' }}); // Belirtilen URL'ye yönlendir
+}
 }

@@ -1,0 +1,80 @@
+/* Genel stil ayarları */
+body {
+    font-family: 'Arial', sans-serif; /* Yazı tipi */
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Arka plan rengi */
+}
+
+/* Şirket detay başlık stil ayarları */
+h2 {
+    color: #333; /* Başlık rengi */
+    margin: 10px 0 20px; /* Üst boşluk, alt boşluk */
+}
+
+/* Detaylar için kapsayıcı stil */
+.company-details {
+    max-width: 1200px; /* Maksimum genişlik */
+    margin: 20px auto; /* Ortalamak için otomatik yan boşluk */
+    padding: 20px; /* İç boşluk */
+    background-color: #fff; /* Arka plan rengi */
+    border-radius: 8px; /* Kenar yuvarlama */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+}
+
+/* Bilgi grubu stili */
+.company-info {
+    display: flex; /* Flex düzeni */
+    justify-content: space-between; /* Öğeleri eşit aralıklarla yerleştir */
+    margin-top: 20px; /* Üst boşluk */
+    flex-wrap: nowrap; /* Öğelerin alt satıra geçmesini engelle */
+}
+
+/* Bilgi öğeleri stili */
+.info-item {
+    flex: 1; /* Esnek genişlik, tüm alanı kaplasın */
+    display: flex; /* İçeriği hizalamak için */
+    flex-direction: column; /* Dikey hizalama */
+    min-width: 120px; /* Minimum genişlik ayarı */
+    margin-right: 10px; /* Sağdan boşluk (azaltıldı) */
+}
+
+/* Son eleman için sağdaki boşluğu kaldır */
+.info-item:last-child {
+    margin-right: 0; /* En son elemanın sağ boşluğunu kaldır */
+}
+
+/* Geri butonu stil ayarları */
+.button-back {
+    display: inline-block; /* Blok düzende görüntüle */
+    margin-bottom: 20px; /* Alt boşluk, üstte yerleştirildiği için */
+    padding: 10px 20px; /* İç boşluk */
+    color: #fff; /* Yazı rengi */
+    background-color: #007bff; /* Buton arka plan rengi */
+    border: none; /* Kenarlık kaldır */
+    border-radius: 5px; /* Kenar yuvarlama */
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    transition: background-color 0.3s; /* Geçiş efekti */
+}
+
+/* Geri butonuna hover efekti */
+.button-back:hover {
+    background-color: #0056b3; /* Hover rengi */
+}
+
+/* Responsive tasarım için ayarlar */
+@media (max-width: 768px) {
+    .company-details {
+        width: 90%; /* Mobilde daha geniş alan */
+    }
+
+    h2 {
+        font-size: 1.5em; /* Mobil başlık boyutu */
+    }
+
+    /* Flex düzenini mobilde dikey hale getir */
+    .company-info {
+        flex-direction: column; /* Dikey hizalama */
+        gap: 10px; /* Elemanlar arasındaki boşluk */
+    }
+}

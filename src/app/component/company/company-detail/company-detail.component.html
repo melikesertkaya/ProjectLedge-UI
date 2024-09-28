@@ -1,12 +1,30 @@
-<div *ngIf="company">
-    <h2>Company Details: {{ company.name }}</h2>
-    <p><strong>Address:</strong> {{ company.address }}</p>
-    <p><strong>Phone Number:</strong> {{ company.phoneNumber }}</p>
-    <p><strong>Tax Number:</strong> {{ company.taxNumber }}</p>
-    <p><strong>Company Code:</strong> {{ company.companyCode }}</p>
-    <p><strong>Description:</strong> {{ company.description }}</p>
-    <p><strong>KDV Type:</strong> {{ company.kdvTypes }}</p>
-    <p><strong>Bill Number:</strong> {{ company.billNumber }}</p>
-    <p><strong>Current Account Type:</strong> {{ company.currentAccountType }}</p>
+<div *ngIf="company" class="company-details">
+  <a class="button-back" (click)="goBack()">Geri</a>
+  <h2>Company Details: {{ company.name }}</h2>
+  <div class="company-info">
+    <div class="info-item">
+      <strong>Address:</strong> {{ company.address }}
+    </div>
+    <div class="info-item">
+      <strong>Phone Number:</strong> {{ company.phoneNumber }}
+    </div>
+    <div class="info-item">
+      <strong>Tax Number:</strong> {{ company.taxNumber }}
+    </div>
+    <div class="info-item">
+      <strong>Company Code:</strong> {{ company.companyCode }}
+    </div>
+    <div class="info-item">
+      <strong>Description:</strong> {{ company.description }}
+    </div>
+    <div class="info-item">
+      <strong>KDV Type:</strong> {{ company.kdvTypes }}
+    </div>
+    <div class="info-item">
+      <strong>Bill Number:</strong> {{ company.billNumber }}
+    </div>
+    <div class="info-item">
+      <strong>Current Account Type:</strong> {{ company.currentAccountType }}
+    </div>
   </div>
-  
+</div>
