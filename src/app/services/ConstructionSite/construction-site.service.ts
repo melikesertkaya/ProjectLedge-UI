@@ -3,6 +3,7 @@ import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ConstructionSites } from 'src/app/models/construction-site/construction-site.model';
+import { CurrentAmountResponseModel  } from 'src/app/models/company/CurrentAmountResponseModel '; 
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,11 @@ export class ConstructionSitesService {
       params: { id: companyId } // Pass companyId as a query parameter
     });
   }
-  
+  getCurrentAmountByCompanyId(companyId: string): Observable<CurrentAmountResponseModel[]> {
+    return this.httpClient.get<CurrentAmountResponseModel[]>(`${this.apiUrl}ConstructionSites/GetCurrentAmountByCompanyId`, {
+      params: { id: companyId } // Pass companyId as a query parameter
+    });
+  }
   createConstructionSite(constructionSiteRequest: ConstructionSites): Observable<ConstructionSites> {
     const requestPayload = {
         ConstructionSiteName: constructionSiteRequest.constructionSiteName,

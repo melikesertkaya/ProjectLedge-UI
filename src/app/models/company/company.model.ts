@@ -46,9 +46,11 @@ export class Company {
   getCurrentAccountTypeString(): string {
     switch (this.currentAccountType) {
       case CurrentAccountType.ReceivableAmount:
-        return 'Alacak';
+        return 'Alış';
       case CurrentAccountType.PayableAmount:
-        return 'Verecek';
+        return 'Satış';
+        case CurrentAccountType.ProgressPaymentAmount:
+          return 'Hakediş';
       default:
         return 'Unknown'; // Fallback for unknown values
     }
@@ -63,6 +65,7 @@ export enum KdvType {
 
 // Current Account Type Enum
 export enum CurrentAccountType {
-  ReceivableAmount = 1, // Alacak
-  PayableAmount = 2 // Verecek
+  ReceivableAmount = 1, // Alış
+  PayableAmount = 2, // Satış
+  ProgressPaymentAmount=3 //Hakediş
 }

@@ -80,5 +80,4 @@ getCompanyByNamex(name: string): Observable<Company> {
   );
 }
 
-  
 }

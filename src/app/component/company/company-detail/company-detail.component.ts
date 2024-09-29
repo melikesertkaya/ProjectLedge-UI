@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/Company/company.service';
-import { ConstructionSitesService } from 'src/app/services/ConstructionSite/construction-site.service'; // Servisi ekleyin
+import { ConstructionSitesService } from 'src/app/services/ConstructionSite/construction-site.service'; 
 import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
-import { ConstructionSites } from 'src/app/models/construction-site/construction-site.model'; // Modeli ekleyin
+import { ConstructionSites } from 'src/app/models/construction-site/construction-site.model'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { CurrentAmountResponseModel  } from 'src/app/models/company/CurrentAmountResponseModel '; 
 @Component({
   selector: 'app-company-detail',
   templateUrl: './company-detail.component.html',
@@ -17,6 +17,7 @@ export class CompanyDetailComponent implements OnInit {
   isSiteFormVisible = false;
   siteForm: FormGroup;
   constructionSites: ConstructionSites[] = [];
+  currentAmountResponseModel : CurrentAmountResponseModel [] = [];
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
@@ -47,6 +48,7 @@ export class CompanyDetailComponent implements OnInit {
         this.companyId = this.company?.id; 
         if (this.companyId) {
           this.getConstructionSites(this.companyId);
+          this.getCurrentAmountByCompanyId(this.companyId);
         }
       },
       (error) => {
@@ -64,6 +66,24 @@ export class CompanyDetailComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching construction sites:', error);
+      }
+    );
+  }
+  getCurrentAmountByCompanyId(companyId: string): void {
+    this.constructionSitesService.getCurrentAmountByCompanyId(companyId).subscribe(
+      (sites) => {
+        this.currentAmountResponseModel = sites.map((site: any) => 
+          new CurrentAmountResponseModel(
+            site.CompanyId,            
+            site.ConstructionSiteNo,   
+            site.ConstructionSiteName,   
+            site.TotalAmount,
+            site.CurrentAccountType        
+          )
+        );
+      },
+      (error) => {
+        console.error('Error fetching current amounts:', error);
       }
     );
   }

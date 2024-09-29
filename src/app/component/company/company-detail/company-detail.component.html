@@ -48,14 +48,16 @@
       </div>
     </form>
   </div>
-
 </div>
-<div *ngIf="company" class="company-details">
+
+<div *ngIf="currentAmountResponseModel.length > 0" class="currentAmount">
   <h2>Şantiyeler</h2>
-<ul>
-  <li *ngFor="let site of constructionSites">
-    {{ site.constructionSiteName }}
-  </li>
-</ul>
+  <div class="sites-container">
+    <div *ngFor="let site of currentAmountResponseModel" class="site-card">
+      <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
+      <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
+      <strong>Türü:</strong> {{ site.getCurrentAccountTypeString() }}<br>
+      <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+    </div>
+  </div>
 </div>
-

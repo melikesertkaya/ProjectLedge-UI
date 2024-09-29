@@ -18,15 +18,16 @@ export class CompanyComponent implements OnInit {
   companies: Company[] = [];
   companiesName: string[] = [];
   form: FormGroup;
-  isFormVisible = false;
-  kdvTypeOptions = [
+  isFormVisible = false;kdvTypeOptions
+   = [
     { value: KdvType.Tevkifatlı, label: 'Tevkifatlı' },
     { value: KdvType.Tevkifatsız, label: 'Tevkifatsız' }
   ];
 
   accountTypeOptions = [
-    { value: CurrentAccountType.ReceivableAmount, label: 'Alacak' },
-    { value: CurrentAccountType.PayableAmount, label: 'Verecek' }
+    { value: CurrentAccountType.ReceivableAmount, label: 'Alış' },
+    { value: CurrentAccountType.PayableAmount, label: 'Satış' },
+    { value: CurrentAccountType.ProgressPaymentAmount, label: 'Hakediş' }
   ];
   constructor(
     private router: Router,
