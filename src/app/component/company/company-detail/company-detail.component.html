@@ -1,5 +1,8 @@
 <div *ngIf="company" class="company-details">
+  <button class="btnSantiye" (click)="showSiteForm()">Şantiye Ekle</button>
+
   <a class="button-back" (click)="goBack()">Geri</a>
+  
   <h2>Şirket Detayı: {{ company.name }}</h2>
   <div class="company-info">
     <div class="info-item">
@@ -12,7 +15,7 @@
       <strong>Vergi No:</strong> {{ company.taxNumber }}
     </div>
     <div class="info-item">
-      <strong>Şirket  Kodu:</strong> {{ company.companyCode }}
+      <strong>Şirket Kodu:</strong> {{ company.companyCode }}
     </div>
     <div class="info-item">
       <strong>Açıklama:</strong> {{ company.description }}
@@ -27,4 +30,32 @@
       <strong>Cari Türü:</strong> {{ company.getCurrentAccountTypeString() }}
     </div>
   </div>
+
+  <div *ngIf="isSiteFormVisible" class="site-form-wrapper">
+    <h3>Yeni Şantiye Ekle</h3>
+    <form [formGroup]="siteForm" (ngSubmit)="addSite()" class="site-form"> 
+      <div class="form-group">
+        <label for="siteName">Şantiye Adı</label>
+        <input formControlName="siteName" id="siteName" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="siteCode">Şantiye Kodu</label>
+        <input formControlName="siteCode" id="siteCode" class="form-control" required>
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-success" [disabled]="siteForm.invalid">Ekle</button>
+        <button type="button" class="btn btn-secondary ml-2" (click)="hideSiteForm()">Geri</button>
+      </div>
+    </form>
+  </div>
+
 </div>
+<div *ngIf="company" class="company-details">
+  <h2>Şantiyeler</h2>
+<ul>
+  <li *ngFor="let site of constructionSites">
+    {{ site.constructionSiteName }}
+  </li>
+</ul>
+</div>
+

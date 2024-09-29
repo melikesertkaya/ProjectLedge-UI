@@ -4,7 +4,8 @@ import { Invoice, InvoiceType } from 'src/app/models/invoice/invoice.model';
 import { InvoiceService } from 'src/app/services/Invoice/invoice.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { CompanyService } from 'src/app/services/Company/company.service';
+import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -15,7 +16,8 @@ export class InvoiceComponent implements OnInit {
   invoices$!: Observable<Invoice[]>;
   isFormVisible = false;
   invoices: Invoice[] = [];
-  constructor(private fb: FormBuilder, private invoiceService: InvoiceService) {
+  companies: string[] = [];
+  constructor(private fb: FormBuilder, private invoiceService: InvoiceService, private companyService: CompanyService,) {
     this.form = this.fb.group({
       type: ['Alış', Validators.required],
       companyName: ['', Validators.required],
@@ -31,6 +33,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.fetchInvoices();
     this.getInvoices();
+    this.getCompanyName();
   }
 
   fetchInvoices(): void {
@@ -124,5 +127,14 @@ export class InvoiceComponent implements OnInit {
 isValidDate(date: Date): boolean {
   return date instanceof Date && !isNaN(date.getTime());
 }
-  
+getCompanyName() {
+  this.companyService.getCompaniesName().subscribe(
+    (companies) => {
+      this.companies = companies; // Assign the company names to this.companies
+    },
+    (error) => {
+      console.error('Error fetching companies:', error);
+    }
+  );
+}
 }

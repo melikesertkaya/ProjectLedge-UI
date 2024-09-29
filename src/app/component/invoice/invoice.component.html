@@ -4,71 +4,57 @@
   <!-- Add Invoice Button (initially shown) -->
   <button *ngIf="!isFormVisible" class="btn btn-primary mb-3" (click)="showForm()">Fiş Ekle</button>
 
-  <!-- Invoice Form (shown after clicking 'Ekle') -->
-  <form *ngIf="isFormVisible" [formGroup]="form" (ngSubmit)="addInvoice()">
-    <!-- Form Fields -->
-    <div class="form-group">
-      <label for="type">Türü</label>
-      <select formControlName="type" id="type" class="form-control" required>
-        <option value="" disabled selected>Seçin</option>
-        <option value="Alış">Alış</option>
-        <option value="Satış">Satış</option>
-      </select>
-    </div>
-    
-    <div class="form-group">
-      <label for="companyName">Şirket Adı</label>
-      <input formControlName="companyName" id="companyName" class="form-control" required>
-    </div>
+  <!-- Form Wrapper -->
+  <div class="form-wrapper" *ngIf="isFormVisible">
+    <!-- Invoice Form -->
+    <form [formGroup]="form" (ngSubmit)="addInvoice()" class="invoice-form">
+      <!-- Form Fields -->
+      <div class="form-group">
+        <label for="companyName">Şirket Adı</label>
+        <select formControlName="companyName" id="companyName" class="form-control" required>
+          <option value="" disabled selected>Seçin</option>
+          <option *ngFor="let company of companies" [value]="company">{{ company }}</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="siteCode">Site Kodu</label>
+        <input formControlName="siteCode" id="siteCode" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="type">Türü</label>
+        <select formControlName="type" id="type" class="form-control" required>
+          <option value="" disabled selected>Seçin</option>
+          <option value="Alış">Alış</option>
+          <option value="Satış">Satış</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="amount">Tutar</label>
+        <input type="number" formControlName="amount" id="amount" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="vat">KDV</label>
+        <input type="number" formControlName="vat" id="vat" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="date">Tarih</label>
+        <input formControlName="date" id="date" class="form-control" type="date" required>
+      </div>
+      <div class="form-group">
+        <label for="invoiceNumber">Fatura Numarası</label>
+        <input formControlName="invoiceNumber" id="invoiceNumber" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Açıklama</label>
+        <textarea formControlName="description" id="description" class="form-control"></textarea>
+      </div>
 
-    <div class="form-group">
-      <label for="description">Açıklama</label>
-      <textarea formControlName="description" id="description" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="amount">Tutar</label>
-      <input type="number" formControlName="amount" id="amount" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label for="vat">KDV</label>
-      <input type="number" formControlName="vat" id="vat" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label for="date">Tarih</label>
-      <input type="date" formControlName="date" id="date" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label for="siteCode">Site Kodu</label>
-      <input formControlName="siteCode" id="siteCode" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label for="invoiceNumber">Fatura Numarası</label>
-      <input formControlName="invoiceNumber" id="invoiceNumber" class="form-control" required>
-    </div>
-
-    <!-- Button Group -->
-    <div class="form-group">
-      <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ekle</button>
-      <button type="button" class="btn btn-secondary ml-2" (click)="hideForm()">Geri</button>
-    </div>
-  </form>
-
-  <div *ngIf="!isFormVisible" class="invoice-list mt-5">
-    <h3>Fişler/Faturalar</h3>
-    <ul class="list-group" *ngIf="invoices.length > 0; else noInvoices">
-      <li *ngFor="let invoice of invoices">
-        <strong>{{ invoice.companyName }}</strong> - {{ invoice.type }} | {{ invoice.amount | currency }} | 
-        <span *ngIf="isValidDate(invoice.date); else invalidDate">{{ invoice.date | date }}</span>
-        <ng-template #invalidDate>Geçersiz Tarih</ng-template>
-      </li>
-    </ul>
-    <ng-template #noInvoices>
-      <p class="text-muted">Henüz fiş/fatura yok.</p>
-    </ng-template>
+      <!-- Button Group -->
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ekle</button>
+        <button type="button" class="btn btn-secondary ml-2" (click)="hideForm()">Geri</button>
+      </div>
+    </form>
   </div>
 </div>

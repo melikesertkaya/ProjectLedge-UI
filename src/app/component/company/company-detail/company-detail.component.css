@@ -12,6 +12,12 @@ h2 {
     margin: 10px 0 20px; /* Üst boşluk, alt boşluk */
 }
 
+/* Yeni şantiye form başlığı stili */
+h3 {
+    color: #333; /* Başlık rengi */
+    margin: 20px 0; /* Üst boşluk, alt boşluk */
+}
+
 /* Detaylar için kapsayıcı stil */
 .company-details {
     max-width: 1200px; /* Maksimum genişlik */
@@ -56,10 +62,97 @@ h2 {
     text-decoration: none; /* Alt çizgiyi kaldır */
     transition: background-color 0.3s; /* Geçiş efekti */
 }
+.btnSantiye {
+    display: inline-block; /* Blok düzende görüntüle */
+    margin-bottom: 20px; /* Alt boşluk, üstte yerleştirildiği için */
+    padding: 10px 20px; /* İç boşluk */
+    color: #fff; /* Yazı rengi */
+    background-color: #007bff; /* Buton arka plan rengi */
+    border: none; /* Kenarlık kaldır */
+    border-radius: 5px; /* Kenar yuvarlama */
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    transition: background-color 0.3s; /* Geçiş efekti */
+    margin-right: 10px;
+}
 
 /* Geri butonuna hover efekti */
 .button-back:hover {
     background-color: #0056b3; /* Hover rengi */
+}
+.btnSantiye:hover {
+    background-color: #0056b3; /* Hover rengi */
+}
+/* Site form stili */
+.site-form-wrapper {
+    background-color: #ffffff; /* Beyaz arka plan rengi */
+    padding: 30px; /* İç boşluğu artırdık */
+    border-radius: 10px; /* Kenar yuvarlama */
+    margin-top: 20px; /* Üst boşluk */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge efekti */
+    position: fixed; /* Sabit konumlandırma */
+    top: 30%; /* Daha yüksek konumlandırma */
+    left: 50%; /* Yatayda ortalama */
+    transform: translate(-50%, -50%); /* Ortalamak için kaydırma */
+    width: 90%; /* Responsive genişlik */
+    max-width: 400px; /* Maksimum genişlik */
+}
+
+/* Form elemanlarının stili */
+.site-form .form-group {
+    margin-bottom: 20px; /* Elemanlar arası boşluk */
+}
+
+/* Label stili */
+.site-form label {
+    font-weight: bold; /* Kalın yazı tipi */
+    color: #333; /* Koyu renk */
+    margin-bottom: 5px; /* Alt boşluk */
+    display: block; /* Tam genişlik */
+}
+
+/* Input alanlarının stili */
+.site-form input {
+    width: 100%; /* Tam genişlik */
+    padding: 10px; /* İç boşluk */
+    border: 1px solid #ced4da; /* Kenar rengi */
+    border-radius: 5px; /* Kenar yuvarlama */
+    transition: border-color 0.3s; /* Geçiş efekti */
+}
+
+/* Input alanlarına focus efekti */
+.site-form input:focus {
+    border-color: #007bff; /* Odaklanıldığında kenar rengi değişimi */
+    outline: none; /* Varsayılan odak çerçevesini kaldır */
+}
+
+/* Buton stili */
+.form-buttons .btn {
+    padding: 12px 20px; /* İç boşluk */
+    border: none; /* Kenarlık kaldır */
+    border-radius: 5px; /* Kenar yuvarlama */
+    color: #ffffff; /* Yazı rengi */
+    cursor: pointer; /* İşaretçi stilini değiştirme */
+    transition: background-color 0.3s; /* Geçiş efekti */
+}
+
+/* Ekle butonunun stili */
+.btn-success {
+    background-color: #28a745; /* Yeşil arka plan rengi */
+}
+
+/* Ekle butonuna hover efekti */
+.btn-success:hover {
+    background-color: #218838; /* Hover rengi */
+}
+
+/* Geri butonunun stili */
+.btn-secondary {
+    background-color: #6c757d; /* Gri arka plan rengi */
+}
+
+/* Geri butonuna hover efekti */
+.btn-secondary:hover {
+    background-color: #5a6268; /* Hover rengi */
 }
 
 /* Responsive tasarım için ayarlar */
@@ -68,7 +161,7 @@ h2 {
         width: 90%; /* Mobilde daha geniş alan */
     }
 
-    h2 {
+    h2, h3 {
         font-size: 1.5em; /* Mobil başlık boyutu */
     }
 
