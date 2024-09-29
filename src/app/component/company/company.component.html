@@ -4,11 +4,75 @@
   <!-- Button to add a company -->
   <button (click)="openAddDialog()" class="btn btn-primary add-button">Şirket Ekle</button>
 
+  <!-- Company Form (shown after clicking 'Ekle') -->
+  <div class="form-overlay" *ngIf="isFormVisible">
+    <form [formGroup]="form" (ngSubmit)="addCompany()" class="company-form">
+      <div class="form-group">
+        <label for="name">Şirket Adı</label>
+        <input formControlName="name" id="name" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Adres</label>
+        <input formControlName="address" id="address" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Telefon Numarası</label>
+        <input formControlName="phoneNumber" id="phoneNumber" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="taxNumber">Vergi Numarası</label>
+        <input formControlName="taxNumber" id="taxNumber" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="companyCode">Şirket Kodu</label>
+        <input formControlName="companyCode" id="companyCode" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Açıklama</label>
+        <textarea formControlName="description" id="description" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="kdvTypes">KDV Tipi</label>
+        <select formControlName="kdvTypes" id="kdvTypes" class="form-control">
+          <option value="">Seçiniz</option>
+          <option *ngFor="let kdvType of kdvTypeOptions" [value]="kdvType.value">{{ kdvType.label }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="billNumber">Fatura Numarası</label>
+        <input formControlName="billNumber" id="billNumber" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="currentAccountType">Cari Hesap Tipi</label>
+        <select formControlName="currentAccountType" id="currentAccountType" class="form-control">
+          <option value="">Seçiniz</option>
+          <option *ngFor="let accountType of accountTypeOptions" [value]="accountType.value">{{ accountType.label }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ekle</button>
+        <button type="button" class="btn btn-secondary ml-2" (click)="hideForm()">Geri</button>
+      </div>
+    </form>
+  </div>
+
   <!-- Company List -->
   <div *ngFor="let company of companiesName" class="company-item">
-    <label (click)="goToCompanyDetails(company)" class="company-label">
-      {{ company }}
-    </label>
+    <div class="company-info">
+      <label class="company-label">{{ company }}</label>
+      <div class="company-actions">
+        <button (click)="goToCompanyDetails(company)" class="btn btn-info btn-sm">Detayları Gör</button>
+        <button (click)="navigateToDelete(company)" class="btn btn-danger btn-sm ml-2">Sil</button>
+      </div>
+    </div>
   </div>
 </div>
-

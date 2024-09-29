@@ -1,49 +1,221 @@
-.container {
-  padding: 30px; /* Increased padding for a more spacious layout */
-  border: 1px solid #ddd;
-  border-radius: 8px; /* Rounded corners for a softer look */
-  background-color: #f9f9f9; /* Light background color for better readability */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
 }
 
+.container {
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Headings */
 h2 {
   color: #333;
-  font-family: 'Arial', sans-serif; /* Change font for better appearance */
-  font-size: 1.8em; /* Increased font size for headings */
-  margin-bottom: 20px; /* Space below heading */
-  border-bottom: 2px solid #007bff; /* Underline effect for headings */
-  padding-bottom: 10px; /* Space below heading */
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 10px;
 }
 
+/* Button Styles */
 .add-button {
-  margin-bottom: 20px; /* Space below button */
-  padding: 10px 20px; /* More padding for the button */
-  font-size: 1em; /* Font size for the button */
-  border-radius: 5px; /* Rounded corners for the button */
-  transition: background-color 0.3s ease; /* Smooth transition for button hover */
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  background-color: #007bff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .add-button:hover {
-  background-color: #0056b3; /* Darker shade on button hover */
-  border: none; /* Remove border on hover */
-  color: #fff; /* White text on hover for contrast */
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+
+/* Form Overlay */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Company Form Styles */
+.company-form {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 350px; /* Reduced the max-width */
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.btn-success,
+.btn-secondary {
+  width: 48%; /* Adjust button width */
+  padding: 8px;
+  font-size: 0.9em;
+}
+
+.company-form h2 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+/* Adjusting for smaller screens */
+@media (max-width: 600px) {
+  .company-form {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .btn-success,
+  .btn-secondary {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Company List Styles */
 .company-item {
-  margin-bottom: 15px; /* Space between company items */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.company-item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.company-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 .company-label {
-  cursor: pointer;
-  color: #007bff; /* Bootstrap primary color for better visibility */
-  text-decoration: none; /* Remove underline for a cleaner look */
-  padding: 10px 15px; /* Increased padding for better spacing */
-  display: block;
-  transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition effect */
-  border-radius: 5px; /* Rounded corners for a modern feel */
+  font-weight: bold;
+  color: #333;
 }
 
-.company-label:hover {
-  color: #fff; /* Change text color on hover */
-  background-color: #007bff; /* Change background color on hover */
+.company-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.company-actions .btn {
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  .company-form {
+    max-width: 100%;
+  }
+
+  .add-button,
+  .btn-success,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .company-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .company-actions {
+    margin-top: 10px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .company-actions .btn {
+    width: 100%;
+    margin-bottom: 5px;
+  }
 }

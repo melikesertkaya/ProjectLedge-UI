@@ -1,7 +1,8 @@
-<div class="container">
-    <h2>Şirket Sil</h2>
-    <p>Silmek istediğinize emin misiniz ?</p>
-    <button (click)="deleteCompany()" class="btn btn-danger">Sil</button>
-    <button (click)="cancel()" class="btn btn-secondary">İptal</button>
-  </div>
-  
+
+<div mat-dialog-content>
+  <p><strong>{{ data.companyName }}</strong> adlı şirketi silmek istediğinize emin misiniz?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">İptal</button>
+  <button mat-button color="warn" (click)="onConfirm()">Sil</button>
+</div>

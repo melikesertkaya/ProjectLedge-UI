@@ -1,53 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CompanyService } from 'src/app/services/Company/company.service';
-import { Company } from 'src/app/models/company/company.model';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-company-delete',
   templateUrl: './company-delete.component.html',
   styleUrls: ['./company-delete.component.css']
 })
-export class CompanyDeleteComponent implements OnInit {
-  id: string = ''; // Güncellenmiş id türü string olarak tanımlandı
-  companyName: string = '';
-
+export class CompanyDeleteComponent {
   constructor(
-    private route: ActivatedRoute,
-    private companyService: CompanyService,
-    private router: Router
+    public dialogRef: MatDialogRef<CompanyDeleteComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { companyName: string }
   ) {}
 
-  ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id') || ''; // Parametreyi almak için string boş değeri kullan
-    if (this.id) {
-      this.companyService.getCompanyById(this.id).subscribe(
-        (company: Company) => {
-          this.companyName = company.name;
-        },
-        (error) => {
-          console.error('Error fetching company:', error);
-          // Hata işleme
-        }
-      );
-    }
+  onCancel(): void {
+    this.dialogRef.close(false); // Close dialog without deleting
   }
 
-  deleteCompany() {
-    if (this.id) {
-      this.companyService.deleteCompany(this.id).subscribe(
-        () => {
-          this.router.navigate(['menu/'], { queryParams: { tab: 'company' } });
-        },
-        (error) => {
-          console.error('Error deleting company:', error);
-          // Hata işleme
-        }
-      );
-    }
-  }
-
-  cancel() {
-    this.router.navigate(['menu/'], { queryParams: { tab: 'company' } });
+  onConfirm(): void {
+    this.dialogRef.close(true); // Confirm deletion
   }
 }

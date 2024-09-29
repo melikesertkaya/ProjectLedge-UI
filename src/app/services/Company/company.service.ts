@@ -32,7 +32,6 @@ export class CompanyService {
     );
 }
 
-
   updateCompany(company: Company): Observable<Company> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.httpClient.put<Company>(`${this.path}Companies/UpdateCompany`, company, { headers });
@@ -42,9 +41,16 @@ export class CompanyService {
     return this.httpClient.get<Company>(`${this.path}Companies/GetCompanyById/${id}`);
   }
 
-  deleteCompany(id: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.path}Companies/DeleteCompany/${id}`);
-  }
+  deleteCompany(name: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.path}Companies/DeleteCompany/${name}`).pipe(
+        tap(() => console.log(`Deleted company: ${name}`)),
+        catchError(error => {
+            console.error('Error deleting company:', error);
+            return throwError(() => error);
+        })
+    );
+}
+
   getCompanies(): Observable<Company[]> {
     return this.httpClient.get<Company[]>(`${this.path}Companies/GetAllCompanies`).pipe(
         tap(data => console.log('API Data:', data)),

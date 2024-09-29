@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Company } from 'src/app/models/company/company.model';
-import { Router, ActivatedRoute } from '@angular/router'; // ActivatedRoute import edildi
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
+import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
-import { CompanyAddComponent } from './company-add/company-add.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CompanyDeleteComponent } from './company-delete/company-delete.component';
 
 @Component({
   selector: 'app-company',
@@ -15,13 +17,36 @@ import { CompanyAddComponent } from './company-add/company-add.component';
 export class CompanyComponent implements OnInit {
   companies: Company[] = [];
   companiesName: string[] = [];
+  form: FormGroup;
+  isFormVisible = false;
+  kdvTypeOptions = [
+    { value: KdvType.Tevkifatlı, label: 'Tevkifatlı' },
+    { value: KdvType.Tevkifatsız, label: 'Tevkifatsız' }
+  ];
 
+  accountTypeOptions = [
+    { value: CurrentAccountType.ReceivableAmount, label: 'Alacak' },
+    { value: CurrentAccountType.PayableAmount, label: 'Verecek' }
+  ];
   constructor(
     private router: Router,
-    private route: ActivatedRoute, // ActivatedRoute eklendi
     private companyService: CompanyService,
-    public dialogService: DialogService
-  ) {}
+    public dialogService: DialogService,
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      address: [''],
+      phoneNumber: [''],
+      taxNumber: [''],
+      companyCode: [''],
+      description: [''],
+      kdvTypes: [''],
+      billNumber: [''],
+      currentAccountType: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.getCompanyName();
@@ -39,16 +64,47 @@ export class CompanyComponent implements OnInit {
   }
 
   goToCompanyDetails(name: string): void {
-    this.router.navigate(['company-detail', name]);  // Şirket detaylarına yönlendir
+    this.router.navigate(['company-detail', name]);
   }
 
   openAddDialog(): void {
-    this.dialogService.open(CompanyAddComponent, {
-      header: 'Şirket Ekle',
-      width: '70%'
-    });
+    this.isFormVisible = true; // Show the form
   }
 
+  hideForm() {
+    this.isFormVisible = false;
+    this.form.reset(); // Reset form on hiding
+  }
+  addCompany() {
+    if (this.form.valid) {
+      const newCompany: Company = new Company(
+        '', // id: Assign or generate as needed
+        this.form.value.name,
+        this.form.value.address,
+        this.form.value.phoneNumber,
+        this.form.value.taxNumber,
+        this.form.value.companyCode,
+        this.form.value.description,
+        this.form.value.kdvTypes,
+        this.form.value.billNumber,
+        this.form.value.currentAccountType
+      );
+  
+      this.companyService.addCompany(newCompany).subscribe({
+        next: (response) => {
+          console.log('Company added:', response);
+          this.getCompanyName(); // Refresh the list
+          this.hideForm(); // Hide the form
+        },
+        error: (error) => {
+          console.error('Error adding company:', error);
+        }
+      });
+    } else {
+      console.error('Form is invalid');
+    }
+  }
+  
   openEditDialog(id: string): void {
     this.dialogService.open(CompanyEditComponent, {
       data: { id: id },
@@ -57,7 +113,27 @@ export class CompanyComponent implements OnInit {
     });
   }
 
-  navigateToDelete(id: string): void {
-    this.router.navigate(['company/delete', id]);
-  }
+  navigateToDelete(companyName: string): void {
+    const dialogRef = this.dialog.open(CompanyDeleteComponent, {
+      width: '400px',
+      data: { companyName }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // If user confirmed deletion
+        this.companyService.deleteCompany(companyName).subscribe({
+          next: () => {
+            console.log('Company deleted successfully.');
+            window.location.reload();
+          },
+          error: (error) => {
+            console.error('Error deleting company:', error);
+          }
+        });
+      }
+    });
+}
+
+  
+  
 }
