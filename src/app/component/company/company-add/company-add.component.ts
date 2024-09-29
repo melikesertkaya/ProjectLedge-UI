@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog'; // PrimeNG Dialog kullanıyorsanız
-import { Company } from 'src/app/models/company/company.model';
+import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
 import { CompanyService } from 'src/app/services/Company/company.service';
 
 @Component({
@@ -41,18 +41,19 @@ export class CompanyAddComponent implements OnInit {
       const formValue = this.companyForm.value;
 
       // Enum dönüşümünü yapın
-      const newCompany: Company = {
-        id: formValue.id ?? '',  // Eğer id varsa kullan, yoksa boş string kullan
-        name: formValue.name,
-        address: formValue.address,
-        phoneNumber: formValue.phoneNumber,
-        taxNumber: formValue.taxNumber,
-        companyCode: formValue.companyCode,
-        description: formValue.description,
-        kdvTypes: Number(formValue.kdvTypes),  // Enum değerini sayısal formata dönüştürün
-        billNumber: formValue.billNumber,
-        currentAccountType: Number(formValue.currentAccountType),  // Enum değerini sayısal formata dönüştürün
-      };
+      const newCompany: Company = new Company(
+        formValue.id ?? '',  // If id exists, use it; otherwise, use an empty string
+        formValue.name,
+        formValue.address,
+        formValue.phoneNumber,
+        formValue.taxNumber,
+        formValue.companyCode,
+        formValue.description,
+        formValue.kdvTypes as KdvType,  // Cast to KdvType enum
+        formValue.billNumber,
+        formValue.currentAccountType as CurrentAccountType  // Cast to CurrentAccountType enum
+    );
+    
 
       this.companyService.addCompany(newCompany).subscribe({
         next: (company) => {

@@ -1,41 +1,63 @@
-// src/app/services/receipt-management/invoice.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Invoice } from 'src/app/models/invoice/invoice.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceService {
-  private invoices: Invoice[] = [];
-  private invoicesSubject = new BehaviorSubject<Invoice[]>([]);
+  private apiUrl = `${environment.apiUrl}Invoice`; // Set the base API path for invoices
 
-  constructor() {
-    // Initialize with a sample invoice
-    const sampleInvoice = new Invoice(1, 'Alış', 'Doğuş', 'alacaklar', 1000, 18, new Date(), 'CSS', 'INV001');
-    this.invoices.push(sampleInvoice);
-    this.invoicesSubject.next(this.invoices);
-  }
+  constructor(private http: HttpClient) {}
 
-  addInvoice(invoice: Invoice): void {
-    this.invoices.push(invoice);
-    this.invoicesSubject.next([...this.invoices]);
-  }
-
-  deleteInvoice(id: number): void {
-    this.invoices = this.invoices.filter((invoice) => invoice.id !== id);
-    this.invoicesSubject.next([...this.invoices]);
-  }
-
+  // Get all invoices
   getInvoices(): Observable<Invoice[]> {
-    return this.invoicesSubject.asObservable();
+    return this.http.get<Invoice[]>(`${this.apiUrl}/GetAllInvoiceAsync`).pipe(
+      tap(data => console.log('Invoices fetched:', data)),
+      catchError(error => {
+        console.error('Error fetching invoices:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  updateInvoice(invoice: Invoice): void {
-    const index = this.invoices.findIndex((inv) => inv.id === invoice.id);
-    if (index !== -1) {
-      this.invoices[index] = invoice;
-      this.invoicesSubject.next([...this.invoices]);
-    }
+  // Add a new invoice
+  addInvoice(invoice: Invoice): Observable<Invoice> {
+    return this.http.post<Invoice>(`${this.apiUrl}/CreateInvoice`, invoice, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }).pipe(
+      tap(response => console.log('Invoice created:', response)),
+      catchError(error => {
+        console.error('Error creating invoice:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Get invoice by id
+  getInvoiceById(id: number): Observable<Invoice> {
+    return this.http.get<Invoice>(`${this.apiUrl}/${id}`).pipe(
+      tap(data => console.log(`Invoice fetched by ID: ${id}`, data)),
+      catchError(error => {
+        console.error('Error fetching invoice by ID:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Delete an invoice by id
+  deleteInvoice(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => console.log(`Invoice deleted with ID: ${id}`)),
+      catchError(error => {
+        console.error('Error deleting invoice:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

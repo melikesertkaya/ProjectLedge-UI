@@ -1,22 +1,49 @@
-/* company.component.css */
-.company-label {
-  cursor: pointer;
-  color: blue;
-  text-decoration: underline;
-  padding: 5px;
-  display: block;
-}
-
-.company-label:hover {
-  color: darkblue;
-}
-
-/* company-detail.component.css */
 .container {
-  padding: 20px;
+  padding: 30px; /* Increased padding for a more spacious layout */
   border: 1px solid #ddd;
+  border-radius: 8px; /* Rounded corners for a softer look */
+  background-color: #f9f9f9; /* Light background color for better readability */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 h2 {
   color: #333;
+  font-family: 'Arial', sans-serif; /* Change font for better appearance */
+  font-size: 1.8em; /* Increased font size for headings */
+  margin-bottom: 20px; /* Space below heading */
+  border-bottom: 2px solid #007bff; /* Underline effect for headings */
+  padding-bottom: 10px; /* Space below heading */
+}
+
+.add-button {
+  margin-bottom: 20px; /* Space below button */
+  padding: 10px 20px; /* More padding for the button */
+  font-size: 1em; /* Font size for the button */
+  border-radius: 5px; /* Rounded corners for the button */
+  transition: background-color 0.3s ease; /* Smooth transition for button hover */
+}
+
+.add-button:hover {
+  background-color: #0056b3; /* Darker shade on button hover */
+  border: none; /* Remove border on hover */
+  color: #fff; /* White text on hover for contrast */
+}
+
+.company-item {
+  margin-bottom: 15px; /* Space between company items */
+}
+
+.company-label {
+  cursor: pointer;
+  color: #007bff; /* Bootstrap primary color for better visibility */
+  text-decoration: none; /* Remove underline for a cleaner look */
+  padding: 10px 15px; /* Increased padding for better spacing */
+  display: block;
+  transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition effect */
+  border-radius: 5px; /* Rounded corners for a modern feel */
+}
+
+.company-label:hover {
+  color: #fff; /* Change text color on hover */
+  background-color: #007bff; /* Change background color on hover */
 }

@@ -33,6 +33,26 @@ export class Company {
     this.billNumber = billNumber;
     this.currentAccountType = currentAccountType;
   }
+  getKdvTypeString(): string {
+    switch (this.kdvTypes) {
+      case KdvType.Tevkifatlı:
+        return 'Tevkifatlı';
+      case KdvType.Tevkifatsız:
+        return 'Tevkifatsız';
+      default:
+        return 'Unknown'; // Fallback for unknown values
+    }
+  }
+  getCurrentAccountTypeString(): string {
+    switch (this.currentAccountType) {
+      case CurrentAccountType.ReceivableAmount:
+        return 'Alacak';
+      case CurrentAccountType.PayableAmount:
+        return 'Verecek';
+      default:
+        return 'Unknown'; // Fallback for unknown values
+    }
+  }
 }
 
 // KDV Type Enum

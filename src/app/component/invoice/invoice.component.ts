@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Invoice } from 'src/app/models/invoice/invoice.model';
+import { Invoice, InvoiceType } from 'src/app/models/invoice/invoice.model';
 import { InvoiceService } from 'src/app/services/Invoice/invoice.service';
-import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-invoice',
@@ -11,59 +12,117 @@ import { tap } from 'rxjs/operators';
 })
 export class InvoiceComponent implements OnInit {
   form: FormGroup;
-  invoices$ = this.invoiceService.getInvoices();
-
+  invoices$!: Observable<Invoice[]>;
+  isFormVisible = false;
+  invoices: Invoice[] = [];
   constructor(private fb: FormBuilder, private invoiceService: InvoiceService) {
     this.form = this.fb.group({
       type: ['Alış', Validators.required],
       companyName: ['', Validators.required],
       description: ['', Validators.required],
-      amount: [0, Validators.required],
-      vat: [0, Validators.required],
-      date: [new Date(), Validators.required],
+      amount: [0, [Validators.required, Validators.min(0)]],
+      vat: [0, [Validators.required, Validators.min(0)]],
+      date: [new Date().toISOString().substring(0, 10), Validators.required],
       siteCode: ['', Validators.required],
       invoiceNumber: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchInvoices();
+    this.getInvoices();
+  }
 
-  getNextId(): number {
-    // Get the current highest ID from localStorage or set to 0 if not available
-    const currentId = Number(localStorage.getItem('currentInvoiceId')) || 0;
-    const newId = currentId + 1;
-    localStorage.setItem('currentInvoiceId', newId.toString());
-    return newId;
+  fetchInvoices(): void {
+    this.invoices$ = this.invoiceService.getInvoices().pipe(
+      map(invoices => invoices.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()))
+    );
+  }
+
+  showForm() {
+    this.isFormVisible = true;
+  }
+
+  hideForm() {
+    this.isFormVisible = false;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.form.reset({
+      type: 'Alış',
+      companyName: '',
+      description: '',
+      amount: 0,
+      vat: 0,
+      date: new Date().toISOString().substring(0, 10),
+      siteCode: '',
+      invoiceNumber: ''
+    });
   }
 
   addInvoice() {
     if (this.form.valid) {
-      const type = this.form.get('type')?.value;
-      const companyName = this.form.get('companyName')?.value;
-      const description = this.form.get('description')?.value;
-      const amount = this.form.get('amount')?.value;
-      const vat = this.form.get('vat')?.value;
-      const date = this.form.get('date')?.value;
-      const siteCode = this.form.get('siteCode')?.value;
-      const invoiceNumber = this.form.get('invoiceNumber')?.value;
+      const invoice: Invoice = {
+        type: this.form.value.type,
+        companyName: this.form.value.companyName,
+        description: this.form.value.description,
+        amount: this.form.value.amount,
+        vat: this.form.value.vat,
+        date: new Date(this.form.value.date),
+        siteCode: this.form.value.siteCode,
+        invoiceNumber: this.form.value.invoiceNumber
+      };
 
-      const invoice = new Invoice(
-        this.getNextId(), // Get the next ID
-        type,
-        companyName,
-        description,
-        amount,
-        vat,
-        new Date(date),
-        siteCode,
-        invoiceNumber
-      );
-
-      this.invoiceService.addInvoice(invoice)
+      this.invoiceService.addInvoice(invoice).subscribe({
+        next: (response: Invoice) => {
+          console.log('Invoice added:', response);
+          this.fetchInvoices();
+          this.hideForm();
+        },
+        error: (error) => {
+          console.error('Error adding invoice:', error);
+        }
+      });
+    } else {
+      console.error('Form is invalid');
     }
   }
 
-  deleteInvoice(id: number) {
-    this.invoiceService.deleteInvoice(id);
+  deleteInvoice(id?: number) {
+    if (id !== undefined) {
+      this.invoiceService.deleteInvoice(id).subscribe({
+        next: () => {
+          console.log(`Invoice deleted with ID: ${id}`);
+          this.fetchInvoices();
+        },
+        error: (error) => {
+          console.error('Error deleting invoice:', error);
+        }
+      });
+    } else {
+      console.warn('Cannot delete invoice: ID is undefined');
+    }
   }
+  getInvoices() {
+    this.invoiceService.getInvoices().subscribe(
+      (invoices) => {
+        console.log('Fetched invoices:', invoices); // Log the invoices
+        this.invoices = invoices.map(invoice => {
+          // Ensure the date is parsed correctly
+          return {
+            ...invoice,
+            date: new Date(invoice.date) // Convert to Date object
+          };
+        });
+      },
+      (error) => {
+        console.error('Error fetching invoices:', error);
+      }
+    );
+}
+isValidDate(date: Date): boolean {
+  return date instanceof Date && !isNaN(date.getTime());
+}
+  
 }
