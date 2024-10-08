@@ -1,39 +1,25 @@
 <div *ngIf="company" class="company-details">
   <button class="btnSantiye" (click)="showSiteForm()">Şantiye Ekle</button>
-
   <a class="button-back" (click)="goBack()">Geri</a>
   
   <h2>Şirket Detayı: {{ company.name }}</h2>
-  <div class="company-info">
-    <div class="info-item">
-      <strong>Adres:</strong> {{ company.address }}
-    </div>
-    <div class="info-item">
-      <strong>Telefon No:</strong> {{ company.phoneNumber }}
-    </div>
-    <div class="info-item">
-      <strong>Vergi No:</strong> {{ company.taxNumber }}
-    </div>
-    <div class="info-item">
-      <strong>Şirket Kodu:</strong> {{ company.companyCode }}
-    </div>
-    <div class="info-item">
-      <strong>Açıklama:</strong> {{ company.description }}
-    </div>
-    <div class="info-item">
-      <strong>KDV Türü:</strong> {{ company.getKdvTypeString() }}
-    </div>
-    <div class="info-item">
-      <strong>Fiş/Fatura No:</strong> {{ company.billNumber }}
-    </div>
-    <div class="info-item">
-      <strong>Cari Türü:</strong> {{ company.getCurrentAccountTypeString() }}
-    </div>
-  </div>
 
+  <div class="company-info">
+    <div class="info-item"><strong>Adres:</strong> {{ company.address }}</div>
+    <div class="info-item"><strong>Telefon No:</strong> {{ company.phoneNumber }}</div>
+    <div class="info-item"><strong>Vergi No:</strong> {{ company.taxNumber }}</div>
+    <div class="info-item"><strong>Şirket Kodu:</strong> {{ company.companyCode }}</div>
+    <div class="info-item"><strong>Açıklama:</strong> {{ company.description }}</div>
+    <div class="info-item"><strong>KDV Türü:</strong> {{ company.getKdvTypeString() }}</div>
+    <div class="info-item"><strong>Fiş/Fatura No:</strong> {{ company.billNumber }}</div>
+    <div class="info-item"><strong>Cari Türü:</strong> {{ company.getCurrentAccountTypeString() }}</div>
+  </div>
+<br>
+<br>
+  <!-- Şantiye Ekleme Formu -->
   <div *ngIf="isSiteFormVisible" class="site-form-wrapper">
     <h3>Yeni Şantiye Ekle</h3>
-    <form [formGroup]="siteForm" (ngSubmit)="addSite()" class="site-form"> 
+    <form [formGroup]="siteForm" (ngSubmit)="addSite()" class="site-form">
       <div class="form-group">
         <label for="siteName">Şantiye Adı</label>
         <input formControlName="siteName" id="siteName" class="form-control" required>
@@ -48,16 +34,17 @@
       </div>
     </form>
   </div>
-</div>
 
-<div *ngIf="currentAmountResponseModel.length > 0" class="currentAmount">
-  <h2>Şantiyeler</h2>
-  <div class="sites-container">
-    <div *ngFor="let site of currentAmountResponseModel" class="site-card">
-      <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
-      <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
-      <strong>Türü:</strong> {{ site.getCurrentAccountTypeString() }}<br>
-      <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+  <!-- Şantiye Listesi -->
+  <div *ngFor="let site of siteInfoList" class="company-item">
+    <div class="site-info">
+      <label class="company-label">
+        {{ site.siteName }} - Total Amount: {{ site.totalAmount !== null ? site.totalAmount : '0' }}
+      </label>
+      <div class="company-actions">
+        <button (click)="goToSiteDetails(site.siteName)" class="btn btn-info btn-sm">Detayları Gör</button>
+      </div>
     </div>
   </div>
+  
 </div>

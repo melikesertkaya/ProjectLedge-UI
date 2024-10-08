@@ -4,19 +4,22 @@ export class CurrentAmountResponseModel {
     constructionSiteName: string;
     totalAmount: number; 
     currentAccountType: CurrentAccountType; 
+    date:Date
 
     constructor(
       companyId: string,
       constructionSiteNo: string,
       constructionSiteName: string,
       totalAmount: number,
-      currentAccountType: CurrentAccountType
+      currentAccountType: CurrentAccountType,
+      date:Date
     ) {
       this.companyId = companyId;
       this.constructionSiteNo = constructionSiteNo;
       this.constructionSiteName = constructionSiteName;
       this.totalAmount = totalAmount;
       this.currentAccountType=currentAccountType;
+      this.date=date
     }
     getCurrentAccountTypeString(): string {
       switch (this.currentAccountType) {

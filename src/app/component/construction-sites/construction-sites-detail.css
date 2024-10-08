@@ -1,0 +1,224 @@
+/* Base styles for the body */
+body {
+    font-family: 'Roboto', sans-serif; /* Modern and clean Google font */
+    background-color: #f0f2f5; /* Soft light gray for better contrast */
+    margin: 0;
+    padding: 0;
+    color: #2e2e2e; /* Softer dark gray for better readability */
+    line-height: 1.6; /* Improved readability with better line spacing */
+}
+
+/* Company details section */
+.company-details {
+    background-color: #ffffff; /* Crisp white background */
+    border-radius: 10px; /* Slightly more rounded corners for a sleek look */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer but deeper shadow for more depth */
+    padding: 25px;
+    margin: 30px auto; /* Center content and more margin for better spacing */
+    max-width: 900px; /* Restrict max width for readability */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+.company-details:hover {
+    transform: translateY(-5px); /* Subtle lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More intense shadow on hover */
+}
+
+/* Back button styling */
+.button-back {
+    display: inline-block;
+    background-color: #0069d9; /* A more vibrant shade of blue */
+    color: white;
+    padding: 12px 20px; /* Increased padding for a more clickable button */
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add smooth scaling on hover */
+}
+
+.button-back:hover {
+    background-color: #0053a5; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly scale up the button on hover */
+}
+
+/* Header styles */
+h2 {
+    color: #212529; /* Darker shade for headers */
+    margin-bottom: 20px; /* Increased margin for better separation */
+    font-size: 1.75rem; /* Larger heading size for better visibility */
+}
+
+h3 {
+    color: #495057; /* Mid-gray for subheadings */
+    margin: 20px 0 15px; /* Adjusted spacing for subheadings */
+    font-size: 1.5rem; /* Larger subheading size */
+}
+
+/* Company info item styling */
+.company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Use gap for cleaner spacing between items */
+}
+
+.info-item {
+    padding: 15px;
+    background-color: #f1f3f5; /* Light gray background for a more subtle contrast */
+    border-left: 5px solid #007bff; /* Bold left border */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
+}
+
+.info-item:hover {
+    background-color: #e9ecef; /* Slightly darker background on hover */
+    border-color: #0056b3; /* Darker blue border on hover */
+}
+
+/* Current Amount section */
+.currentAmount {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-top: 30px;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.currentAmount:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Stronger shadow on hover */
+}
+
+/* Site card styling */
+.site-card {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-card:hover {
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12); /* Stronger shadow on hover */
+}
+
+/* Currency formatting */
+strong {
+    color: #495057;
+}
+
+/* Input and select styling */
+input[type="date"], select {
+    padding: 10px;
+    border: 1px solid #ced4da; /* Subtle border */
+    border-radius: 5px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 300px; /* Restrict width for cleaner design */
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="date"]:focus, select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Blue shadow on focus */
+}
+
+/* Filter button styling */
+button {
+    padding: 10px 15px;
+    background-color: #28a745; /* Green button for filtering */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Scale up slightly on hover */
+}
+/* Add this CSS to the filter section */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap if the container is too small */
+    align-items: center; /* Vertically centers the items */
+    gap: 15px; /* Space between elements */
+}
+
+.filter-container label {
+    margin: 0; /* Remove margin for labels */
+}
+
+.filter-container select, 
+.filter-container input[type="date"], 
+.filter-container button {
+    margin: 0; /* Remove any default margins */
+}
+
+.filter-container button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.filter-container button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Ensure inputs and select boxes do not take full width */
+.filter-container input[type="date"], 
+.filter-container select {
+    width: auto; /* Auto width to fit the content */
+}
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .company-details, .currentAmount {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    .button-back {
+        padding: 10px 15px;
+    }
+
+    input[type="date"], select {
+        width: 100%; /* Ensure full width on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .company-details, .currentAmount {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    .button-back {
+        padding: 8px 12px;
+    }
+}
