@@ -1,0 +1,81 @@
+<div *ngIf="constructionSite" class="company-details">
+  <a class="button-back" (click)="goBack()">Geri</a>
+
+  <h2>Şantiye Detayı</h2>
+  <div class="company-info">
+      <div class="info-item">
+          <strong>Şantiye Adı:</strong> {{ constructionSite?.constructionSiteName }}
+      </div>
+      <div class="info-item">
+          <strong>Şantiye No:</strong> {{ constructionSite?.constructionSiteNo }}
+      </div>
+  </div>
+</div>
+
+<div *ngIf="currentAmountResponseModel.length > 0" class="company-details">
+  <h2>Fişler</h2>
+  <div class="filter-container">
+    <label for="filter">Filtrele:</label>
+    <select id="filter" [(ngModel)]="selectedFilter">
+        <option value="all">Tümü</option>
+        <option value="receivable">Alış</option>
+        <option value="payable">Satış</option>
+        <option value="progressPayment">Hakediş</option>
+    </select>
+
+    <label for="startDate">Başlangıç Tarihi:</label>
+    <input type="date" id="startDate" [(ngModel)]="startDate">
+
+    <label for="endDate">Bitiş Tarihi:</label>
+    <input type="date" id="endDate" [(ngModel)]="endDate">
+
+    <button (click)="filterRecords()">Ara</button>
+</div>
+
+  
+  <div *ngIf="filteredCurrentAmount.length > 0" class="filtered-results">
+    <h3>Sonuçlar:</h3>
+    <div *ngFor="let site of filteredCurrentAmount" class="site-card">
+      <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
+      <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
+      <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+      <strong>Tarih:</strong> {{ site.date | date:'dd/MM/yyyy' }}<br>
+
+    </div>
+  </div>
+  
+
+  <!-- Existing code for displaying grouped current amounts -->
+  <!-- <div *ngIf="groupedCurrentAmount.receivables.length > 0">
+      <h3>Alış Fişleri</h3>
+      <div class="sites-container">
+          <div *ngFor="let site of groupedCurrentAmount.receivables" class="site-card">
+              <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
+              <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
+              <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+          </div>
+      </div>
+  </div>
+
+  <div *ngIf="groupedCurrentAmount.payables.length > 0">
+      <h3>Satış Fişleri</h3>
+      <div class="sites-container">
+          <div *ngFor="let site of groupedCurrentAmount.payables" class="site-card">
+              <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
+              <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
+              <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+          </div>
+      </div>
+  </div>
+
+  <div *ngIf="groupedCurrentAmount.progressPayments.length > 0">
+      <h3>Hakediş Fişleri</h3>
+      <div class="sites-container">
+          <div *ngFor="let site of groupedCurrentAmount.progressPayments" class="site-card">
+              <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
+              <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
+              <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+          </div>
+      </div>
+  </div> -->
+</div>

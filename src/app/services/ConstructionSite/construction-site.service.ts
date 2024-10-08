@@ -53,6 +53,11 @@ export class ConstructionSitesService {
       params: { id: companyId } // Pass companyId as a query parameter
     });
   }
+  getCurrentAccountsByConstructionSiteName(companyId: string): Observable<CurrentAmountResponseModel[]> {
+    return this.httpClient.get<CurrentAmountResponseModel[]>(`${this.apiUrl}ConstructionSites/GetCurrentAccountsByConstructionSiteName`, {
+      params: { constructionSiteName: companyId } // Pass companyId as a query parameter
+    });
+  }
   createConstructionSite(constructionSiteRequest: ConstructionSites): Observable<ConstructionSites> {
     const requestPayload = {
         ConstructionSiteName: constructionSiteRequest.constructionSiteName,
@@ -109,5 +114,24 @@ export class ConstructionSitesService {
 
   getConstructionSitesObservable(): Observable<ConstructionSites[]> {
     return this.constructionSitesSubject.asObservable();
+  }
+  getSitesName(): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this.apiUrl}ConstructionSites/GetAllSitesName`).pipe(
+  
+        tap(data => console.log('API Data:', data)),
+        catchError(error => {
+            console.error('Error occurred:', error);
+            return throwError(() => error);
+        })
+    );
+  }
+  getSiteyByName(name: string): Observable<ConstructionSites> {
+    return this.httpClient.get<ConstructionSites>(`${this.apiUrl}ConstructionSites/GetAllSitesName/${name}`).pipe(
+      tap(constructionSites => console.log('Fetched company by name:', constructionSites)),
+      catchError(error => {
+        console.error('Error fetching constructionSites by name:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

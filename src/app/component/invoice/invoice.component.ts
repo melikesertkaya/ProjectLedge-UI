@@ -17,9 +17,10 @@ export class InvoiceComponent implements OnInit {
   isFormVisible = false;
   invoices: Invoice[] = [];
   companies: string[] = [];
-  constructor(private fb: FormBuilder, private invoiceService: InvoiceService, private companyService: CompanyService,) {
+
+  constructor(private fb: FormBuilder, private invoiceService: InvoiceService, private companyService: CompanyService) {
     this.form = this.fb.group({
-      type: ['Alış', Validators.required],
+      type: ['', Validators.required],
       companyName: ['', Validators.required],
       description: ['', Validators.required],
       amount: [0, [Validators.required, Validators.min(0)]],
@@ -53,7 +54,7 @@ export class InvoiceComponent implements OnInit {
 
   resetForm() {
     this.form.reset({
-      type: 'Alış',
+      type: '', // Leave it empty to allow user selection
       companyName: '',
       description: '',
       amount: 0,
@@ -67,7 +68,7 @@ export class InvoiceComponent implements OnInit {
   addInvoice() {
     if (this.form.valid) {
       const invoice: Invoice = {
-        type: this.form.value.type,
+        type: this.form.value.type, // Get selected type
         companyName: this.form.value.companyName,
         description: this.form.value.description,
         amount: this.form.value.amount,
@@ -91,6 +92,7 @@ export class InvoiceComponent implements OnInit {
       console.error('Form is invalid');
     }
   }
+
 
   deleteInvoice(id?: number) {
     if (id !== undefined) {

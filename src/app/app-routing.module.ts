@@ -14,6 +14,7 @@ import { TimesheetsComponent } from './component/timesheets/timesheets.component
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ProgressPaymentComponent } from './component/progress-payment/progress-payment.component';
 import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component'; // Adjust the path as necessary
+import { ConstructionSitesDetailComponent } from './component/construction-sites/construction-sites-detail';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect to login by default
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'employee/edit/:id', component: EmployeeEditComponent },
   { path: 'employee/delete/:id', component: EmployeeDeleteComponent },
   { path: 'company-detail/:name', component: CompanyDetailComponent },
+  { path: 'site-detail/:name', component: ConstructionSitesDetailComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

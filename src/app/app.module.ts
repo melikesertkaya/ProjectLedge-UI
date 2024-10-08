@@ -44,6 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Services
 import { TimesheetService } from './services/Timesheets/timesheets.service';
 import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component';
+import { ConstructionSitesDetailComponent } from './component/construction-sites/construction-sites-detail';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CompanyDetailComponent } from './component/company/company-detail/compa
     InvoiceComponent,
     ProgressPaymentComponent,
     ProgressPaymentDialogComponent,
-    CompanyDetailComponent
+    CompanyDetailComponent,
+    ConstructionSitesDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/com
 import { ConstructionSites } from 'src/app/models/construction-site/construction-site.model'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CurrentAmountResponseModel  } from 'src/app/models/company/CurrentAmountResponseModel '; 
+import { SiteInfo  } from 'src/app/models/company/site-info'; 
 @Component({
   selector: 'app-company-detail',
   templateUrl: './company-detail.component.html',
@@ -15,9 +16,13 @@ export class CompanyDetailComponent implements OnInit {
   company: Company | null = null;
   companyId: string | null = null;
   isSiteFormVisible = false;
+  sites: ConstructionSites[] = [];
+  siteInfoList: SiteInfo[] = [];
+  sitesName: string[] = [];
   siteForm: FormGroup;
   constructionSites: ConstructionSites[] = [];
   currentAmountResponseModel : CurrentAmountResponseModel [] = [];
+  siteTotalAmount:number=0;
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
@@ -60,27 +65,24 @@ export class CompanyDetailComponent implements OnInit {
   getConstructionSites(companyId: string): void {
     this.constructionSitesService.getConstructionSitesByCompanyId(companyId).subscribe(
       (sites) => {
-        this.constructionSites = sites.map((site: any) => 
-          new ConstructionSites(site.Name, site.ConstructionSiteNo, site.CompanyId)
-        );
+        this.siteInfoList = sites.map((site: any) => new SiteInfo(site.Name, null));
+        this.getCurrentAmountByCompanyId(companyId);
       },
       (error) => {
         console.error('Error fetching construction sites:', error);
       }
     );
   }
+  
   getCurrentAmountByCompanyId(companyId: string): void {
     this.constructionSitesService.getCurrentAmountByCompanyId(companyId).subscribe(
-      (sites) => {
-        this.currentAmountResponseModel = sites.map((site: any) => 
-          new CurrentAmountResponseModel(
-            site.CompanyId,            
-            site.ConstructionSiteNo,   
-            site.ConstructionSiteName,   
-            site.TotalAmount,
-            site.CurrentAccountType        
-          )
-        );
+      (amounts) => {
+        amounts.forEach((amount: any) => {
+          const site = this.siteInfoList.find(s => s.siteName === amount.ConstructionSiteName);
+          if (site) {
+            site.totalAmount = amount.TotalAmount;
+          }
+        });
       },
       (error) => {
         console.error('Error fetching current amounts:', error);
@@ -139,5 +141,8 @@ export class CompanyDetailComponent implements OnInit {
     } else {
         console.error('Company ID is missing');
     }
+}
+goToSiteDetails(name: string): void {
+  this.router.navigate(['site-detail', name]);
 }
 }
