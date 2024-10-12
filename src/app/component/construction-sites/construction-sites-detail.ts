@@ -134,7 +134,7 @@ export class ConstructionSitesDetailComponent implements OnInit {
     this.constructionSitesService.getConstructionSitesByCompanyId(companyId).subscribe(
       (sites) => {
         this.constructionSites = sites.map((site: any) => 
-          new ConstructionSites(site.Name, site.ConstructionSiteNo, site.CompanyId)
+          new ConstructionSites(site.Name, site.ConstructionSiteNo, site.CompanyId,site.companyName)
         );
       },
       (error) => {
@@ -172,6 +172,7 @@ export class ConstructionSitesDetailComponent implements OnInit {
         constructionSite.Name,
         constructionSite.ConstructionSiteNo,
         constructionSite.CompanyId,
+        constructionSite.CompanyName
     );
   }
 
@@ -194,29 +195,34 @@ export class ConstructionSitesDetailComponent implements OnInit {
   }
 
   addSite() {
+    const siteName = this.siteForm.value.siteName; 
     const siteCode = this.siteForm.value.siteCode; 
+    const companyName = this.siteForm.value.companyName; // Get the company name from the form
+  
     if (this.constructionSiteId) {
-        const newSiteRequest = new ConstructionSites(
-            this.siteForm.value.siteName,
-            siteCode,
-            this.constructionSiteId 
-        );
-
-        this.constructionSitesService.createConstructionSite(newSiteRequest).subscribe(
-          (response) => {
-              console.log('Construction site added:', response);
-              window.location.reload();
-              this.hideSiteForm();
-          },
-          (error) => {
-              console.error('Error adding construction site:', error);
-          }
+      const newSiteRequest = new ConstructionSites(
+        siteName,
+        siteCode,
+        this.constructionSiteId,
+        companyName // Pass the company name here
       );
-      
+  
+      this.constructionSitesService.createConstructionSite(newSiteRequest).subscribe(
+        (response) => {
+          console.log('Construction site added:', response);
+          window.location.reload(); // Optionally you might want to refresh the data instead of reloading the page
+          this.hideSiteForm();
+        },
+        (error) => {
+          console.error('Error adding construction site:', error);
+        }
+      );
+  
     } else {
-        console.error('Company ID is missing');
+      console.error('Company ID is missing');
     }
-}
+  }
+  
 getSiteName() {
   this.constructionSitesService.getAllConstructionSites().subscribe(
     (constructionSites: ConstructionSites[]) => {

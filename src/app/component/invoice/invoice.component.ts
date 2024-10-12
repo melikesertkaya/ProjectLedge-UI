@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
+import { ConstructionSitesService } from 'src/app/services/ConstructionSite/construction-site.service';
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -17,8 +18,9 @@ export class InvoiceComponent implements OnInit {
   isFormVisible = false;
   invoices: Invoice[] = [];
   companies: string[] = [];
-
-  constructor(private fb: FormBuilder, private invoiceService: InvoiceService, private companyService: CompanyService) {
+  sites: string[] = []; 
+  selectedCompany: string = ''; 
+  constructor(private fb: FormBuilder, private invoiceService: InvoiceService, private companyService: CompanyService, private constructionSitesService: ConstructionSitesService) {
     this.form = this.fb.group({
       type: ['', Validators.required],
       companyName: ['', Validators.required],
@@ -136,6 +138,17 @@ getCompanyName() {
     },
     (error) => {
       console.error('Error fetching companies:', error);
+    }
+  );
+}
+onCompanyChange() {
+  this.selectedCompany = this.form.value.companyName; // Get selected company name
+  this.constructionSitesService.getConstructionSiteNameByCompanyName(this.selectedCompany).subscribe( // Fetch sites based on the selected company
+    (sites) => {
+      this.sites = sites; // Set the sites
+    },
+    (error) => {
+      console.error('Error fetching sites:', error);
     }
   );
 }

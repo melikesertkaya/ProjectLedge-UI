@@ -15,8 +15,8 @@ export class ConstructionSitesService {
 
   constructor(private httpClient: HttpClient) {
     // Örnek veriler (isteğe bağlı)
-    const site1 = new ConstructionSites('Site 1', 1, 'd9b1a78a-0cda-4e9a-93c5-1de99d11f963');
-    const site2 = new ConstructionSites('Site 2', 2, 'd9b1a78a-0cda-4e9a-93c5-1de99d11f964');
+    const site1 = new ConstructionSites('Site 1', 1, 'd9b1a78a-0cda-4e9a-93c5-1de99d11f963','');
+    const site2 = new ConstructionSites('Site 2', 2, 'd9b1a78a-0cda-4e9a-93c5-1de99d11f964','');
     this.constructionSites.push(site1, site2);
     this.constructionSitesSubject.next([...this.constructionSites]);
   }
@@ -57,6 +57,16 @@ export class ConstructionSitesService {
     return this.httpClient.get<CurrentAmountResponseModel[]>(`${this.apiUrl}ConstructionSites/GetCurrentAccountsByConstructionSiteName`, {
       params: { constructionSiteName: companyId } // Pass companyId as a query parameter
     });
+  }
+  getConstructionSiteNameByCompanyName(companyName: string): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this.apiUrl}ConstructionSites/GetConstructionSiteNameByCompanyName/${companyName}`).pipe(
+  
+        tap(data => console.log('API Data:', data)),
+        catchError(error => {
+            console.error('Error occurred:', error);
+            return throwError(() => error);
+        })
+    );
   }
   createConstructionSite(constructionSiteRequest: ConstructionSites): Observable<ConstructionSites> {
     const requestPayload = {

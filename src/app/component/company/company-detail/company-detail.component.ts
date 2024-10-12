@@ -119,29 +119,34 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   addSite() {
+    const siteName = this.siteForm.value.siteName; 
     const siteCode = this.siteForm.value.siteCode; 
+    const companyName = this.siteForm.value.companyName; // Get the company name from the form
+  
     if (this.companyId) {
-        const newSiteRequest = new ConstructionSites(
-            this.siteForm.value.siteName,
-            siteCode,
-            this.companyId 
-        );
-
-        this.constructionSitesService.createConstructionSite(newSiteRequest).subscribe(
-          (response) => {
-              console.log('Construction site added:', response);
-              window.location.reload();
-              this.hideSiteForm();
-          },
-          (error) => {
-              console.error('Error adding construction site:', error);
-          }
+      const newSiteRequest = new ConstructionSites(
+        siteName,
+        siteCode,  // Ensure this is the correct type (number or string as per your requirement)
+        this.companyId,
+        companyName // Pass the company name here
       );
-      
+  
+      this.constructionSitesService.createConstructionSite(newSiteRequest).subscribe(
+        (response) => {
+          console.log('Construction site added:', response);
+          window.location.reload(); // Consider refreshing the site list instead
+          this.hideSiteForm();
+        },
+        (error) => {
+          console.error('Error adding construction site:', error);
+        }
+      );
+  
     } else {
-        console.error('Company ID is missing');
+      console.error('Company ID is missing');
     }
-}
+  }
+  
 goToSiteDetails(name: string): void {
   this.router.navigate(['site-detail', name]);
 }
