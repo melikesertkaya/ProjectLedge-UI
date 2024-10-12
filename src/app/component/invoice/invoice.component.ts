@@ -96,6 +96,7 @@ export class InvoiceComponent implements OnInit {
   }
 
 
+
   deleteInvoice(id?: number) {
     if (id !== undefined) {
       this.invoiceService.deleteInvoice(id).subscribe({
@@ -138,17 +139,6 @@ getCompanyName() {
     },
     (error) => {
       console.error('Error fetching companies:', error);
-    }
-  );
-}
-onCompanyChange() {
-  this.selectedCompany = this.form.value.companyName; // Get selected company name
-  this.constructionSitesService.getConstructionSiteNameByCompanyName(this.selectedCompany).subscribe( // Fetch sites based on the selected company
-    (sites) => {
-      this.sites = sites; // Set the sites
-    },
-    (error) => {
-      console.error('Error fetching sites:', error);
     }
   );
 }

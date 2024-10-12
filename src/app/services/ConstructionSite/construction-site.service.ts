@@ -58,16 +58,6 @@ export class ConstructionSitesService {
       params: { constructionSiteName: companyId } // Pass companyId as a query parameter
     });
   }
-  getConstructionSiteNameByCompanyName(companyName: string): Observable<string[]> {
-    return this.httpClient.get<string[]>(`${this.apiUrl}ConstructionSites/GetConstructionSiteNameByCompanyName/${companyName}`).pipe(
-  
-        tap(data => console.log('API Data:', data)),
-        catchError(error => {
-            console.error('Error occurred:', error);
-            return throwError(() => error);
-        })
-    );
-  }
   createConstructionSite(constructionSiteRequest: ConstructionSites): Observable<ConstructionSites> {
     const requestPayload = {
         ConstructionSiteName: constructionSiteRequest.constructionSiteName,

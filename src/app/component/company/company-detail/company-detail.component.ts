@@ -150,4 +150,7 @@ export class CompanyDetailComponent implements OnInit {
 goToSiteDetails(name: string): void {
   this.router.navigate(['site-detail', name]);
 }
+goToSiteDetails(name: string): void {
+  this.router.navigate(['site-detail', name]);
+}
 }
