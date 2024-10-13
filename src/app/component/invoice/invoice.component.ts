@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Invoice, InvoiceType } from 'src/app/models/invoice/invoice.model';
+import { Invoice } from 'src/app/models/invoice/invoice.model';
 import { InvoiceService } from 'src/app/services/Invoice/invoice.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { Company, CurrentAccountType, KdvType } from 'src/app/models/company/company.model';
 import { ConstructionSitesService } from 'src/app/services/ConstructionSite/construction-site.service';
+import { ConstructionSiteNameByCompanyName  } from 'src/app/models/construction-site/ConstructionSiteNameByCompanyName'; 
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -19,17 +20,34 @@ export class InvoiceComponent implements OnInit {
   invoices: Invoice[] = [];
   companies: string[] = [];
   sites: string[] = []; 
+  constructionSiteNameByCompanyName: ConstructionSiteNameByCompanyName[] = [];
   selectedCompany: string = ''; 
-  constructor(private fb: FormBuilder, private invoiceService: InvoiceService, private companyService: CompanyService, private constructionSitesService: ConstructionSitesService) {
+  kdvTypeOptions = [
+    { value: KdvType.Tevkifatlı, label: 'Tevkifatlı' },
+    { value: KdvType.Tevkifatsız, label: 'Tevkifatsız' }
+  ];
+  accountTypeOptions = [
+    { value: CurrentAccountType.ReceivableAmount, label: 'Alış' },
+    { value: CurrentAccountType.PayableAmount, label: 'Satış' },
+    { value: CurrentAccountType.ProgressPaymentAmount, label: 'Hakediş' }
+  ];
+
+  constructor(
+    private fb: FormBuilder, 
+    private invoiceService: InvoiceService, 
+    private companyService: CompanyService, 
+    private constructionSitesService: ConstructionSitesService
+  ) {
     this.form = this.fb.group({
-      type: ['', Validators.required],
-      companyName: ['', Validators.required],
-      description: ['', Validators.required],
-      amount: [0, [Validators.required, Validators.min(0)]],
-      vat: [0, [Validators.required, Validators.min(0)]],
-      date: [new Date().toISOString().substring(0, 10), Validators.required],
-      siteCode: ['', Validators.required],
-      invoiceNumber: ['', Validators.required]
+      companyName: ['', Validators.required],  // Company dropdown
+      siteCode: ['', Validators.required],     // Site code dropdown
+      currentAccountType: ['', Validators.required], // Current account type
+      amount: [0, [Validators.required, Validators.min(0)]], // Amount
+      kdvTypes: ['', Validators.required], // KDV Type
+      invoiceNumber: ['', Validators.required], // Invoice number
+      description: ['', Validators.required], // Description
+      vat: [0, [Validators.required, Validators.min(0)]], // VAT (if any)
+      date: [new Date().toISOString().substring(0, 10), Validators.required] // Date
     });
   }
 
@@ -56,35 +74,39 @@ export class InvoiceComponent implements OnInit {
 
   resetForm() {
     this.form.reset({
-      type: '', // Leave it empty to allow user selection
       companyName: '',
-      description: '',
-      amount: 0,
-      vat: 0,
-      date: new Date().toISOString().substring(0, 10),
       siteCode: '',
-      invoiceNumber: ''
+      currentAccountType: '',
+      amount: 0,
+      kdvTypes: '',
+      invoiceNumber: '',
+      description: '',
+      vat: 0,
+      date: new Date().toISOString().substring(0, 10)
     });
   }
 
   addInvoice() {
     if (this.form.valid) {
       const invoice: Invoice = {
-        type: this.form.value.type, // Get selected type
+        type: this.form.value.currentAccountType, // 'Alış' or 'Satış' based on the account type selection
         companyName: this.form.value.companyName,
         description: this.form.value.description,
         amount: this.form.value.amount,
         vat: this.form.value.vat,
         date: new Date(this.form.value.date),
         siteCode: this.form.value.siteCode,
-        invoiceNumber: this.form.value.invoiceNumber
+        invoiceNumber: this.form.value.invoiceNumber,
+        currentAccountType: this.form.value.currentAccountType,
+        kdvTypes: this.form.value.kdvTypes
       };
-
+  
       this.invoiceService.addInvoice(invoice).subscribe({
         next: (response: Invoice) => {
           console.log('Invoice added:', response);
           this.fetchInvoices();
           this.hideForm();
+          window.location.reload();
         },
         error: (error) => {
           console.error('Error adding invoice:', error);
@@ -94,8 +116,8 @@ export class InvoiceComponent implements OnInit {
       console.error('Form is invalid');
     }
   }
-
-
+  
+  
 
   deleteInvoice(id?: number) {
     if (id !== undefined) {
@@ -112,34 +134,50 @@ export class InvoiceComponent implements OnInit {
       console.warn('Cannot delete invoice: ID is undefined');
     }
   }
+
   getInvoices() {
     this.invoiceService.getInvoices().subscribe(
       (invoices) => {
-        console.log('Fetched invoices:', invoices); // Log the invoices
-        this.invoices = invoices.map(invoice => {
-          // Ensure the date is parsed correctly
-          return {
-            ...invoice,
-            date: new Date(invoice.date) // Convert to Date object
-          };
-        });
+        this.invoices = invoices.map(invoice => ({
+          ...invoice,
+          date: new Date(invoice.date) // Ensure date is parsed correctly
+        }));
       },
       (error) => {
         console.error('Error fetching invoices:', error);
       }
     );
-}
-isValidDate(date: Date): boolean {
-  return date instanceof Date && !isNaN(date.getTime());
-}
-getCompanyName() {
-  this.companyService.getCompaniesName().subscribe(
-    (companies) => {
-      this.companies = companies; // Assign the company names to this.companies
-    },
-    (error) => {
-      console.error('Error fetching companies:', error);
+  }
+
+  getCompanyName() {
+    this.companyService.getCompaniesName().subscribe(
+      (companies) => {
+        this.companies = companies; // Assign company names to dropdown
+      },
+      (error) => {
+        console.error('Error fetching companies:', error);
+      }
+    );
+  }
+  onCompanyChange() {
+    this.selectedCompany = this.form.value.companyName;
+    if (this.selectedCompany) {
+      this.constructionSitesService.getConstructionSiteNameByCompanyName(this.selectedCompany).subscribe(
+        (sites: any[]) => { // Assuming the API returns an array of sites
+          this.constructionSiteNameByCompanyName = this.mapConstructionSites(sites);
+        },
+        (error) => {
+          console.error('Error fetching sites:', error);
+        }
+      );
     }
-  );
-}
+  }
+  
+  private mapConstructionSites(constructionSites: any[]): ConstructionSiteNameByCompanyName[] {
+    return constructionSites.map(site => new ConstructionSiteNameByCompanyName(
+      site.Name,
+      site.ConstructionSiteNo // Ensure this is a string or number as defined in the class
+    ));
+  }
+  
 }

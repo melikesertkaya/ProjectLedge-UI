@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ConstructionSites } from 'src/app/models/construction-site/construction-site.model';
 import { CurrentAmountResponseModel  } from 'src/app/models/company/CurrentAmountResponseModel '; 
-
+import { ConstructionSiteNameByCompanyName  } from 'src/app/models/construction-site/ConstructionSiteNameByCompanyName'; 
+import { Company } from 'src/app/models/company/company.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -62,7 +63,8 @@ export class ConstructionSitesService {
     const requestPayload = {
         ConstructionSiteName: constructionSiteRequest.constructionSiteName,
         ConstructionSiteNo: constructionSiteRequest.constructionSiteNo,
-        CompanyId: constructionSiteRequest.companyId
+        CompanyId: constructionSiteRequest.companyId,
+        CompanyName:constructionSiteRequest.companyName
     };
 
     return this.httpClient.post<ConstructionSites>(`${this.apiUrl}ConstructionSites/CreateConstructionSite`, requestPayload, {
@@ -134,4 +136,11 @@ export class ConstructionSitesService {
       })
     );
   }
+  getConstructionSiteNameByCompanyName(companyName: string): Observable<ConstructionSiteNameByCompanyName[]> {
+    return this.httpClient.get<ConstructionSiteNameByCompanyName[]>(`${this.apiUrl}ConstructionSites/GetConstructionSiteNameByCompanyName`, {
+      params: { companyName } 
+    });
+  }
+  
+  
 }

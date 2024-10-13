@@ -38,6 +38,12 @@
     <div *ngFor="let site of filteredCurrentAmount" class="site-card">
       <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
       <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
+      <strong>Cari Türü:</strong>
+      <span *ngIf="site.currentAccountType === 1">Alış</span>
+      <span *ngIf="site.currentAccountType === 2">Satış</span>
+      <span *ngIf="site.currentAccountType === 3">Hakediş</span>
+      <span *ngIf="site.currentAccountType !== 1 && site.currentAccountType !== 2 && site.currentAccountType !== 3">Bilinmeyen</span>
+      <br>
       <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
       <strong>Tarih:</strong> {{ site.date | date:'dd/MM/yyyy' }}<br>
 

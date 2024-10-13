@@ -10,6 +10,8 @@ export class Invoice {
   public date: Date;
   public siteCode: string;
   public invoiceNumber: string;
+  public currentAccountType?: string; // Optional property, can be undefined
+  public kdvTypes?: string; // Optional property, can be undefined
 
   constructor(
     type: InvoiceType,
@@ -19,7 +21,9 @@ export class Invoice {
     vat: number,
     date: Date,
     siteCode: string,
-    invoiceNumber: string
+    invoiceNumber: string,
+    currentAccountType?: string, // Optional parameter
+    kdvTypes?: string // Optional parameter
   ) {
     this.type = type;
     this.companyName = companyName;
@@ -29,5 +33,7 @@ export class Invoice {
     this.date = date;
     this.siteCode = siteCode;
     this.invoiceNumber = invoiceNumber;
+    this.currentAccountType = currentAccountType; // Assigning property
+    this.kdvTypes = kdvTypes; // Assigning property
   }
 }

@@ -15,6 +15,7 @@ import { SiteInfo  } from 'src/app/models/company/site-info';
 export class CompanyDetailComponent implements OnInit {
   company: Company | null = null;
   companyId: string | null = null;
+  companyName: string | null = null;
   isSiteFormVisible = false;
   sites: ConstructionSites[] = [];
   siteInfoList: SiteInfo[] = [];
@@ -51,6 +52,7 @@ export class CompanyDetailComponent implements OnInit {
         console.log('Fetched company data:', companyData);
         this.company = this.mapCompany(companyData);
         this.companyId = this.company?.id; 
+        this.companyName=this.company?.name;
         if (this.companyId) {
           this.getConstructionSites(this.companyId);
           this.getCurrentAmountByCompanyId(this.companyId);
@@ -76,20 +78,55 @@ export class CompanyDetailComponent implements OnInit {
   
   getCurrentAmountByCompanyId(companyId: string): void {
     this.constructionSitesService.getCurrentAmountByCompanyId(companyId).subscribe(
-      (amounts) => {
-        amounts.forEach((amount: any) => {
-          const site = this.siteInfoList.find(s => s.siteName === amount.ConstructionSiteName);
-          if (site) {
-            site.totalAmount = amount.TotalAmount;
-          }
-        });
-      },
-      (error) => {
-        console.error('Error fetching current amounts:', error);
-      }
+        (amounts) => {
+            // Initialize a total variable to accumulate results
+            let totalSum = 0;
+
+            amounts.forEach((amount: any) => {
+                const site = this.siteInfoList.find(s => s.siteName === amount.ConstructionSiteName);
+                if (site) {
+                    // Ensure totalAmount is initialized
+                    site.totalAmount = site.totalAmount || 0; // Başlangıçta 0
+
+                    // Check CurrentAccountType and adjust the total amount accordingly
+                    switch (amount.CurrentAccountType) {
+                        case 1:
+                            // Subtract value for CurrentAccountType 1
+                            totalSum -= amount.TotalAmount; // Total'dan çıkar
+                            break;
+                        case 2:
+                            // Add value for CurrentAccountType 2
+                            totalSum += amount.TotalAmount; // Total'a ekle
+                            break;
+                        case 3:
+                            // Add value for CurrentAccountType 3 and accumulate in totalSum
+                            totalSum += amount.TotalAmount; // Total'a ekle
+                            break;
+                        default:
+                            console.warn('Unknown CurrentAccountType:', amount.CurrentAccountType);
+                    }
+
+                    // Update the site totalAmount for current site
+                    if (amount.CurrentAccountType === 1) {
+                        site.totalAmount -= amount.TotalAmount; // Site toplamından çıkar
+                    } else {
+                        site.totalAmount += amount.TotalAmount; // Diğer türler için toplamı artır
+                    }
+                    site.totalAmount=totalSum
+                }
+            });
+
+            // Log the total sum for all CurrentAccountType
+            console.log('Total Sum:', totalSum);
+        },
+        (error) => {
+            console.error('Error fetching current amounts:', error);
+        }
     );
-  }
-  
+}
+
+
+
   private mapCompany(company: any): Company {
     return new Company(
       company.Id, 
@@ -121,7 +158,7 @@ export class CompanyDetailComponent implements OnInit {
   addSite() {
     const siteName = this.siteForm.value.siteName; 
     const siteCode = this.siteForm.value.siteCode; 
-    const companyName = this.siteForm.value.companyName; // Get the company name from the form
+    const companyName =   this.companyName ?? ""; // Get the company name from the form
   
     if (this.companyId) {
       const newSiteRequest = new ConstructionSites(
@@ -147,9 +184,6 @@ export class CompanyDetailComponent implements OnInit {
     }
   }
   
-goToSiteDetails(name: string): void {
-  this.router.navigate(['site-detail', name]);
-}
 goToSiteDetails(name: string): void {
   this.router.navigate(['site-detail', name]);
 }

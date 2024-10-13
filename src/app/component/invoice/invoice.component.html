@@ -8,26 +8,29 @@
   <div class="form-wrapper" *ngIf="isFormVisible">
     <!-- Invoice Form -->
     <form [formGroup]="form" (ngSubmit)="addInvoice()" class="invoice-form">
-      <!-- Form Fields -->
+      <!-- Company Name Dropdown -->
       <div class="form-group">
         <label for="companyName">Şirket Adı</label>
-        <select formControlName="companyName" id="companyName" class="form-control" required>
+        <select formControlName="companyName" id="companyName" class="form-control" (change)="onCompanyChange()" required>
           <option value="" disabled selected>Seçin</option>
           <option *ngFor="let company of companies" [value]="company">{{ company }}</option>
         </select>
       </div>
-      
+
+      <!-- Site Code Dropdown (updated) -->
       <div class="form-group">
         <label for="siteCode">Site Kodu</label>
-        <input formControlName="siteCode" id="siteCode" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="type">Türü</label>
-        <select formControlName="type" id="type" class="form-control" required>
+        <select formControlName="siteCode" id="siteCode" class="form-control" required>
           <option value="" disabled selected>Seçin</option>
-          <option value="1">Alış</option>
-          <option value="2">Satış</option>
-          <option value="3">Hakediş</option>
+          <option *ngFor="let site of constructionSiteNameByCompanyName" [value]="site.constructionSiteNo">{{ site.name }}</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="currentAccountType">Cari Hesap Tipi</label>
+        <select formControlName="currentAccountType" id="currentAccountType" class="form-control">
+          <option value="">Seçiniz</option>
+          <option *ngFor="let accountType of accountTypeOptions" [value]="accountType.value">{{ accountType.label }}</option>
         </select>
       </div>
       <div class="form-group">
@@ -35,8 +38,11 @@
         <input type="number" formControlName="amount" id="amount" class="form-control" required>
       </div>
       <div class="form-group">
-        <label for="vat">KDV</label>
-        <input type="number" formControlName="vat" id="vat" class="form-control" required>
+        <label for="kdvTypes">KDV Tipi</label>
+        <select formControlName="kdvTypes" id="kdvTypes" class="form-control">
+          <option value="">Seçiniz</option>
+          <option *ngFor="let kdvType of kdvTypeOptions" [value]="kdvType.value">{{ kdvType.label }}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="date">Tarih</label>

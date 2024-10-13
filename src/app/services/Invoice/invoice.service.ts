@@ -38,7 +38,7 @@ export class InvoiceService {
       })
     );
   }
-
+  
   // Get invoice by id
   getInvoiceById(id: number): Observable<Invoice> {
     return this.http.get<Invoice>(`${this.apiUrl}/${id}`).pipe(

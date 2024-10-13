@@ -38,13 +38,14 @@
   <!-- Şantiye Listesi -->
   <div *ngFor="let site of siteInfoList" class="company-item">
     <div class="site-info">
-      <label class="company-label">
-        {{ site.siteName }} - Total Amount: {{ site.totalAmount !== null ? site.totalAmount : '0' }}
-      </label>
-      <div class="company-actions">
-        <button (click)="goToSiteDetails(site.siteName)" class="btn btn-info btn-sm">Detayları Gör</button>
-      </div>
+        <label class="company-label">
+            {{ site.siteName }} - Toplam Cari: {{ (site.totalAmount !== null && site.totalAmount !== undefined) ? site.totalAmount : '0' }}
+        </label>
+        <div class="company-actions">
+            <button (click)="goToSiteDetails(site.siteName)" class="btn btn-info btn-sm">Detayları Gör</button>
+        </div>
     </div>
-  </div>
+</div>
+
   
 </div>
