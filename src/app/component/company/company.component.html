@@ -3,7 +3,15 @@
 
   <!-- Button to add a company -->
   <button (click)="openAddDialog()" class="btn btn-primary add-button">Şirket Ekle</button>
+ <!-- Popup Div -->
+<div *ngIf="isPopupVisible" class="centered-popup" [ngClass]="popupType">
+  <div class="popup-box">
+    <span class="popup-icon" [innerHTML]="popupType === 'success' ? '&#10003;' : '&#10060;'"></span>
+    <span class="popup-message">{{ popupMessage }}</span>
+  </div>
+</div>
 
+  
   <!-- Company Form (shown after clicking 'Ekle') -->
   <div class="form-overlay" *ngIf="isFormVisible">
     <form [formGroup]="form" (ngSubmit)="addCompany()" class="company-form">
@@ -37,26 +45,26 @@
         <textarea formControlName="description" id="description" class="form-control"></textarea>
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="kdvTypes">KDV Tipi</label>
         <select formControlName="kdvTypes" id="kdvTypes" class="form-control">
           <option value="">Seçiniz</option>
           <option *ngFor="let kdvType of kdvTypeOptions" [value]="kdvType.value">{{ kdvType.label }}</option>
         </select>
-      </div>
+      </div> -->
 
       <div class="form-group">
-        <label for="billNumber">Fatura Numarası</label>
+        <label for="billNumber">IBAN:</label>
         <input formControlName="billNumber" id="billNumber" class="form-control">
       </div>
-
+<!-- 
       <div class="form-group">
         <label for="currentAccountType">Cari Hesap Tipi</label>
         <select formControlName="currentAccountType" id="currentAccountType" class="form-control">
           <option value="">Seçiniz</option>
           <option *ngFor="let accountType of accountTypeOptions" [value]="accountType.value">{{ accountType.label }}</option>
         </select>
-      </div>
+      </div> -->
 
       <div class="form-group">
         <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ekle</button>

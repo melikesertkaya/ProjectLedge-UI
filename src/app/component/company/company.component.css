@@ -133,6 +133,73 @@ h2 {
   }
 }
 
+/* Popup Genel Stil */
+.centered-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1000;
+  opacity: 0.95;
+  animation: fadeIn 0.3s ease-out, fadeOut 0.3s ease-in 3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px; /* Popup genişliği */
+}
+
+/* Başarı ve Hata Renkleri */
+.centered-popup.success {
+  background-color: #e6ffe6; /* Açık yeşil arka plan */
+  border: 2px solid #28a745; /* Yeşil sınır */
+  color: #28a745; /* Yeşil yazı rengi */
+}
+
+.centered-popup.error {
+  background-color: #ffe6e6; /* Açık kırmızı arka plan */
+  border: 2px solid #dc3545; /* Kırmızı sınır */
+  color: #dc3545; /* Kırmızı yazı rengi */
+}
+
+/* İkon ve Mesaj Stilleri */
+.popup-box {
+  display: flex;
+  align-items: center;
+}
+
+.popup-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.popup-message {
+  font-size: 16px;
+}
+
+/* Giriş ve Çıkış Animasyonu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 /* Animations */
 @keyframes fadeIn {
@@ -218,4 +285,5 @@ h2 {
     width: 100%;
     margin-bottom: 5px;
   }
+  
 }

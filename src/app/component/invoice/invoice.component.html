@@ -3,10 +3,17 @@
 
   <!-- Add Invoice Button (initially shown) -->
   <button *ngIf="!isFormVisible" class="btn btn-primary mb-3" (click)="showForm()">Fiş Ekle</button>
+<!-- app.component.html veya root HTML dosyası -->
+<div *ngIf="isPopupVisible" class="centered-popup" [ngClass]="popupType">
+  <div class="popup-box">
+    <span class="popup-icon" [innerHTML]="popupType === 'success' ? '&#10003;' : '&#10060;'"></span>
+    <span class="popup-message">{{ popupMessage }}</span>
+  </div>
+</div>
 
   <!-- Form Wrapper -->
   <div class="form-wrapper" *ngIf="isFormVisible">
-    <!-- Invoice Form -->
+  
     <form [formGroup]="form" (ngSubmit)="addInvoice()" class="invoice-form">
       <!-- Company Name Dropdown -->
       <div class="form-group">

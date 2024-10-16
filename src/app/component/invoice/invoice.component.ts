@@ -31,7 +31,9 @@ export class InvoiceComponent implements OnInit {
     { value: CurrentAccountType.PayableAmount, label: 'Satış' },
     { value: CurrentAccountType.ProgressPaymentAmount, label: 'Hakediş' }
   ];
-
+  popupMessage: string = '';
+  isPopupVisible: boolean = false;
+  popupType: 'success' | 'error' = 'success';
   constructor(
     private fb: FormBuilder, 
     private invoiceService: InvoiceService, 
@@ -103,20 +105,30 @@ export class InvoiceComponent implements OnInit {
   
       this.invoiceService.addInvoice(invoice).subscribe({
         next: (response: Invoice) => {
-          console.log('Invoice added:', response);
           this.fetchInvoices();
           this.hideForm();
-         // window.location.reload();
+          this.showPopup('Fiş Eklendi', 'success'); 
+          
         },
         error: (error) => {
-          console.error('Error adding invoice:', error);
+          this.showPopup('Fiş eklenirken hata oluştu', 'error');
+          this.hideForm();
         }
       });
     } else {
-      console.error('Form is invalid');
+      this.showPopup('Lütfen formu doğru doldurun.', 'error');
+      this.hideForm();
     }
   }
-  
+  showPopup(message: string, type: 'success' | 'error') {
+    console.log('Popup tetiklendi: ', message, type);
+    this.popupMessage = message;
+    this.popupType = type; 
+    this.isPopupVisible = true;
+    setTimeout(() => {
+      this.isPopupVisible = false;
+    }, 2000);
+  }
   
 
   deleteInvoice(id?: number) {

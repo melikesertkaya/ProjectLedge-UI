@@ -29,6 +29,9 @@ export class CompanyComponent implements OnInit {
     { value: CurrentAccountType.PayableAmount, label: 'Satış' },
     { value: CurrentAccountType.ProgressPaymentAmount, label: 'Hakediş' }
   ];
+  popupMessage: string = '';
+  isPopupVisible: boolean = false;
+  popupType: 'success' | 'error' = 'success';
   constructor(
     private router: Router,
     private companyService: CompanyService,
@@ -43,9 +46,7 @@ export class CompanyComponent implements OnInit {
       taxNumber: [''],
       companyCode: [''],
       description: [''],
-      kdvTypes: [''],
       billNumber: [''],
-      currentAccountType: ['']
     });
   }
 
@@ -91,21 +92,31 @@ export class CompanyComponent implements OnInit {
         this.form.value.currentAccountType
       );
   
+    
       this.companyService.addCompany(newCompany).subscribe({
         next: (response) => {
-          console.log('Company added:', response);
-          this.getCompanyName(); // Refresh the list
-          this.hideForm(); // Hide the form
+          this.showPopup('Şirket Eklendi', 'success');
+          this.getCompanyName(); 
+          this.hideForm(); 
         },
         error: (error) => {
-          console.error('Error adding company:', error);
+          this.showPopup('Şirket eklenirken hata oluştu: ', 'error'); 
+          this.hideForm(); 
         }
       });
     } else {
-      console.error('Form is invalid');
+      this.showPopup('Please fill out the form correctly.', 'error');
+      this.hideForm(); 
     }
   }
-  
+  showPopup(message: string, type: 'success' | 'error') {
+    this.popupMessage = message;
+    this.popupType = type; 
+    this.isPopupVisible = true;
+    setTimeout(() => {
+      this.isPopupVisible = false;
+    }, 3000);
+  }
   openEditDialog(id: string): void {
     this.dialogService.open(CompanyEditComponent, {
       data: { id: id },
