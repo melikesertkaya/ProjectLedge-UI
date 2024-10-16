@@ -1,4 +1,4 @@
 export const environment={
     production:false,
-    apiUrl:"https://localhost:44333/api/"
+    apiUrl:"https://projectledgeserviceapi20241002220205.azurewebsites.net/api/"
 }

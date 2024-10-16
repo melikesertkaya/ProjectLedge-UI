@@ -163,7 +163,7 @@ export class InvoiceComponent implements OnInit {
     this.selectedCompany = this.form.value.companyName;
     if (this.selectedCompany) {
       this.constructionSitesService.getConstructionSiteNameByCompanyName(this.selectedCompany).subscribe(
-        (sites: any[]) => { // Assuming the API returns an array of sites
+        (sites: any[]) => { // Assuming the API returns an array of site objects
           this.constructionSiteNameByCompanyName = this.mapConstructionSites(sites);
         },
         (error) => {
@@ -175,8 +175,8 @@ export class InvoiceComponent implements OnInit {
   
   private mapConstructionSites(constructionSites: any[]): ConstructionSiteNameByCompanyName[] {
     return constructionSites.map(site => new ConstructionSiteNameByCompanyName(
-      site.Name,
-      site.ConstructionSiteNo // Ensure this is a string or number as defined in the class
+      site.Name,  // Assuming 'Name' is the field for construction site names
+      site.ConstructionSiteNo // Assuming 'ConstructionSiteNo' is the field for site codes
     ));
   }
   
