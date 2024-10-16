@@ -210,7 +210,7 @@ export class ConstructionSitesDetailComponent implements OnInit {
       this.constructionSitesService.createConstructionSite(newSiteRequest).subscribe(
         (response) => {
           console.log('Construction site added:', response);
-          window.location.reload(); // Optionally you might want to refresh the data instead of reloading the page
+        //  window.location.reload(); // Optionally you might want to refresh the data instead of reloading the page
           this.hideSiteForm();
         },
         (error) => {

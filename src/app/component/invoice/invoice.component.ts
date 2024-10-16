@@ -106,7 +106,7 @@ export class InvoiceComponent implements OnInit {
           console.log('Invoice added:', response);
           this.fetchInvoices();
           this.hideForm();
-          window.location.reload();
+         // window.location.reload();
         },
         error: (error) => {
           console.error('Error adding invoice:', error);
