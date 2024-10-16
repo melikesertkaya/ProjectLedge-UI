@@ -1,65 +1,120 @@
+/* Genel form düzenlemeleri */
 .container {
   margin: 20px auto;
-  max-width: 600px;
-  padding: 20px;
-  background-color: #f8f9fa;
+  max-width: 400px; /* Genişliği azalt */
+  padding: 15px; /* Daha az padding */
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* X butonu için relative konum */
 }
 
+/* Başlık stilleri */
 h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
+  margin-bottom: 15px; /* Daha az alt boşluk */
+  font-size: 24px; /* Font boyutunu azalt */
+  color: #343a40;
   text-align: center;
 }
-
-.form-group {
-  margin-bottom: 15px;
+.modal {
+  position: relative; /* Modal içinde konumlandırmalar için referans */
+  max-width: 500px; /* Modalın genişliği */
+  margin: auto; /* Ortalamak için */
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
-label {
+.modal-close {
+  position: absolute; /* Modal içinde sabit konum */
+  top: 10px; /* Üstten boşluk */
+  right: 10px; /* Sağdan boşluk */
+  background-color: transparent; /* Şeffaf arka plan */
+  border: none; /* Çerçevesiz */
+  font-size: 24px; /* Büyük X butonu */
   font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
+  color: #000; /* Siyah renk */
+  cursor: pointer; /* Tıklanabilir */
+  transition: color 0.3s;
 }
 
-input {
+.modal-close:hover {
+  color: red; /* Üzerine gelince kırmızı */
+}
+
+/* Form grup stilleri */
+.p-field {
+  margin-bottom: 0.75rem; /* Alanlar arasındaki boşluğu azalt */
+}
+
+/* Label stilleri */
+label {
+  display: block;
+  margin-bottom: 0.25rem; /* Daha az boşluk */
+  font-weight: bold;
+  font-size: 14px; /* Font boyutunu azalt */
+  color: #495057;
+}
+
+/* Input alanları */
+input,
+textarea {
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem; /* Daha az padding */
   border: 1px solid #ced4da;
   border-radius: 4px;
+  transition: border-color 0.3s;
 }
 
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Hata mesajı stilleri */
+.p-error {
+  color: #dc3545;
+  font-size: 0.75rem; /* Hata mesajı font boyutunu azalt */
+}
+
+/* Buton stilleri */
 button {
   width: 100%;
-  padding: 10px;
+  padding: 0.5rem 1rem; /* Daha az padding */
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 0.875rem; /* Font boyutunu azalt */
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-button.btn-primary {
+button[type="submit"] {
   background-color: #007bff;
   color: white;
 }
 
-button.btn-primary:hover {
+button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-a.btn-secondary {
+/* Geri dön linki butonu */
+a.btn-link {
   display: block;
   text-align: center;
-  padding: 10px;
+  padding: 10px; /* Daha az padding */
   color: #007bff;
   text-decoration: none;
   border: 1px solid #007bff;
   border-radius: 4px;
-  margin-top: 10px;
+  margin-top: 15px; /* Daha az üst boşluk */
+  transition: background-color 0.3s;
 }
 
-a.btn-secondary:hover {
-  background-color: #e9ecef;
+a.btn-link:hover {
+  background-color: #007bff;
+  color: white;
 }

@@ -1,33 +1,47 @@
 <div class="container">
-    <h2>Personel Listesi</h2>
-    <button (click)="openAddDialog()" class="btn btn-primary">Personel Ekle</button>
-    <table class="table table-bordered">
-        <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>İsim</th>
-                    <th>Soyisim</th>
-                    <th>Şantiye No</th>
-                    <th>Saatlik Ücret</th>
-                    <th>Maaş</th>
-                    <th>SGK Primi</th>
-                    <th>İşlemler</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let employee of employees">
-                    <td>{{employee.id}}</td>
-                    <td>{{employee.firstName | uppercase}}</td>
-                    <td>{{employee.lastName}}</td>
-                    <td>{{employee.siteNumber}}</td>
-                    <td>{{employee.hourlyRate}}</td>
-                    <td>{{employee.salary}}</td>
-                    <td>{{employee.socialSecurityPremium}}</td>
-                    <td>
-                        <button type="button" (click)="openEditDialog(employee.id)" class="btn btn-warning">Düzenle</button>
-                        <button class="btn btn-danger" (click)="navigateToDelete(employee.id)">Sil</button>
-                    </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <h2>Çalışan Listesi</h2>
+
+    <!-- Button to add an employee -->
+    <button (click)="openAddDialog()" class="btn btn-primary add-button">Çalışan Ekle</button>
+
+    <!-- Error message if any -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Employee Form (shown after clicking 'Ekle') -->
+    <div class="form-overlay" *ngIf="isFormVisible">
+      <form [formGroup]="form" (ngSubmit)="addEmployee()" class="employee-form">
+        <div class="form-group">
+          <label for="firstName">Ad</label>
+          <input formControlName="firstName" id="firstName" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Soyad</label>
+          <input formControlName="lastName" id="lastName" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="position">Pozisyon</label>
+          <input formControlName="position" id="position" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ekle</button>
+          <button type="button" class="btn btn-secondary ml-2" (click)="hideForm()">Geri</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Employee List -->
+    <div *ngFor="let employee of employees" class="employee-item">
+      <div class="employee-info">
+        <label class="employee-label">{{ employee.firstName }} {{ employee.lastName }}</label>
+        <div class="employee-actions">
+          <button (click)="openEditDialog(employee.id)" class="btn btn-warning btn-sm">Düzenle</button>
+          <button (click)="navigateToDelete(employee.id)" class="btn btn-danger btn-sm ml-2">Sil</button>
+        </div>
+      </div>
+    </div>
+</div>

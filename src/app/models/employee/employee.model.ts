@@ -2,7 +2,7 @@ export class Employee {
     public id: number;
     public firstName: string;
     public lastName: string;
-    public siteNumber: string;
+    public siteNumber: string; 
     public hourlyRate: number;
     public salary: number;
     public socialSecurityPremium: number;

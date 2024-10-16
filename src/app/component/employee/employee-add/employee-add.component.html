@@ -1,52 +1,113 @@
 <div class="container">
   <h2>Personel Ekle</h2>
-  <form [formGroup]="employeeAddForm" (ngSubmit)="addEmployee()">
-    <!-- ID -->
-    <div class="form-group">
-      <label for="id">Id</label>
-      <input id="id" formControlName="id" type="number" class="form-control" placeholder="Id Giriniz" />
-    </div>
-
+  <form [formGroup]="employeeAddForm" (ngSubmit)="onSubmit()" novalidate>
+    
     <!-- First Name -->
-    <div class="form-group">
+    <div class="p-field">
       <label for="firstName">Adı</label>
-      <input id="firstName" formControlName="firstName" type="text" class="form-control" placeholder="Ad Giriniz" />
+      <input 
+        id="firstName" 
+        formControlName="firstName" 
+        type="text" 
+        pInputText 
+        placeholder="Adınızı Giriniz" 
+        [ngClass]="{'is-invalid': employeeAddForm.get('firstName')?.invalid && (employeeAddForm.get('firstName')?.touched || employeeAddForm.get('firstName')?.dirty)}"
+        aria-describedby="firstNameFeedback"
+      />
+      <div *ngIf="employeeAddForm.get('firstName')?.invalid && (employeeAddForm.get('firstName')?.touched || employeeAddForm.get('firstName')?.dirty)" class="p-error">
+        Ad alanı zorunludur ve en az 2 karakter olmalıdır.
+      </div>
     </div>
 
     <!-- Last Name -->
-    <div class="form-group">
+    <div class="p-field">
       <label for="lastName">Soyadı</label>
-      <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Soyad Giriniz" />
+      <input 
+        id="lastName" 
+        formControlName="lastName" 
+        type="text" 
+        pInputText 
+        placeholder="Soyadınızı Giriniz" 
+        [ngClass]="{'is-invalid': employeeAddForm.get('lastName')?.invalid && (employeeAddForm.get('lastName')?.touched || employeeAddForm.get('lastName')?.dirty)}"
+        aria-describedby="lastNameFeedback"
+      />
+      <div *ngIf="employeeAddForm.get('lastName')?.invalid && (employeeAddForm.get('lastName')?.touched || employeeAddForm.get('lastName')?.dirty)" class="p-error">
+        Soyad alanı zorunludur ve en az 2 karakter olmalıdır.
+      </div>
     </div>
 
     <!-- Site Number -->
-    <div class="form-group">
+    <div class="p-field">
       <label for="siteNumber">Şantiye No</label>
-      <input id="siteNumber" formControlName="siteNumber" type="text" class="form-control" placeholder="Şantiye No Giriniz" />
+      <input 
+        id="siteNumber" 
+        formControlName="siteNumber" 
+        type="text" 
+        pInputText 
+        placeholder="Şantiye No Giriniz" 
+        [ngClass]="{'is-invalid': employeeAddForm.get('siteNumber')?.invalid && (employeeAddForm.get('siteNumber')?.touched || employeeAddForm.get('siteNumber')?.dirty)}"
+        aria-describedby="siteNumberFeedback"
+      />
+      <div *ngIf="employeeAddForm.get('siteNumber')?.invalid && (employeeAddForm.get('siteNumber')?.touched || employeeAddForm.get('siteNumber')?.dirty)" class="p-error">
+        Şantiye No alanı zorunludur.
+      </div>
     </div>
 
     <!-- Hourly Rate -->
-    <div class="form-group">
+    <div class="p-field">
       <label for="hourlyRate">Saatlik Ücret</label>
-      <input id="hourlyRate" formControlName="hourlyRate" type="number" class="form-control" placeholder="Saatlik Ücret Giriniz" />
+      <input 
+        id="hourlyRate" 
+        formControlName="hourlyRate" 
+        type="number" 
+        pInputText 
+        placeholder="Saatlik Ücreti Giriniz" 
+        [ngClass]="{'is-invalid': employeeAddForm.get('hourlyRate')?.invalid && (employeeAddForm.get('hourlyRate')?.touched || employeeAddForm.get('hourlyRate')?.dirty)}"
+        aria-describedby="hourlyRateFeedback"
+      />
+      <div *ngIf="employeeAddForm.get('hourlyRate')?.invalid && (employeeAddForm.get('hourlyRate')?.touched || employeeAddForm.get('hourlyRate')?.dirty)" class="p-error">
+        Saatlik Ücret alanı zorunludur ve 0'dan büyük olmalıdır.
+      </div>
     </div>
 
     <!-- Salary -->
-    <div class="form-group">
+    <div class="p-field">
       <label for="salary">Maaş</label>
-      <input id="salary" formControlName="salary" type="number" class="form-control" placeholder="Maaş Giriniz" />
+      <input 
+        id="salary" 
+        formControlName="salary" 
+        type="number" 
+        pInputText 
+        placeholder="Maaşınızı Giriniz" 
+        [ngClass]="{'is-invalid': employeeAddForm.get('salary')?.invalid && (employeeAddForm.get('salary')?.touched || employeeAddForm.get('salary')?.dirty)}"
+        aria-describedby="salaryFeedback"
+      />
+      <div *ngIf="employeeAddForm.get('salary')?.invalid && (employeeAddForm.get('salary')?.touched || employeeAddForm.get('salary')?.dirty)" class="p-error">
+        Maaş alanı zorunludur ve 0'dan büyük olmalıdır.
+      </div>
     </div>
 
     <!-- Social Security Premium -->
-    <div class="form-group">
+    <div class="p-field">
       <label for="socialSecurityPremium">SGK Primi</label>
-      <input id="socialSecurityPremium" formControlName="socialSecurityPremium" type="number" class="form-control" placeholder="SGK Primi Giriniz" />
+      <input 
+        id="socialSecurityPremium" 
+        formControlName="socialSecurityPremium" 
+        type="number" 
+        pInputText 
+        placeholder="SGK Primini Giriniz" 
+        [ngClass]="{'is-invalid': employeeAddForm.get('socialSecurityPremium')?.invalid && (employeeAddForm.get('socialSecurityPremium')?.touched || employeeAddForm.get('socialSecurityPremium')?.dirty)}"
+        aria-describedby="socialSecurityPremiumFeedback"
+      />
+      <div *ngIf="employeeAddForm.get('socialSecurityPremium')?.invalid && (employeeAddForm.get('socialSecurityPremium')?.touched || employeeAddForm.get('socialSecurityPremium')?.dirty)" class="p-error">
+        SGK Primi alanı zorunludur ve 0'dan büyük olmalıdır.
+      </div>
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Personel Ekle</button>
+    <div class="p-field">
+      <button pButton type="submit" label="Personel Ekle" [disabled]="employeeAddForm.invalid"></button>
+    </div>
   </form>
 
-  <!-- Navigation Back Button -->
-  <a routerLink="/employee">Listeye Geri Dön</a>
 </div>

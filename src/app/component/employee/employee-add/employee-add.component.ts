@@ -3,56 +3,74 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from 'src/app/services/Employee/employee.service';
 import { Employee } from 'src/app/models/employee/employee.model';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+
 @Component({
   selector: 'app-employee-add',
   templateUrl: './employee-add.component.html',
   styleUrls: ['./employee-add.component.css']
 })
 export class EmployeeAddComponent implements OnInit {
-  employeeAddForm: FormGroup = new FormGroup({});
+  employeeAddForm!: FormGroup; 
 
-  constructor(private formBuilder: FormBuilder, private employeeService: EmployeeService,  public ref: DynamicDialogRef) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private employeeService: EmployeeService,
+    public ref: DynamicDialogRef
+  ) {}
 
   ngOnInit(): void {
     this.employeeAddForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
       siteNumber: ['', Validators.required],
-      hourlyRate: ['', Validators.required],
-      salary: ['', Validators.required],
-      socialSecurityPremium: ['', Validators.required],
+      hourlyRate: ['', [Validators.required, Validators.min(0)]],
+      salary: ['', [Validators.required, Validators.min(0)]],
+      socialSecurityPremium: ['', [Validators.required, Validators.min(0)]],
     });
   }
 
-  addEmployee() {
+  onSubmit() {
     if (this.employeeAddForm.valid) {
-      const id = this.employeeAddForm.get('id')?.value;
-      const firstName = this.employeeAddForm.get('firstName')?.value;
-      const lastName = this.employeeAddForm.get('lastName')?.value;
-      const siteNumber = this.employeeAddForm.get('siteNumber')?.value;
-      const hourlyRate = this.employeeAddForm.get('hourlyRate')?.value;
-      const salary = this.employeeAddForm.get('salary')?.value;
-      const socialSecurityPremium = this.employeeAddForm.get('socialSecurityPremium')?.value;
+      const newEmployee: Employee = this.prepareEmployeeObject();
+      this.employeeService.addEmployee(newEmployee).subscribe({
+        next: (response) => {
+          console.log('Employee added successfully:', response);
+          this.ref.close();
+        },
+        error: (error) => {
+          console.error('Error adding employee:', error);
+          if (error.status === 400 && error.error.includes('Invalid Construction Site number')) {
+            alert('Site number should be a valid GUID.');
+          } else {
+            alert('An error occurred while adding the employee. Please try again.');
+          }
+        }
+      });
+    } else {
+      this.displayFormErrors();
+    }
+  }
 
-      const employee = new Employee(
-        parseInt(id, 10),
-        firstName,
-        lastName,
-        siteNumber,
-        parseFloat(hourlyRate),
-        parseFloat(salary),
-        parseFloat(socialSecurityPremium)
-      );
-      
+  private prepareEmployeeObject(): Employee {
+    return {
+      id: 0, 
+      firstName: this.employeeAddForm.get('firstName')?.value,
+      lastName: this.employeeAddForm.get('lastName')?.value,
+      siteNumber: this.employeeAddForm.get('siteNumber')?.value, 
+      hourlyRate: parseFloat(this.employeeAddForm.get('hourlyRate')?.value || '0'),
+      salary: parseFloat(this.employeeAddForm.get('salary')?.value || '0'),
+      socialSecurityPremium: parseFloat(this.employeeAddForm.get('socialSecurityPremium')?.value || '0')
+    };
+  }
 
-      try {
-        this.employeeService.addEmployee(employee);
-         this.ref.close(); // Close the dialog after adding the company
-       } catch (error) {
-         console.error('Error adding company:', error);
-         // Handle error if necessary
-       }
+  private displayFormErrors() {
+    for (const control in this.employeeAddForm.controls) {
+      if (this.employeeAddForm.controls.hasOwnProperty(control)) {
+        const controlErrors = this.employeeAddForm.controls[control].errors;
+        if (controlErrors) {
+          console.warn(`Validation errors for ${control}:`, controlErrors);
+        }
+      }
     }
   }
 }
