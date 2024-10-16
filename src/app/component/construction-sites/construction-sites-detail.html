@@ -9,6 +9,9 @@
       <div class="info-item">
           <strong>Şantiye No:</strong> {{ constructionSite?.constructionSiteNo }}
       </div>
+      <div class="info-item">
+        <strong>Toplam Cari Tutarı:</strong> {{ totalAmount }}
+    </div>
   </div>
 </div>
 
@@ -49,39 +52,4 @@
 
     </div>
   </div>
-  
-
-  <!-- Existing code for displaying grouped current amounts -->
-  <!-- <div *ngIf="groupedCurrentAmount.receivables.length > 0">
-      <h3>Alış Fişleri</h3>
-      <div class="sites-container">
-          <div *ngFor="let site of groupedCurrentAmount.receivables" class="site-card">
-              <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
-              <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
-              <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
-          </div>
-      </div>
-  </div>
-
-  <div *ngIf="groupedCurrentAmount.payables.length > 0">
-      <h3>Satış Fişleri</h3>
-      <div class="sites-container">
-          <div *ngFor="let site of groupedCurrentAmount.payables" class="site-card">
-              <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
-              <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
-              <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
-          </div>
-      </div>
-  </div>
-
-  <div *ngIf="groupedCurrentAmount.progressPayments.length > 0">
-      <h3>Hakediş Fişleri</h3>
-      <div class="sites-container">
-          <div *ngFor="let site of groupedCurrentAmount.progressPayments" class="site-card">
-              <strong>Şantiye Adı:</strong> {{ site.constructionSiteName }}<br>
-              <strong>Şantiye Kodu:</strong> {{ site.constructionSiteNo }}<br>
-              <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
-          </div>
-      </div>
-  </div> -->
 </div>

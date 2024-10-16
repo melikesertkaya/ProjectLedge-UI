@@ -38,6 +38,7 @@ export class ConstructionSitesDetailComponent implements OnInit {
   companyName:string | null = null;
   selectedFilter: string = 'all'; // Default filter value
   filteredCurrentAmount: CurrentAmountResponseModel[] = []; 
+  public totalAmount:number=0;
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
@@ -155,8 +156,13 @@ export class ConstructionSitesDetailComponent implements OnInit {
             site.Date 
           )
         );
-  
-        // Grouping logic
+        this.totalAmount = this.currentAmountResponseModel.reduce((sum, site) => {
+          if (site.currentAccountType === CurrentAccountType.ReceivableAmount) {
+            return sum - site.totalAmount; 
+          } else {
+            return sum + site.totalAmount; 
+          }
+        }, 0);
         this.groupedCurrentAmount.receivables = this.currentAmountResponseModel.filter(site => site.currentAccountType === CurrentAccountType.ReceivableAmount);
         this.groupedCurrentAmount.payables = this.currentAmountResponseModel.filter(site => site.currentAccountType === CurrentAccountType.PayableAmount);
         this.groupedCurrentAmount.progressPayments = this.currentAmountResponseModel.filter(site => site.currentAccountType === CurrentAccountType.ProgressPaymentAmount);

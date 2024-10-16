@@ -24,10 +24,11 @@ export class CompanyDetailComponent implements OnInit {
   constructionSites: ConstructionSites[] = [];
   currentAmountResponseModel : CurrentAmountResponseModel [] = [];
   siteTotalAmount:number=0;
+  public totalOfAllSites:number =0
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
-    private constructionSitesService: ConstructionSitesService, // Servisi ekleyin
+    private constructionSitesService: ConstructionSitesService, 
     private router: Router,
     private fb: FormBuilder
   ) {
@@ -78,55 +79,53 @@ export class CompanyDetailComponent implements OnInit {
   
   getCurrentAmountByCompanyId(companyId: string): void {
     this.constructionSitesService.getCurrentAmountByCompanyId(companyId).subscribe(
-        (amounts) => {
-            // Initialize a total variable to accumulate results
-            let totalSum = 0;
-
-            amounts.forEach((amount: any) => {
-                const site = this.siteInfoList.find(s => s.siteName === amount.ConstructionSiteName);
-                if (site) {
-                    // Ensure totalAmount is initialized
-                    site.totalAmount = site.totalAmount || 0; // Başlangıçta 0
-
-                    // Check CurrentAccountType and adjust the total amount accordingly
-                    switch (amount.CurrentAccountType) {
-                        case 1:
-                            // Subtract value for CurrentAccountType 1
-                            totalSum -= amount.TotalAmount; // Total'dan çıkar
-                            break;
-                        case 2:
-                            // Add value for CurrentAccountType 2
-                            totalSum += amount.TotalAmount; // Total'a ekle
-                            break;
-                        case 3:
-                            // Add value for CurrentAccountType 3 and accumulate in totalSum
-                            totalSum += amount.TotalAmount; // Total'a ekle
-                            break;
-                        default:
-                            console.warn('Unknown CurrentAccountType:', amount.CurrentAccountType);
-                    }
-
-                    // Update the site totalAmount for current site
-                    if (amount.CurrentAccountType === 1) {
-                        site.totalAmount -= amount.TotalAmount; // Site toplamından çıkar
-                    } else {
-                        site.totalAmount += amount.TotalAmount; // Diğer türler için toplamı artır
-                    }
-                    site.totalAmount=totalSum
-                }
-            });
-
-            // Log the total sum for all CurrentAccountType
-            console.log('Total Sum:', totalSum);
-        },
-        (error) => {
-            console.error('Error fetching current amounts:', error);
-        }
+      (amounts) => {
+        let totalSum = 0;
+        let siteTotals: { [key: string]: number } = {}; // Nesne, her site için toplamı tutar
+  
+        // Ensure totalAmount is initialized before calculation
+        this.siteInfoList.forEach(site => site.totalAmount = 0);
+  
+        amounts.forEach((amount: any) => {
+          const site = this.siteInfoList.find(s => s.siteName === amount.ConstructionSiteName);
+  
+          if (site && site.totalAmount !== null) {
+            // Apply the right calculation for each CurrentAccountType
+            if (amount.CurrentAccountType === 1) {
+              site.totalAmount -= amount.TotalAmount;
+              totalSum -= amount.TotalAmount;
+            } else {
+              site.totalAmount += amount.TotalAmount;
+              totalSum += amount.TotalAmount;
+            }
+  
+            // Dinamik olarak her site için toplam tutarını hesapla
+            if (!siteTotals[amount.ConstructionSiteName]) {
+              siteTotals[amount.ConstructionSiteName] = 0; // Eğer daha önce tanımlı değilse 0 olarak başlat
+            }
+  
+            // Her site için toplamı güncelle
+            if (amount.CurrentAccountType === 1) {
+              siteTotals[amount.ConstructionSiteName] -= amount.TotalAmount;
+            } else {
+              siteTotals[amount.ConstructionSiteName] += amount.TotalAmount;
+            }
+          }
+        });
+  
+        // Tüm site toplamlarının genel toplamını hesapla
+         this.totalOfAllSites = Object.values(siteTotals).reduce((acc, curr) => acc + curr, 0);
+  
+        console.log('Site-specific Totals:', siteTotals); // Her site için toplamlar
+        console.log('Total of all sites:', this.totalOfAllSites); // Tüm site toplamlarının genel sonucu
+        console.log('Overall Total Sum:', totalSum);  // Overall sum for all sites
+      },
+      (error) => {
+        console.error('Error fetching current amounts:', error);
+      }
     );
-}
-
-
-
+  }
+  
   private mapCompany(company: any): Company {
     return new Company(
       company.Id, 
@@ -158,20 +157,20 @@ export class CompanyDetailComponent implements OnInit {
   addSite() {
     const siteName = this.siteForm.value.siteName; 
     const siteCode = this.siteForm.value.siteCode; 
-    const companyName =   this.companyName ?? ""; // Get the company name from the form
+    const companyName =   this.companyName ?? ""; 
   
     if (this.companyId) {
       const newSiteRequest = new ConstructionSites(
         siteName,
-        siteCode,  // Ensure this is the correct type (number or string as per your requirement)
+        siteCode,  
         this.companyId,
-        companyName // Pass the company name here
+        companyName 
       );
   
       this.constructionSitesService.createConstructionSite(newSiteRequest).subscribe(
         (response) => {
           console.log('Construction site added:', response);
-          window.location.reload(); // Consider refreshing the site list instead
+          window.location.reload(); 
           this.hideSiteForm();
         },
         (error) => {
