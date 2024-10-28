@@ -45,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimesheetService } from './services/Timesheets/timesheets.service';
 import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component';
 import { ConstructionSitesDetailComponent } from './component/construction-sites/construction-sites-detail';
+import { EmployeeDetailComponent } from './component/employee/employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ConstructionSitesDetailComponent } from './component/construction-sites
     ProgressPaymentComponent,
     ProgressPaymentDialogComponent,
     CompanyDetailComponent,
-    ConstructionSitesDetailComponent
+    ConstructionSitesDetailComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,

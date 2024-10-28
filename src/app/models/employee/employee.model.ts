@@ -1,5 +1,5 @@
 export class Employee {
-    public id: number;
+    public id: string;
     public firstName: string;
     public lastName: string;
     public siteNumber: string; 
@@ -8,7 +8,7 @@ export class Employee {
     public socialSecurityPremium: number;
 
     constructor(
-        id: number,
+        id: string,
         firstName: string,
         lastName: string,
         siteNumber: string,

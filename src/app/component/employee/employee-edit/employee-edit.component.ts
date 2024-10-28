@@ -13,7 +13,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 })
 export class EmployeeEditComponent implements OnInit {
   editForm: FormGroup = new FormGroup({});
-  id: number = -1;
+  id: string = '';
 
   constructor(
     private formBuilder: FormBuilder,

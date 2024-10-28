@@ -53,7 +53,7 @@ export class EmployeeAddComponent implements OnInit {
 
   private prepareEmployeeObject(): Employee {
     return {
-      id: 0, 
+      id: '', 
       firstName: this.employeeAddForm.get('firstName')?.value,
       lastName: this.employeeAddForm.get('lastName')?.value,
       siteNumber: this.employeeAddForm.get('siteNumber')?.value, 

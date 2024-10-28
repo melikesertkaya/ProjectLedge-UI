@@ -3,6 +3,7 @@ import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { Employee } from 'src/app/models/employee/employee.model';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Personnel } from 'src/app/models/employee/personnel.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,38 +14,60 @@ export class EmployeeService {
   private path=environment.apiUrl
   constructor(private httpClient:HttpClient) {
     // Create at least one employee in the constructor
-    const e1 = new Employee(1, 'Enes', 'Aslan', 'Doğuş', 25, 50000, 2000);
-    const e2 = new Employee(2, 'Ali', 'Deniz', 'Gülermak', 30, 55000, 2100);
-    const e3 = new Employee(3, 'Fatih', 'Yılmaz', 'Doğuş', 30, 60000, 2200);
-    const e4 = new Employee(4, 'Süleyman', 'Hakkı', 'Doğuş', 30, 62000, 2300);
-    const e5 = new Employee(5, 'Ferat', 'Kaya', 'Gülermak', 30, 64000, 2400);
+    const e1 = new Employee('', 'Enes', 'Aslan', 'Doğuş', 25, 50000, 2000);
+    const e2 = new Employee('', 'Ali', 'Deniz', 'Gülermak', 30, 55000, 2100);
+    const e3 = new Employee('', 'Fatih', 'Yılmaz', 'Doğuş', 30, 60000, 2200);
+    const e4 = new Employee('', 'Süleyman', 'Hakkı', 'Doğuş', 30, 62000, 2300);
+    const e5 = new Employee('', 'Ferat', 'Kaya', 'Gülermak', 30, 64000, 2400);
     this.employees.push(e1, e2, e3, e4, e5);
 
     this.employeesSubject.next([...this.employees]);
   }
+  getPersonnelById(id: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.path}/${id}`);
+  }
 
+  // Get all personnels
+  getAllPersonnels(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.path}Personnels/GetAllPersonnels`);
+  }
+
+  // Create a new personnel
+  createPersonnel(employeeRequest: Employee): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<any>(`${this.path}/CreatePersonnel`, employeeRequest, { headers });
+  }
   addEmployee(employee: Employee): Observable<Employee> {
     return this.httpClient.post<Employee>(`${this.path}Personnels/CreatePersonnel`, employee, {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    }).pipe(
-        tap(response => console.log('Employee added:', response)),
-        catchError(error => {
-            console.error('Error adding Employee:', error);
-            return throwError(() => error);
-        })
-    );
-}
-getEmployees(): Observable<Employee[]> {
-  return this.httpClient.get<Employee[]>(`${this.path}Personnels/GetAllPersonnels`).pipe(
-      tap(data => console.log('API Data:', data)),
-      catchError(error => {
-          console.error('Error occurred:', error);
-          return throwError(() => error);
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
       })
-  );
-}
+    }).pipe(
+      tap(response => {
+        console.log('Employee added:', response);
+        const currentEmployees = this.employeesSubject.value;
+        this.employeesSubject.next([...currentEmployees, response]); // Update subject
+      }),
+      catchError(error => {
+        console.error('Error adding employee:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Get All Employees
+  getEmployees(): Observable<Employee[]> {
+    return this.httpClient.get<Employee[]>(`${this.path}Personnels/GetAllPersonnels`).pipe(
+      tap(data => {
+        console.log('Fetched employees from API:', data);
+        this.employeesSubject.next(data); // Update subject with fetched data
+      }),
+      catchError(error => {
+        console.error('Error fetching employees:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
   updateEmployee(employee: Employee) {
     const index = this.employees.findIndex(e => e.id === employee.id);
@@ -54,7 +77,7 @@ getEmployees(): Observable<Employee[]> {
     }
   }
 
-  getEmployeeById(id: number) {
+  getEmployeeById(id: string) {
     const index = this.employees.findIndex(e => e.id === id);
     if (index !== -1) {
       return this.employees[index];
@@ -62,15 +85,34 @@ getEmployees(): Observable<Employee[]> {
       return null;
     }
   }
+  getEmployeeByIdx(id: string): Observable<Personnel> {
+    return this.httpClient.get<Personnel>(`${this.path}Personnels/GetEmployeeById?id=${id}`).pipe(
+        tap(employee => console.log('Fetched employee by ID:', employee)),
+        catchError(error => {
+            console.error('Error fetching employee by ID:', error);
+            return throwError(() => error);
+        })
+    );
+}
 
-  deleteEmployee(id: number) {
-    const index = this.employees.findIndex(e => e.id === id);
-
-    if (index !== -1) {
-      this.employees.splice(index, 1);
-      this.employeesSubject.next([...this.employees]);
-    }
+  
+  deleteEmployee(id: string): Observable<any> {
+    return this.httpClient.post<any>(`${this.path}Personnels/DeletePersonnel`, { id }, { // Pass ID as a string (GUID)
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(
+      tap(response => {
+        console.log('Personnel deleted:', response);
+        const currentEmployees = this.employeesSubject.value;
+        this.employeesSubject.next(currentEmployees.filter(employee => employee.id !== id)); // Update employee list after deletion
+      }),
+      catchError(error => {
+        console.error('Error deleting personnel:', error);
+        return throwError(() => error);
+      })
+    );
   }
-
+  
   
 }

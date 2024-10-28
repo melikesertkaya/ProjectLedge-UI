@@ -1,32 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject } from '@angular/core';
 import { EmployeeService } from 'src/app/services/Employee/employee.service';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-employee-delete',
   templateUrl: './employee-delete.component.html',
   styleUrls: ['./employee-delete.component.css']
 })
-export class EmployeeDeleteComponent implements OnInit {
+export class EmployeeDeleteComponent  {
   
-  id: number = -1;
-  employeeName: string = '';
-  constructor(private route: ActivatedRoute, private router: Router, private employeeService: EmployeeService) { }
+  constructor(
+    public dialogRef: MatDialogRef<EmployeeDeleteComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { id: string,firstName: string,lastName: string }
+  ) {}
+  
 
-  ngOnInit(): void {
-    this.id = +this.route.snapshot.paramMap.get('id')!;
-    const employee = this.employeeService.getEmployeeById(this.id);
-    if (employee) {
-      this.employeeName = employee.lastName;
-    }
+  onCancel(): void {
+    this.dialogRef.close(false); // Close dialog without deleting
   }
 
-  deleteEmployee() {
-    this.employeeService.deleteEmployee(this.id);
-    this.router.navigate(['menu'], { queryParams: { tab: 'employee' } });
-  }
-
-  cancel() {
-    this.router.navigate(['menu'], { queryParams: { tab: 'employee' } });
+  onConfirm(): void {
+    this.dialogRef.close(true); // Confirm deletion
   }
 }

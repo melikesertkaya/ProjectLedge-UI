@@ -4,9 +4,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeService } from 'src/app/services/Employee/employee.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
-import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Personnel } from 'src/app/models/employee/personnel.model';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeDeleteComponent } from './employee-delete/employee-delete.component';
+export enum PersonnelRole {
+  Worker = 0,
+  Supervisor = 1,
+  Engineer = 2,
+  Manager = 3
+}
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -16,15 +23,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
   errorMessage: string = '';
-  isFormVisible: boolean = false; // Track form visibility
-  form: FormGroup; // Reactive form for employee
-
+  isFormVisible: boolean = false; 
+  form: FormGroup; 
+  personnels: any[] = [];
+  newPersonnel: Employee = {
+    id: '', 
+    firstName: '',
+    lastName: '',
+    siteNumber: '',
+    hourlyRate: 0,
+    salary: 0,
+    socialSecurityPremium: 0,
+  };
+  personnelRoles = [
+    { key: PersonnelRole.Worker, value: 'Worker' },
+    { key: PersonnelRole.Supervisor, value: 'Supervisor' },
+    { key: PersonnelRole.Engineer, value: 'Engineer' },
+    { key: PersonnelRole.Manager, value: 'Manager' }
+  ];
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
     private employeeService: EmployeeService,
     public dialogService: DialogService,
-    private fb: FormBuilder // Inject FormBuilder for reactive forms
+    private dialog: MatDialog,
+    private fb: FormBuilder 
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -34,9 +57,41 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadEmployees();
+    this.getAllPersonnels();
   }
-
+  getAllPersonnels() {
+    this.employeeService.getEmployees().subscribe(
+      (data) => {
+        this.personnels =this.mapPersonnel(data);
+        
+      },
+    );
+  }
+  private mapPersonnel(data: any[]): Personnel[] {
+    return data.map((personnel) => {
+      return new Personnel(
+        personnel.Id,  
+        personnel.FirstName,  
+        personnel.LastName,  
+        personnel.DateOfBirth,  
+        personnel.Role,  
+        personnel.HourlySalary,  
+        personnel.TotalSalary,  
+        personnel.HourlySgkPremium,  
+        personnel.TotalSgkPremium,  
+        personnel.ConstructionSiteName ?? 'Unknown',  
+        personnel.CompanyName ?? 'Unknown' 
+      );
+    });
+  }
+  createPersonnel() {
+    this.employeeService.createPersonnel(this.newPersonnel).subscribe(
+      (response) => {
+        console.log('Personnel created successfully', response);
+        this.getAllPersonnels(); 
+      },
+    );
+  }
   loadEmployees() {
     this.employeeService.getEmployees().subscribe({
       next: (employees) => {
@@ -50,20 +105,21 @@ export class EmployeeComponent implements OnInit {
   }
 
   openAddDialog() {
-    this.isFormVisible = true; // Show the form
+    this.isFormVisible = true; 
   }
 
   addEmployee() {
     if (this.form.invalid) {
-      return; // If the form is invalid, do not proceed
+      return; 
     }
 
     const newEmployee: Employee = this.form.value;
 
     this.employeeService.addEmployee(newEmployee).subscribe({
       next: () => {
-        this.loadEmployees(); // Refresh employee list after adding
-        this.hideForm(); // Hide the form
+        this.loadEmployees(); 
+        this.hideForm(); 
+        this.getAllPersonnels(); 
       },
       error: (error) => {
         this.errorMessage = 'Çalışan eklerken bir hata oluştu. Lütfen tekrar deneyin.';
@@ -73,8 +129,8 @@ export class EmployeeComponent implements OnInit {
   }
 
   hideForm() {
-    this.isFormVisible = false; // Hide the form
-    this.form.reset(); // Reset the form fields
+    this.isFormVisible = false; 
+    this.form.reset(); 
   }
 
   openEditDialog(id: number) {
@@ -84,13 +140,32 @@ export class EmployeeComponent implements OnInit {
       width: '70%'
     });
 
-    // Refresh employees list after the dialog is closed
     dialogRef.onClose.subscribe(() => {
       this.loadEmployees();
     });
   }
 
-  navigateToDelete(id: number) {
-    this.router.navigate(['employee/delete', id]);
-  }
+  navigateToDelete(id: string,firstName:string,lastName:string): void {
+    const dialogRef = this.dialog.open(EmployeeDeleteComponent, {
+      width: '400px',
+      data: { id,firstName,lastName }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // If user confirmed deletion
+        this.employeeService.deleteEmployee(id).subscribe({
+          next: () => {
+            console.log('Company deleted successfully.');
+            window.location.reload();
+          },
+          error: (error) => {
+            console.error('Error deleting company:', error);
+          }
+        });
+      }
+    });
+}
+goToEmployeeDetails(id: string): void {
+  this.router.navigate(['employee-detail', id]);
+}
 }
