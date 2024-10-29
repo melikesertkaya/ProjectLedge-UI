@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule,MatDateFormats, MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
 // PrimeNG
@@ -40,13 +40,21 @@ import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ProgressPaymentComponent } from './component/progress-payment/progress-payment.component';
 import { ProgressPaymentDialogComponent } from './component/progress-payment/progress-payment-add/progress-payment-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 // Services
 import { TimesheetService } from './services/Timesheets/timesheets.service';
 import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component';
 import { ConstructionSitesDetailComponent } from './component/construction-sites/construction-sites-detail';
 import { EmployeeDetailComponent } from './component/employee/employee-detail/employee-detail.component';
-
+const CUSTOM_DATE_FORMATS: MatDateFormats = {
+  parse: { dateInput: 'DD-MM-YYYY' },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD-MM-YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  }
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,13 +97,16 @@ import { EmployeeDetailComponent } from './component/employee/employee-detail/em
     TabViewModule,
     TableModule,
     DynamicDialogModule,
+    MatCheckboxModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutInterceptor,
       multi: true
-    }
+    },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, // Use UK locale for dd-MM-yyyy format
   ],
   bootstrap: [AppComponent]
 })

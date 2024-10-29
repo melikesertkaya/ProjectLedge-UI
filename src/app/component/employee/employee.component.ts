@@ -53,6 +53,8 @@ export class EmployeeComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       position: ['', Validators.required],
+      salary: ['', Validators.required],
+      socialSecurityPremium: ['', Validators.required],
     });
   }
 
@@ -156,7 +158,7 @@ export class EmployeeComponent implements OnInit {
         this.employeeService.deleteEmployee(id).subscribe({
           next: () => {
             console.log('Company deleted successfully.');
-            window.location.reload();
+            this.getAllPersonnels(); 
           },
           error: (error) => {
             console.error('Error deleting company:', error);

@@ -1,45 +1,66 @@
 <div class="container">
   <h2>Puantaj Ekle</h2>
-  
+
   <form [formGroup]="form">
-    <mat-form-field appearance="fill">
-      <mat-label>Tarih</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Tarih seçiniz">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Çalışan Seçin</mat-label>
+        <mat-select formControlName="employee" (selectionChange)="getEmployeeDetails($event.value)">
+          <mat-option *ngFor="let employee of personnels" [value]="employee">
+            {{ employee.firstName + ' ' + employee.lastName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Saatlik Çalışma</mat-label>
-      <input matInput formControlName="hoursWorked" type="number">
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Tarih</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Tarih seçiniz">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      
 
-    <mat-form-field appearance="fill">
-      <mat-label>Mesai</mat-label>
-      <input matInput formControlName="overtimeHours" type="number">
-    </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    </div>
+
+    <div class="checkboxes">
+      <mat-checkbox formControlName="fullDay" (change)="onFullDayChange()">Tam Gün Çalıştı</mat-checkbox>
+      <mat-checkbox formControlName="hourly" (change)="onHourlyChange()">Saatlik Çalıştı</mat-checkbox>
+    </div>
+    
+
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Saatlik Çalışma</mat-label>
+        <input matInput formControlName="hoursWorked" type="number">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Saatlik Maaş</mat-label>
+        <input matInput formControlName="hourlyWage" type="number" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Saatlik SGK Primi</mat-label>
+        <input matInput formControlName="hourlySocialSecurityPremium" type="number">
+      </mat-form-field>
+
+   
+    </div>
+    
+    <div class="form-row">
+    <mat-form-field appearance="fill" class="flex-item">
       <mat-label>Günlük Maaş</mat-label>
       <input matInput formControlName="dailySalary" type="number">
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Saatlik Maaş</mat-label>
-      <input matInput formControlName="hourlyWage" type="number">
-    </mat-form-field>
-
     <mat-form-field appearance="fill">
       <mat-label>Günlük SGK Primi</mat-label>
       <input matInput formControlName="dailySocialSecurityPremium" type="number">
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Saatlik SGK Primi</mat-label>
-      <input matInput formControlName="hourlySocialSecurityPremium" type="number">
-    </mat-form-field>
-
-    <button mat-button (click)="onNoClick()">İptal</button>
-    <button mat-button (click)="save()">Kaydet</button>
+  </div>
+    <div class="button-row">
+      <button mat-button class="btn-warning" (click)="onNoClick()">İptal</button>
+      <button mat-button class="btn-primary" (click)="save()">Kaydet</button>
+    </div>
   </form>
 </div>

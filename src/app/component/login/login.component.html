@@ -1,24 +1,51 @@
 <div class="login-container">
-  <div *ngIf="!companySelected" class="company-selection">
-    <h2>Şirket Seç</h2>
-    <button class="btn btn-primary" (click)="selectCompany('Destoglu')">Deştioğlu</button>
-    <button class="btn btn-primary" (click)="selectCompany('Denizim')">Denizim</button>
+  <button class="btn btn-primary" (click)="toggleView('login')">Giriş Yap</button>
+  <button class="btn btn-info" (click)="toggleView('register')">Kayıt Ol</button>
+
+  <!-- Login Form as Modal -->
+  <div *ngIf="showLogin" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h3>Giriş Yap</h3>
+      <div class="form-group">
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" [(ngModel)]="username" class="form-control" placeholder="Kullanıcı Adınızı Girin">
+      </div>
+      <div class="form-group">
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" [(ngModel)]="password" class="form-control" placeholder="Şifrenizi Girin">
+      </div>
+      <div class="buttons-container">
+        <button class="btn btn-primary" (click)="login()">Giriş</button>
+        <button class="btn btn-secondary" (click)="clear()">Temizle</button>
+      </div>
+    </div>
   </div>
 
-  <div *ngIf="companySelected" class="login-form">
-    <div class="form-group">
-      <label for="username">Kullanıcı Adı:</label>
-      <input type="text" id="username" [(ngModel)]="username" class="form-control">
-    </div>
-
-    <div class="form-group">
-      <label for="password">Şifre:</label>
-      <input type="password" id="password" [(ngModel)]="password" class="form-control">
-    </div>
-
-    <div class="buttons-container">
-      <button class="btn btn-primary" (click)="login()">Giriş</button>
-      <button class="btn btn-info" (click)="clear()">Temizle</button>
+  <!-- Register Form as Modal -->
+  <div *ngIf="showRegister" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h3>Kayıt Ol</h3>
+      <div class="form-group">
+        <label for="userName">Kullanıcı Adı:</label>
+        <input type="text" id="userName" [(ngModel)]="userName" class="form-control" placeholder="Kullanıcı Adınızı Girin">
+      </div>
+      <div class="form-group">
+        <label for="registerPassword">Şifre:</label>
+        <input type="password" id="registerPassword" [(ngModel)]="registerPassword" class="form-control" placeholder="Şifrenizi Girin">
+      </div>
+      <div class="form-group">
+        <label for="personnelType">Personel Türü:</label>
+        <select id="personnelType" [(ngModel)]="personnelType" class="form-control">
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+      </div>
+      <div class="buttons-container">
+        <button class="btn btn-primary" (click)="register()">Kayıt Ol</button>
+        <button class="btn btn-secondary" (click)="clear()">Temizle</button>
+      </div>
     </div>
   </div>
 </div>

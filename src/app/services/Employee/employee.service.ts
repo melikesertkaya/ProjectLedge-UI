@@ -4,6 +4,7 @@ import { Employee } from 'src/app/models/employee/employee.model';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Personnel } from 'src/app/models/employee/personnel.model';
+import { PersonelCurrentAccount } from 'src/app/models/timesheet/personelCurrentAccount';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,15 +14,7 @@ export class EmployeeService {
   private employeesSubject = new BehaviorSubject<Employee[]>([]);
   private path=environment.apiUrl
   constructor(private httpClient:HttpClient) {
-    // Create at least one employee in the constructor
-    const e1 = new Employee('', 'Enes', 'Aslan', 'Doğuş', 25, 50000, 2000);
-    const e2 = new Employee('', 'Ali', 'Deniz', 'Gülermak', 30, 55000, 2100);
-    const e3 = new Employee('', 'Fatih', 'Yılmaz', 'Doğuş', 30, 60000, 2200);
-    const e4 = new Employee('', 'Süleyman', 'Hakkı', 'Doğuş', 30, 62000, 2300);
-    const e5 = new Employee('', 'Ferat', 'Kaya', 'Gülermak', 30, 64000, 2400);
-    this.employees.push(e1, e2, e3, e4, e5);
-
-    this.employeesSubject.next([...this.employees]);
+   
   }
   getPersonnelById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.path}/${id}`);
@@ -95,7 +88,6 @@ export class EmployeeService {
     );
 }
 
-  
   deleteEmployee(id: string): Observable<any> {
     return this.httpClient.post<any>(`${this.path}Personnels/DeletePersonnel`, { id }, { // Pass ID as a string (GUID)
       headers: new HttpHeaders({
@@ -113,6 +105,14 @@ export class EmployeeService {
       })
     );
   }
-  
+  getPersonelCurrentAccount(id: string): Observable<PersonelCurrentAccount> {
+    return this.httpClient.get<PersonelCurrentAccount>(`${this.path}Personnels/GetPersonelCurrentAccount?id=${id}`).pipe(
+        tap(employee => console.log('Fetched employee by ID:', employee)),
+        catchError(error => {
+            console.error('Error fetching employee by ID:', error);
+            return throwError(() => error);
+        })
+    );
+}
   
 }

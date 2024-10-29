@@ -1,41 +1,4 @@
 <div class="container">
-  <h2>Puantaj Listesi</h2>
-  
-  <!-- Button to open the dialog -->
+  <h2>Puantaj</h2>
   <button (click)="openDialog()" class="btn btn-primary mb-3">Puantaj Ekle</button>
-
-  <!-- List of timesheets -->
-  <table class="table mt-4"> <!-- Added mt-4 for margin-top -->
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Personel</th>
-        <th>Tarih</th>
-        <th>Saatlik Çalışma</th>
-        <th>Mesai</th>
-        <th>Günlük Maaş</th>
-        <th>Saatlik Maaş</th>
-        <th>Günlük SGK Primi</th>
-        <th>Saatlik SGK Primi</th>
-        <th>İşlemler</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let timesheet of timesheets$ | async">
-        <td>{{ timesheet.id }}</td>
-        <td>{{ getEmployeeName(timesheet.employeeId) }}</td>
-        <td>{{ timesheet.date | date }}</td>
-        <td>{{ timesheet.hoursWorked }}</td>
-        <td>{{ timesheet.overtimeHours }}</td>
-        <td>{{ timesheet.dailySalary }}</td>
-        <td>{{ timesheet.hourlyWage }}</td>
-        <td>{{ timesheet.dailySocialSecurityPremium }}</td>
-        <td>{{ timesheet.hourlySocialSecurityPremium }}</td>
-        <td>
-          <button (click)="openDialog(timesheet)" class="btn btn-warning">Düzenle</button>
-          <button (click)="deleteTimesheet(timesheet.id)" class="btn btn-danger">Sil</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

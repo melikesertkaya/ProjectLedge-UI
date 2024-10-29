@@ -28,7 +28,14 @@
           <option *ngFor="let role of personnelRoles" [value]="role.key">{{ role.value }}</option>
         </select>
       </div>
-      
+      <div class="form-group">
+        <label for="salary">Maaş</label>
+        <input formControlName="salary" id="salary" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="socialSecurityPremium">SGK Primi</label>
+        <input formControlName="socialSecurityPremium" id="socialSecurityPremium" class="form-control" required>
+      </div>
       <div class="form-actions">
         <button type="submit" class="btn btn-success" [disabled]="form.invalid">Ekle</button>
         <button type="button" class="btn btn-secondary" (click)="hideForm()">Geri</button>
@@ -43,6 +50,8 @@
         <th>Ad</th>
         <th>Soyad</th>
         <th>Pozisyon</th>
+        <th>Maaş</th>
+        <th>SGK Primi</th>
         <th>İşlemler</th>
       </tr>
     </thead>
@@ -51,9 +60,11 @@
         <td>{{ employee.firstName }}</td>
         <td>{{ employee.lastName }}</td>
         <td>{{ employee.role }}</td>
+        <td>{{ employee.totalSalary | currency:' ' }}</td>
+        <td>{{ employee.totalSgkPremium | currency:' ' }}</td>
         <td>
           <button (click)="goToEmployeeDetails(employee.id)" class="btn btn-info btn-sm">Detayları Gör</button>
-          <button (click)="navigateToDelete(employee.id,employee.firstName ,employee.lastName )" class="btn btn-danger btn-sm ml-2">Sil</button>
+          <button (click)="navigateToDelete(employee.id, employee.firstName, employee.lastName)" class="btn btn-danger btn-sm ml-2">Sil</button>
         </td>
       </tr>
     </tbody>

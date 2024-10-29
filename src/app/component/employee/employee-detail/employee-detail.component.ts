@@ -37,12 +37,12 @@ export class EmployeeDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id'); 
       if (id) {
-        this.getCompanyDetails(id);
+        this.getEmployeeDetails(id);
       }
     });
   }
   
-  getCompanyDetails(id: string): void {
+  getEmployeeDetails(id: string): void {
     this.employeeService.getEmployeeByIdx(id).subscribe(
       (personnelData) => {
         console.log('Fetched Employee data:', personnelData);

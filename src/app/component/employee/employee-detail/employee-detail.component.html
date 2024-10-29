@@ -1,5 +1,5 @@
 <div *ngIf="personnels" class="employee-detail-container">
-  <button class="btn-add-employee" (click)="showEmployeeForm()">Add Employee</button>
+  <!-- <button class="btn-add-employee" (click)="showEmployeeForm()">Add Employee</button> -->
   <a class="button-back" (click)="goBack()">Geri</a>
 
   <h2>Personel Detayları</h2>
@@ -10,8 +10,9 @@
         <tr>
           <th>Ad</th>
           <th>Soyad</th>
-          <th>Rol</th>
-          <th>İşlemler</th>
+          <th>Pozisyon</th>
+          <th>Maaş</th>
+          <th>SGK Primi</th>
         </tr>
       </thead>
       <tbody>
@@ -19,10 +20,9 @@
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
           <td>{{ employee.role }}</td>
-          <td>
-            <button class="btn btn-info" (click)="viewEmployeeDetails(employee)">Detayları Gör</button>
-            <button class="btn btn-danger" (click)="removeEmployee(employee)">Sil</button>
-          </td>
+          <td>{{ employee.totalSalary | currency:' ' }}</td>
+          <td>{{ employee.totalSgkPremium  | currency:' ' }}</td>
+         
         </tr>
       </tbody>
     </table>
