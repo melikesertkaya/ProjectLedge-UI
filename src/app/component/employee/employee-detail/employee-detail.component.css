@@ -1,51 +1,20 @@
-/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-}
-
-/* Title Styling */
-h2 {
+    background-color: #f9f9f9;
+  }
+  
+  /* Personel detay başlığı stili */
+  h2 {
     color: #333;
     margin: 20px 0;
-}
-
-/* Employee Details Container */
-.employee-detail-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Table Styling */
-.employee-info-table table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-thead th {
-    text-align: left;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-}
-
-tbody td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-.btn-danger{
-    margin-left: 10px;
-}
-/* Buttons */
-.button-back,
-.btn-add-employee {
+    text-align: center;
+  }
+  
+  /* Geri butonu stil ayarları */
+  .button-back {
+    display: inline-block;
     margin-bottom: 20px;
     padding: 10px 20px;
     color: #fff;
@@ -54,16 +23,53 @@ tbody td {
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s;
-    margin-left: 2px;
-}
-
-.button-back:hover,
-.btn-add-employee:hover {
+    margin-right: 10px;
+  }
+  
+  .button-back:hover {
     background-color: #0056b3;
-}
-
-/* Form Wrapper */
-.employee-form-wrapper {
+  }
+  
+  /* Personel detay kapsayıcı */
+  .employee-detail-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tablo stil ayarları */
+  .employee-info-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .employee-info-table th,
+  .employee-info-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .employee-info-table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .employee-info-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .employee-info-table tr:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Form kapsayıcı stil */
+  .employee-form-wrapper {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
@@ -75,101 +81,123 @@ tbody td {
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 400px;
-}
-
-/* Form Elements */
-.employee-form .form-group {
+  }
+  
+  /* Form elemanları stil ayarları */
+  .employee-form .form-group {
     margin-bottom: 20px;
-}
-
-.employee-form label {
+  }
+  
+  .employee-form label {
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
     display: block;
-}
-
-.employee-form input {
+  }
+  
+  .employee-form input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 5px;
     transition: border-color 0.3s;
-}
-
-.employee-form input:focus {
+  }
+  
+  .employee-form input:focus {
     border-color: #007bff;
     outline: none;
-}
-
-/* Action Buttons in Table */
-.btn {
-    padding: 5px 10px;
-    font-size: 0.9em;
+  }
+  
+  /* Form butonları stili */
+  .employee-form .form-buttons .btn {
+    padding: 12px 20px;
     border: none;
     border-radius: 5px;
     color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.btn-info {
-    background-color: #17a2b8;
-}
-
-.btn-info:hover {
-    background-color: #138496;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-}
-
-.btn-success {
+  }
+  
+  .btn-success {
     background-color: #28a745;
-}
-
-.btn-success:hover {
+  }
+  
+  .btn-success:hover {
     background-color: #218838;
-}
-
-.btn-secondary {
+  }
+  
+  .btn-secondary {
     background-color: #6c757d;
-}
-
-.btn-secondary:hover {
+  }
+  
+  .btn-secondary:hover {
     background-color: #5a6268;
-}
-
-/* Loading Message */
-.loading-message {
-    text-align: center;
-    padding: 20px;
-    color: #555;
-    font-size: 1.1em;
-}
-
-/* Responsive Styles */
-@media (max-width: 600px) {
+  }
+  
+  /* Personel kart stil ayarları */
+  .company-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .company-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+  }
+  
+  .company-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .company-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .company-actions .btn {
+    padding: 5px 10px;
+    font-size: 0.9em;
+  }
+  
+  /* Responsive Stil */
+  @media (max-width: 600px) {
     .employee-detail-container {
-        padding: 15px;
+      padding: 15px;
     }
-
-    .employee-info-table table,
-    .employee-info-table thead,
-    .employee-info-table tbody,
+  
     .employee-info-table th,
     .employee-info-table td {
-        display: block;
-        width: 100%;
+      padding: 8px;
     }
-
-    .btn {
-        width: 100%;
-        margin-top: 10px;
+  
+    .employee-form-wrapper {
+      width: 100%;
+      padding: 20px;
     }
-}
+  
+    .company-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .company-actions {
+      margin-top: 10px;
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .company-actions .btn {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+  

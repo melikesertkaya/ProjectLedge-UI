@@ -19,7 +19,7 @@
         <tr *ngFor="let employee of personnels">
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
-          <td>{{ employee.role }}</td>
+          <td>{{ getRoleName(employee.role) }}</td>
           <td>{{ employee.totalSalary | currency:' ' }}</td>
           <td>{{ employee.totalSgkPremium  | currency:' ' }}</td>
          
@@ -50,9 +50,23 @@
       </div>
     </form>
   </div>
+  <br>
+  <br>
+  <div *ngFor="let site of personnels" class="company-item">
+    <div class="site-info">
+        <label class="company-label">
+            {{ site.firstName }} - Toplam Maaş: {{ (site.totalSalary !== null && site.totalSalary !== undefined) ? site.totalSalary : '0' }}
+        </label>
+        <div class="company-actions">
+            <button (click)="goToSiteDetails(site.id)" class="btn btn-info btn-sm">Detayları Gör</button>
+        </div>
+    </div>
+  </div>
 </div>
 
 <!-- Loading Message -->
 <div *ngIf="!personnels || personnels.length === 0" class="loading-message">
   <p>Loading employee details...</p>
 </div>
+
+

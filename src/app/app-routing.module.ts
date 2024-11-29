@@ -16,7 +16,7 @@ import { ProgressPaymentComponent } from './component/progress-payment/progress-
 import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component'; // Adjust the path as necessary
 import { ConstructionSitesDetailComponent } from './component/construction-sites/construction-sites-detail';
 import { EmployeeDetailComponent } from './component/employee/employee-detail/employee-detail.component';
-
+import { EmployeeSalaryDetailComponent } from './component/employee/employee-salary-detail/employee-salary-detail.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect to login by default
   { path: 'login', component: LoginComponent },
@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'company-detail/:name', component: CompanyDetailComponent },
   { path: 'site-detail/:name', component: ConstructionSitesDetailComponent },
   { path: 'employee-detail/:id', component: EmployeeDetailComponent },
+  { path: 'employee-salary-detail/:id', component: EmployeeSalaryDetailComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

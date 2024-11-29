@@ -1,22 +1,23 @@
-export class Personnel {
-    id: string;
+export class PersonnelRequest {
+    // İstemci tarafından gönderilmesine gerek olmayan Id özelliği hariç tüm özellikler
+    id:string;
     firstName: string;
     lastName: string;
-    dateOfBirth: Date;
-    role: PersonnelRole;
-    hourlySalary: number;
-    totalSalary: number;
-    hourlySgkPremium: number;
-    totalSgkPremium: number;
-    constructionSiteName?: string;
-    companyName?: string;
+    dateOfBirth: Date; // Tarih formatında
+    role: number; // Rol için sayısal değer
+    hourlySalary: number; // Saatlik maaş
+    totalSalary: number; // Toplam maaş
+    hourlySgkPremium: number; // Saatlik SGK primi
+    totalSgkPremium: number; // Toplam SGK primi
+    constructionSiteName?: string; // İnşaat alanı ismi, isteğe bağlı
+    companyName?: string; // Şirket ismi, isteğe bağlı
   
     constructor(
-      id: string,
+      id:string,
       firstName: string,
       lastName: string,
       dateOfBirth: Date,
-      role: PersonnelRole,
+      role: number,
       hourlySalary: number,
       totalSalary: number,
       hourlySgkPremium: number,
@@ -24,7 +25,7 @@ export class Personnel {
       constructionSiteName?: string,
       companyName?: string
     ) {
-      this.id = id;
+      this.id=id;
       this.firstName = firstName;
       this.lastName = lastName;
       this.dateOfBirth = dateOfBirth;
@@ -36,12 +37,5 @@ export class Personnel {
       this.constructionSiteName = constructionSiteName;
       this.companyName = companyName;
     }
-  }
-  
-  // Assuming PersonnelRole is an enum
-  export enum PersonnelRole {
-    Worker = 1, // Use numeric values for consistency
-    Manager = 2,
-    Engineer = 3
   }
   

@@ -9,10 +9,10 @@ import { Personnel } from 'src/app/models/employee/personnel.model';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeDeleteComponent } from './employee-delete/employee-delete.component';
 export enum PersonnelRole {
-  Worker = 0,
-  Supervisor = 1,
-  Engineer = 2,
-  Manager = 3
+  Worker = 1,
+  Supervisor = 2,
+  Engineer = 3,
+  Manager = 4
 }
 @Component({
   selector: 'app-employee',
@@ -86,14 +86,10 @@ export class EmployeeComponent implements OnInit {
       );
     });
   }
-  createPersonnel() {
-    this.employeeService.createPersonnel(this.newPersonnel).subscribe(
-      (response) => {
-        console.log('Personnel created successfully', response);
-        this.getAllPersonnels(); 
-      },
-    );
+  getRoleName(role: number): string {
+    return PersonnelRole[role] || ''; // Gelen int değeri enum ismine çevirir, eşleşme yoksa 'Unknown' gösterir
   }
+
   loadEmployees() {
     this.employeeService.getEmployees().subscribe({
       next: (employees) => {

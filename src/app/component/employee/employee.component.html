@@ -59,7 +59,7 @@
       <tr *ngFor="let employee of personnels">
         <td>{{ employee.firstName }}</td>
         <td>{{ employee.lastName }}</td>
-        <td>{{ employee.role }}</td>
+        <td>{{ getRoleName(employee.role) }}</td>
         <td>{{ employee.totalSalary | currency:' ' }}</td>
         <td>{{ employee.totalSgkPremium | currency:' ' }}</td>
         <td>

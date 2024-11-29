@@ -5,6 +5,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Personnel } from 'src/app/models/employee/personnel.model';
 import { PersonelCurrentAccount } from 'src/app/models/timesheet/personelCurrentAccount';
+import { PersonnelRequest } from 'src/app/models/employee/personnel-request ';
 @Injectable({
   providedIn: 'root'
 })
@@ -61,7 +62,18 @@ export class EmployeeService {
       })
     );
   }
-
+  saveTimesheet(employeeRequest: PersonnelRequest ): Observable<PersonnelRequest > {
+    return this.httpClient.post<PersonnelRequest >(`${this.path}Personnels/SaveTimeSheet`, employeeRequest);
+  }
+  getTimeSheetByPersonelId(id:string): Observable<PersonelCurrentAccount[] >{ 
+   return this.httpClient.get<PersonelCurrentAccount[]>(`${this.path}Personnels/GetListTimeSheetByPersonelId?id=${id}`).pipe(
+      tap(employee => console.log('Fetched employee by ID:', employee)),
+      catchError(error => {
+          console.error('Error fetching employee by ID:', error);
+          return throwError(() => error);
+      })
+  );
+  }
   updateEmployee(employee: Employee) {
     const index = this.employees.findIndex(e => e.id === employee.id);
     if (index !== -1) {

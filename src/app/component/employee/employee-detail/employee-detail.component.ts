@@ -4,6 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from 'src/app/models/employee/employee.model';
 import { EmployeeService } from 'src/app/services/Employee/employee.service';
 import { Personnel } from 'src/app/models/employee/personnel.model';
+import { PersonelCurrentAccount } from 'src/app/models/timesheet/personelCurrentAccount';
+export enum PersonnelRole {
+  Worker = 1,
+  Supervisor = 2,
+  Engineer = 3,
+  Manager = 4
+}
 @Component({
   selector: 'app-employee-detail',
   templateUrl: './employee-detail.component.html',
@@ -20,6 +27,14 @@ export class EmployeeDetailComponent implements OnInit {
   isEmployeeFormVisible = false;
   employeeForm: FormGroup;
   public totalOfAllSites:number =0
+  personnelRoles = [
+    { key: PersonnelRole.Worker, value: 'Worker' },
+    { key: PersonnelRole.Supervisor, value: 'Supervisor' },
+    { key: PersonnelRole.Engineer, value: 'Engineer' },
+    { key: PersonnelRole.Manager, value: 'Manager' }
+  ];
+  personelId: string | null = null;
+  personelCurrentAccount: PersonelCurrentAccount | null = null;
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
@@ -35,13 +50,16 @@ export class EmployeeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('id'); 
-      if (id) {
-        this.getEmployeeDetails(id);
+      this.personelId= params.get('id'); 
+      if ( this.personelId) {
+        this.getEmployeeDetails( this.personelId);
       }
     });
+    this.getPersonelCurrentAcount()
   }
-  
+  getRoleName(role: any): string {
+    return PersonnelRole[role] || 'Unknown'; // Gelen int değeri enum ismine çevirir, eşleşme yoksa 'Unknown' gösterir
+  }
   getEmployeeDetails(id: string): void {
     this.employeeService.getEmployeeByIdx(id).subscribe(
       (personnelData) => {
@@ -60,13 +78,27 @@ export class EmployeeDetailComponent implements OnInit {
       personnel.FirstName || 'N/A',
       personnel.LastName || 'N/A',
       personnel.DateOfBirth || new Date(),
-      personnel.Role || 'Unknown',
+      personnel.Role,
       personnel.HourlySalary || 0,
       personnel.TotalSalary || 0,
       personnel.HourlySgkPremium || 0,
       personnel.TotalSgkPremium || 0,
       personnel.ConstructionSiteName ?? 'Unknown',
       personnel.CompanyName ?? 'Unknown'
+    );
+  }
+  getPersonelCurrentAcount(){
+    this.employeeService.getPersonelCurrentAccount(this.personelId ?? "").subscribe((data) => {
+      this.personelCurrentAccount = this.mapPersonelCurrentAccount(data);
+    });
+  }
+  private mapPersonelCurrentAccount(data: any): PersonelCurrentAccount {
+    return new PersonelCurrentAccount(
+      data.PersonelId,
+      data.TotalAmount,  
+      data.TotalSgkPremium,
+      data.CreatedDate,
+      data.Period
     );
   }
   
@@ -80,8 +112,8 @@ export class EmployeeDetailComponent implements OnInit {
 
   
 
-goToSiteDetails(name: string): void {
-  this.router.navigate(['site-detail', name]);
+goToSiteDetails(id: string): void {
+  this.router.navigate(['employee-salary-detail', id]);
 }
 showEmployeeForm(): void {
   this.isEmployeeFormVisible = true;

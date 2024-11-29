@@ -1,0 +1,50 @@
+<div *ngIf="personnels" class="company-details">
+  <a class="button-back" (click)="goBack()">Geri</a>
+  <br>
+  <br>
+
+  <h2>Personel Detayı</h2>
+  <div class="company-info">
+    <div class="info-item">
+      <strong>Personel Adı Soyadı:</strong> {{ personnels?.firstName + ' ' + personnels?.lastName }}
+    </div>
+  </div>
+<br>
+<br>
+<br>
+  <!-- Tarih Seçiciler -->
+  <div style="margin-bottom: 20px;">
+    <mat-form-field appearance="outline">
+      <mat-label>Başlangıç Tarihi</mat-label>
+      <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate" placeholder="Seçiniz">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bitiş Tarihi</mat-label>
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate" placeholder="Seçiniz">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="filterPersonnelByDate()">Filtrele</button>
+  </div>
+
+  <div *ngIf="filteredPersonnel.length> 0" class="filtered-results">
+    <h3>Sonuçlar:</h3>
+    <div *ngFor="let personel of filteredPersonnel" class="site-card">
+      <strong>Total Amount:</strong> {{ personel.totalAmount  }}<br>
+      <strong>Total Sgk Premium:</strong> {{ personel.totalSgkPremium  }}<br>
+      <strong>Tarih:</strong> {{ personel.createdDate | date:'dd/MM/yyyy' }}<br>
+      <!-- <strong>Toplam Tutar:</strong> {{ site.totalAmount | currency }}<br>
+      <strong>Tarih:</strong> {{ site.date | date:'dd/MM/yyyy' }}<br> -->
+
+    </div>
+  </div>
+
+  <!-- Veri Yok -->
+  <ng-template #noData>
+    <p style="color: red; font-size: 16px;">Seçilen tarih aralığında personel bulunamadı.</p>
+  </ng-template>
+</div>

@@ -46,6 +46,7 @@ import { TimesheetService } from './services/Timesheets/timesheets.service';
 import { CompanyDetailComponent } from './component/company/company-detail/company-detail.component';
 import { ConstructionSitesDetailComponent } from './component/construction-sites/construction-sites-detail';
 import { EmployeeDetailComponent } from './component/employee/employee-detail/employee-detail.component';
+import { EmployeeSalaryDetailComponent } from './component/employee/employee-salary-detail/employee-salary-detail.component';
 const CUSTOM_DATE_FORMATS: MatDateFormats = {
   parse: { dateInput: 'DD-MM-YYYY' },
   display: {
@@ -75,7 +76,8 @@ const CUSTOM_DATE_FORMATS: MatDateFormats = {
     ProgressPaymentDialogComponent,
     CompanyDetailComponent,
     ConstructionSitesDetailComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    EmployeeSalaryDetailComponent
   ],
   imports: [
     BrowserModule,

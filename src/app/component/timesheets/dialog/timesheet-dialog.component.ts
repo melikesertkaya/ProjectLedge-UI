@@ -7,6 +7,7 @@ import { Personnel } from 'src/app/models/employee/personnel.model';
 import { PersonelCurrentAccount } from 'src/app/models/timesheet/personelCurrentAccount';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { PersonnelRequest } from 'src/app/models/employee/personnel-request ';
 
 export const CUSTOM_DATE_FORMATS = {
   parse: { dateInput: 'DD-MM-YYYY' },
@@ -79,9 +80,40 @@ export class TimesheetDialogComponent implements OnInit {
 
   save(): void {
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      const timesheetData = this.form.value;
+  
+      // employeeRequest'i oluşturun, PersonnelRequest tipinde olmalıdır
+      const employeeRequest: PersonnelRequest = {
+        id:  this.personelId ?? "",
+        firstName: timesheetData.employee.firstName,
+        lastName: timesheetData.employee.lastName,
+        dateOfBirth: new Date(timesheetData.employee.dateOfBirth), // Tarih formatını uygun hale getirin
+        role: timesheetData.employee.role,
+        hourlySalary: timesheetData.employee.hourlySalary,
+        totalSalary: timesheetData.employee.totalSalary,
+        hourlySgkPremium: timesheetData.employee.hourlySgkPremium,
+        totalSgkPremium: timesheetData.employee.totalSgkPremium,
+        constructionSiteName: timesheetData.employee.constructionSiteName,
+        companyName: timesheetData.employee.companyName
+      };
+  
+      // Service çağrısını yapın
+      this.employeeService.saveTimesheet(employeeRequest).subscribe(
+        (response) => {
+          this.showPopup('Puantaj başarıyla kaydedildi!', 'success');
+          this.dialogRef.close(response);
+        },
+        (error) => {
+          console.error('Error saving timesheet:', error); // Hata ayıklama için konsola yazdırın
+          this.showPopup('Puantaj kaydedilirken hata oluştu!', 'error');
+        }
+      );
+    } else {
+      this.showPopup('Lütfen tüm gerekli alanları doldurun.', 'error');
     }
   }
+  
+  
   getAllPersonnels() {
     this.employeeService.getEmployees().subscribe(
       (data) => {
